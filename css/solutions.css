@@ -18,10 +18,12 @@
 
 /* ── equaliser motif (musician personality) ── */
 .eq{position:absolute;bottom:.3rem;left:0;right:0;display:flex;gap:2px;justify-content:center;align-items:flex-end;height:.7rem;pointer-events:none}
-.eq i{width:2.5px;background:rgba(13,12,11,.6);border-radius:1px;height:30%;animation:eq 900ms ease-in-out infinite}
+/* animate transform (GPU-composited) not height (which reflows every frame) —
+   there are ~55 of these bars per page, so height-animation caused real jank */
+.eq i{width:2.5px;background:rgba(13,12,11,.6);border-radius:1px;height:95%;transform-origin:bottom;transform:scaleY(.23);animation:eq 900ms ease-in-out infinite}
 .eq i:nth-child(2){animation-delay:.12s}.eq i:nth-child(3){animation-delay:.26s}
 .eq i:nth-child(4){animation-delay:.4s}.eq i:nth-child(5){animation-delay:.18s}
-@keyframes eq{0%,100%{height:22%}50%{height:95%}}
+@keyframes eq{0%,100%{transform:scaleY(.23)}50%{transform:scaleY(1)}}
 
 /* ── cover gradients (reused across cards / rails / boards) ── */
 .grad-a{background:linear-gradient(140deg,#e6ff9a,#a7c65a)}
@@ -93,7 +95,7 @@
 .bcard:hover{transform:translateY(-4px);border-color:var(--bone-faint)}
 .bcard__hd{display:flex;align-items:center;gap:.9rem;margin-bottom:1.15rem}
 .bcard__cover{width:3.1rem;height:3.1rem;border-radius:12px;position:relative;overflow:hidden;flex:none;display:grid;place-items:center;font-family:var(--font-display);font-weight:600;font-size:1.35rem;color:rgba(13,12,11,.82)}
-.bcard--flat .bcard__cover .eq i{animation:none;height:18%;opacity:.5}
+.bcard--flat .bcard__cover .eq i{animation:none;transform:scaleY(.2);opacity:.5}
 .bcard__meta b{display:block;color:var(--bone);font-size:1rem;letter-spacing:-.01em}
 .bcard__meta span{font-size:.7rem;color:var(--bone-faint);font-family:var(--font-mono);letter-spacing:.08em;text-transform:uppercase}
 .bcard__lab{display:block;font-family:var(--font-mono);font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-faint);margin-bottom:.6rem}
@@ -118,9 +120,9 @@
 .rm-artist__meta{flex:1;min-width:0}
 .rm-artist__meta b{display:block;font-size:.9rem;color:var(--bone);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rm-artist__meta span{font-size:.66rem;color:var(--bone-faint);font-family:var(--font-mono);letter-spacing:.06em;text-transform:uppercase}
-.rm-artist .prog{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--lime)}
+.rm-artist .prog{position:absolute;left:0;bottom:0;height:2px;width:100%;transform-origin:left;transform:scaleX(0);background:var(--lime)}
 .rm-artist.is-active .prog{animation:rmprog var(--rmrot,4200ms) linear forwards}
-@keyframes rmprog{from{width:0}to{width:100%}}
+@keyframes rmprog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .rmotion__board{position:relative;display:grid;min-width:0}
 .rm-board{grid-area:1/1;border:1px solid var(--line);border-radius:20px;padding:clamp(1.5rem,3vw,2.1rem);
   background:linear-gradient(180deg,rgba(30,27,24,.92),rgba(19,17,15,.92));box-shadow:0 40px 90px rgba(0,0,0,.5);
@@ -195,7 +197,7 @@
 .spot__card.is-active .t .ic{background:var(--lime);color:var(--on-accent);border-color:var(--lime)}
 .spot__card p{margin:0;color:var(--bone-dim);font-size:.86rem;line-height:1.5;max-height:0;opacity:0;overflow:hidden;transition:max-height .4s var(--ease),opacity .35s,margin .4s}
 .spot__card.is-active p{max-height:6rem;opacity:1;margin-top:.55rem}
-.spot__card .prog{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--lime)}
+.spot__card .prog{position:absolute;left:0;bottom:0;height:2px;width:100%;transform-origin:left;transform:scaleX(0);background:var(--lime)}
 .spot__card.is-active .prog{animation:rmprog var(--rot,5s) linear forwards}
 .spot__stage{display:grid}
 .spot__panel{grid-area:1/1;opacity:0;transform:translateY(14px) scale(.985);pointer-events:none;transition:opacity .5s var(--ease),transform .5s var(--ease)}
