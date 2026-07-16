@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tm-theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.dataset.theme=t}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Pricing — start free, upgrade when you're ready | Team</title>
+<meta name="description" content="Start using Team with no commitment. Free forever for one artist, or unlock the full platform with Pro, 30 days free.">
+<link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-Variable.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/base.css">
+<style>
+  .phero{padding-top:10.5rem}
+  /* billing toggle */
+  .bill{display:inline-flex;align-items:center;gap:.25rem;padding:.3rem;border:1px solid var(--line);border-radius:99px;background:var(--glass);margin:2rem auto 0}
+  .bill button{background:none;border:0;font-family:inherit;cursor:pointer;color:var(--bone-dim);padding:.5rem 1.15rem;border-radius:99px;font-size:.9rem;transition:background .25s,color .25s;display:inline-flex;align-items:center;gap:.5rem}
+  .bill button.on{background:var(--lime);color:var(--ink);font-weight:560}
+  .bill .save{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(13,12,11,.14);border-radius:99px;padding:.25em .5em}
+  .bill button:not(.on) .save{color:var(--lime);background:rgba(217,250,135,.12)}
+
+  /* beta early-access capture */
+  .beta{display:flex;gap:.6rem;max-width:30rem;margin:2.2rem auto 0;position:relative}
+  .beta input[type=email]{flex:1;min-width:0;background:var(--glass);border:1px solid var(--line);border-radius:99px;padding:.85rem 1.4rem;color:var(--bone);font-family:inherit;font-size:.95rem;outline:none;transition:border-color .25s}
+  .beta input[type=email]:focus{border-color:rgba(217,250,135,.5)}
+  .beta input[type=email]::placeholder{color:var(--bone-faint)}
+  .beta__hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+  .beta button{flex:none;background:var(--lime);color:var(--ink);border:0;border-radius:99px;padding:.85rem 1.5rem;font-family:inherit;font-weight:600;font-size:.9rem;cursor:pointer;transition:background .25s}
+  .beta button:hover{background:var(--bone)}
+  .beta__ok{display:none;align-items:center;justify-content:center;gap:.5rem;color:var(--lime);font-weight:560;font-size:.95rem}
+  .beta.done{justify-content:center;border:1px solid rgba(217,250,135,.4);border-radius:99px;padding:.85rem 1.4rem;background:rgba(217,250,135,.06)}
+  .beta.done input,.beta.done button{display:none}
+  .beta.done .beta__ok{display:flex}
+  .beta__note{margin-top:1.15rem;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone-faint)}
+  @media(max-width:520px){.beta{flex-direction:column}.beta button{width:100%}}
+
+  /* plan cards */
+  .plans{display:grid;gap:1.2rem;grid-template-columns:1fr;max-width:60rem;margin:2.8rem auto 0}
+  @media(min-width:780px){.plans{grid-template-columns:1fr 1fr}}
+  .plan{position:relative;border:1px solid var(--line);border-radius:22px;background:var(--ink-2);padding:2rem 1.9rem;display:flex;flex-direction:column;transition:border-color .4s,transform .4s var(--ease)}
+  .plan:hover{transform:translateY(-4px)}
+  .plan--pro{border-color:rgba(217,250,135,.5)}
+  .plan--pro::before{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(217,250,135,.6),transparent)}
+  .plan__badge{position:absolute;top:-.72rem;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:var(--lime);border-radius:99px;padding:.42em .9em;white-space:nowrap}
+  .plan__name{font-family:var(--font-display);font-weight:400;font-size:1.5rem;letter-spacing:-.02em;color:var(--bone)}
+  .plan__who{color:var(--bone-dim);font-size:.9rem;margin-top:.35rem;min-height:2.6em}
+  .plan__price{margin-top:1.3rem;display:flex;align-items:baseline;gap:.45rem}
+  .plan__amount{font-family:var(--font-display);font-weight:330;font-size:3.2rem;letter-spacing:-.03em;color:var(--bone);line-height:1}
+  .plan__period{color:var(--bone-faint);font-size:.9rem}
+  .plan__note{color:var(--bone-dim);font-size:.84rem;margin-top:.55rem;min-height:1.4em}
+  .plan__note b{color:var(--bone);font-weight:560}
+  .plan .btn{margin-top:1.5rem;width:100%;justify-content:center}
+  .plan__inclab{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-faint);margin:1.7rem 0 1rem;padding-top:1.4rem;border-top:1px solid var(--line-2)}
+  .plan__feats{list-style:none;display:flex;flex-direction:column;gap:.7rem;margin:0;padding:0}
+  .plan__feats li{display:flex;gap:.65rem;align-items:flex-start;font-size:.9rem;color:var(--bone-dim);line-height:1.4}
+  .plan__feats li::before{content:'✓';color:var(--lime);font-size:.8em;flex:none;margin-top:.15em}
+  .plan__compare{margin-top:1.3rem;font-size:.82rem;color:var(--bone-faint);text-align:center;text-decoration:underline;text-underline-offset:3px}
+  .plan__compare:hover{color:var(--bone)}
+
+  /* comparison table */
+  .ctable-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:18px;margin-top:2.4rem}
+  .ctable{width:100%;border-collapse:collapse;min-width:560px;font-size:.9rem}
+  .ctable th,.ctable td{padding:.85rem 1.2rem;border-bottom:1px solid var(--line-2);text-align:left}
+  .ctable tbody tr:last-child td{border-bottom:0}
+  .ctable thead th{background:var(--ink-3);font-family:var(--font-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-faint);position:sticky;top:0}
+  .ctable thead th:not(:first-child),.ctable td.val{text-align:center;width:22%}
+  .ctable td:first-child{color:var(--bone)}
+  .ctable td.val{font-variant-numeric:tabular-nums;color:var(--bone-dim)}
+  .ctable .yes{color:var(--lime);font-size:1rem}
+  .ctable .no{color:var(--bone-faint)}
+  .ctable tbody tr:hover td{background:rgba(239,235,227,.02)}
+
+  /* faq */
+  .faq{max-width:44rem;margin:0 auto}
+  .faq details{border-bottom:1px solid var(--line);padding:.3rem 0}
+  .faq summary{list-style:none;cursor:pointer;padding:1.1rem .2rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-size:1.02rem;font-weight:500;color:var(--bone)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .pl{width:1rem;height:1rem;flex:none;position:relative}
+  .faq summary .pl::before,.faq summary .pl::after{content:'';position:absolute;background:var(--lime);border-radius:2px}
+  .faq summary .pl::before{left:0;right:0;top:calc(50% - 1px);height:2px}
+  .faq summary .pl::after{top:0;bottom:0;left:calc(50% - 1px);width:2px;transition:transform .3s var(--ease)}
+  .faq details[open] summary .pl::after{transform:scaleY(0)}
+  .faq details p{color:var(--bone-dim);font-size:.94rem;line-height:1.6;padding:0 .2rem 1.1rem;max-width:60ch}
+  .faq__foot{text-align:center;margin-top:2rem}
+
+  /* final cta */
+  .pfinal{position:relative;overflow:hidden;max-width:52rem;margin:0 auto;text-align:center;padding:clamp(3rem,6vw,5rem) clamp(1.5rem,4vw,4rem);border:1px solid var(--line);border-radius:28px;background:var(--ink-2)}
+  .pfinal::before{content:'';position:absolute;left:50%;top:-40%;width:130%;height:130%;transform:translateX(-50%);background:radial-gradient(ellipse 46% 42% at 50% 0%,rgba(217,250,135,.18),transparent 68%);pointer-events:none}
+  .pfinal>*{position:relative}
+  .pfinal .h2{max-width:20ch;margin:0 auto 1.6rem}
+  .pfinal__note{margin-top:1.2rem;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-faint)}
+</style>
+</head>
+<body data-nav="pricing">
+
+<!-- ══ BETA HERO (early-access capture) ══ -->
+<section class="phero container" id="beta">
+  <div class="phero__in">
+    <h1 class="h1">Get early access<br>to <em>Team.</em></h1>
+    <p class="lede">Team is in beta. Join the list and be one of the first to run your whole release on a brain.</p>
+    <form class="beta" id="betaForm" novalidate>
+      <input type="email" name="email" placeholder="you@label.com" aria-label="Email address" required autocomplete="email">
+      <input type="text" name="website" class="beta__hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit">Get early access</button>
+      <span class="beta__ok">✓ You're on the list, we'll be in touch.</span>
+    </form>
+    <p class="beta__note">Free forever for one artist. Pro free for 30 days when we launch.</p>
+  </div>
+</section>
+
+<!-- ══ PRICING PLANS ══ -->
+<section class="section container">
+  <div style="max-width:46rem;margin:0 auto;text-align:center" class="reveal">
+    <h2 class="h2">Start free.<br>Upgrade <em>when you're ready.</em></h2>
+    <p class="lede" style="margin:1rem auto 0;text-align:center">Here's what it costs when we launch. Free forever for one artist, or the full platform with Pro, 30 days free.</p>
+    <div class="bill" id="bill" role="tablist" aria-label="Billing period" style="margin-top:2rem">
+      <button class="on" data-period="yearly" role="tab">Yearly <span class="save">Save ~20%</span></button>
+      <button data-period="monthly" role="tab">Monthly</button>
+    </div>
+  </div>
+  <div class="plans reveal">
+    <!-- Free -->
+    <div class="plan">
+      <p class="plan__name">Free</p>
+      <p class="plan__who">For solo artists getting started</p>
+      <div class="plan__price"><span class="plan__amount">$0</span><span class="plan__period">forever</span></div>
+      <p class="plan__note">No catch. That's a promise.</p>
+      <a class="btn btn--ghost" href="https://app.teamrollouts.com/onboarding?plan=free&period=yearly">Get started free</a>
+      <p class="plan__inclab">Includes</p>
+      <ul class="plan__feats">
+        <li>1 artist</li><li>Unlimited releases</li><li>1 seat</li><li>1 collaborator</li>
+        <li>1 workspace</li><li>Unlimited stacks</li><li>TeamMate AI included</li>
+        <li>Intelligence (Basic)</li><li>Rollout Plan</li><li>Budget Management</li>
+      </ul>
+      <a class="plan__compare" href="#compare">Compare all features</a>
+    </div>
+    <!-- Pro -->
+    <div class="plan plan--pro">
+      <span class="plan__badge">Limited time pricing</span>
+      <p class="plan__name">Pro</p>
+      <p class="plan__who">For artists, managers, indie labels &amp; teams</p>
+      <div class="plan__price"><span class="plan__amount">$0</span><span class="plan__period">/month per seat</span></div>
+      <p class="plan__note"><b>Free for 30 days.</b> <span id="proThen" data-yearly="Then $19.99/month per seat, billed yearly" data-monthly="Then $24.99/month per seat">Then $19.99/month per seat, billed yearly</span></p>
+      <a class="btn btn--solid" href="https://app.teamrollouts.com/onboarding?plan=pro&period=yearly">Start your free trial</a>
+      <p class="plan__inclab">Everything in Free, plus</p>
+      <ul class="plan__feats">
+        <li>Unlimited artists</li><li>2 premium seats</li><li>Unlimited collaborators (Timeline access)</li>
+        <li>Unlimited workspaces</li><li>Intelligence (Comprehensive)</li><li>TeamMate Email &amp; Text</li>
+        <li>Press Tour</li><li>Tour Management</li><li>Document Ingestion</li>
+        <li>Team Chat</li><li>Reports &amp; Sharing</li><li>Command Center</li><li>Priority support</li>
+      </ul>
+      <a class="plan__compare" href="#compare">Compare all features</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMPARISON ══ -->
+<section class="section container" id="compare">
+  <div style="max-width:44rem;margin:0 auto 1rem;text-align:center" class="reveal">
+    <h2 class="h2">Compare <em>plans.</em></h2>
+  </div>
+  <div class="ctable-wrap reveal">
+    <table class="ctable">
+      <thead><tr><th>Feature</th><th>Free</th><th>Pro</th></tr></thead>
+      <tbody>
+        <tr><td># of artists</td><td class="val">1</td><td class="val">Unlimited</td></tr>
+        <tr><td># of releases per year</td><td class="val">Unlimited</td><td class="val">Unlimited</td></tr>
+        <tr><td>TeamMate AI</td><td class="val"><span class="yes">✓</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Intelligence</td><td class="val">Basic</td><td class="val">Comprehensive</td></tr>
+        <tr><td># of seats</td><td class="val">1</td><td class="val">2 (premium)</td></tr>
+        <tr><td>Collaborator type</td><td class="val">1</td><td class="val">Unlimited (Timeline access)</td></tr>
+        <tr><td># of workspaces</td><td class="val">1</td><td class="val">Unlimited</td></tr>
+        <tr><td># of stacks</td><td class="val">Unlimited</td><td class="val">Unlimited</td></tr>
+        <tr><td>TeamMate Email</td><td class="val"><span class="no">–</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>TeamMate Text</td><td class="val"><span class="no">–</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Rollout Plan</td><td class="val"><span class="yes">✓</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Press Tour</td><td class="val"><span class="no">–</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Tour Management</td><td class="val"><span class="no">–</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Budget Management</td><td class="val"><span class="yes">✓</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Document Ingestion</td><td class="val"><span class="no">–</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Team Chat</td><td class="val"><span class="no">–</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Reports &amp; Sharing</td><td class="val"><span class="no">–</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Command Center</td><td class="val"><span class="no">–</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Customer support</td><td class="val">Standard</td><td class="val">Priority (dedicated email)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="section container">
+  <div style="max-width:44rem;margin:0 auto 2.4rem;text-align:center" class="reveal">
+    <h2 class="h2">Questions? <em>We've got answers.</em></h2>
+    <p class="lede" style="margin:1rem auto 0;text-align:center">Everything you need to know about plans, billing, and what happens when your trial ends.</p>
+  </div>
+  <div class="faq reveal">
+    <details><summary>What happens after my 30-day trial?<span class="pl"></span></summary><p>You choose a plan. All your data is preserved. If you downgrade, excess items become read-only, nothing is ever deleted.</p></details>
+    <details><summary>What happens to my data if I downgrade?<span class="pl"></span></summary><p>Nothing is deleted. Items beyond your plan's limits become read-only. You can still view and export them, and you choose which items stay active.</p></details>
+    <details><summary>Can I change plans anytime?<span class="pl"></span></summary><p>Yes. Upgrade or downgrade at any time. Changes take effect on your next billing cycle.</p></details>
+    <details><summary>Is there an annual discount?<span class="pl"></span></summary><p>Yes. The prices shown are annual billing. Monthly billing is also available at a slightly higher rate.</p></details>
+  </div>
+  <div class="faq__foot reveal">
+    <a class="btn btn--ghost" href="#demo" data-demo>Talk to a founder <span class="btn__arr">→</span></a>
+  </div>
+</section>
+
+<!-- ══ FINAL CTA ══ -->
+<section class="section container">
+  <div class="pfinal reveal">
+    <h2 class="h2">Ready to run <em>your next release?</em></h2>
+    <div class="ctaband__row">
+      <a class="btn btn--solid" href="#beta">Get early access</a>
+      <a class="btn btn--ghost" href="#demo" data-demo>Book a demo <span class="btn__arr">→</span></a>
+    </div>
+    <p class="pfinal__note">Free forever for one artist</p>
+  </div>
+</section>
+
+<script src="js/brain.js"></script>
+<script src="js/chrome.js"></script>
+<script>
+/* billing toggle — swaps the Pro "then" price between yearly and monthly */
+(() => {
+  const bill = document.getElementById('bill'); if (!bill) return;
+  const then = document.getElementById('proThen');
+  bill.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+    bill.querySelectorAll('button').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    if (then) then.textContent = then.dataset[btn.dataset.period];
+  }));
+})();
+
+/* beta early-access form — captures email to the CRM (source_form: 'beta') */
+(() => {
+  const form = document.getElementById('betaForm'); if (!form) return;
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (form.website.value) return;                         // honeypot tripped, ignore
+    const email = form.email.value.trim();
+    if (!email || !form.email.checkValidity()) { form.email.focus(); return; }
+    form.classList.add('done');                             // optimistic confirm
+    try {
+      fetch('https://admin.getteamnow.com/api/v1/website-leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source_form: 'beta',
+          email,
+          first_name: email.split('@')[0],
+          website: '',
+          page_url: location.href
+        })
+      }).catch(() => {});
+    } catch (err) {}
+  });
+})();
+</script>
+</body>
+</html>

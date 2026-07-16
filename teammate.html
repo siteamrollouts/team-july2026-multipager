@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tm-theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.dataset.theme=t}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>TeamMate — the intelligence that holds your whole release</title>
+<meta name="description" content="TeamMate is the mind inside your operation — it remembers every version, thread, and decision, reasons across your whole stack, and works while you sleep.">
+<link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-Variable.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/base.css">
+<style>
+  /* ═══════════════════════════════════════════════════════════════
+     TeamMate — the mind inside your operation. Story: it remembers →
+     you can ask it anything → and it works while you sleep (the signature,
+     a scrubbed overnight) → on your terms. Product-UI panels are dark-locked.
+     ═══════════════════════════════════════════════════════════════ */
+  .phero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+    padding-top:7rem;padding-bottom:3rem}
+  .phero .h1{font-size:clamp(3rem,7.2vw,6rem)}
+
+  /* ── shared: a labelled product panel that stays dark in both themes ── */
+  .tm-panel__bar{display:flex;align-items:center;gap:.55rem;padding:.9rem 1.2rem;border-bottom:1px solid var(--line-2);
+    font-family:var(--font-mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+  .tm-panel__bar .mk{width:20px;height:20px;border-radius:6px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center}
+  .tm-panel__bar .mk img{width:11px}
+  .tm-panel{border:1px solid var(--line);border-radius:20px;background:var(--ink-2);overflow:clip;box-shadow:0 30px 70px var(--shadow)}
+
+  /* ── MEMORY beat ── */
+  .split{display:grid;gap:clamp(2rem,5vw,5rem);align-items:center;grid-template-columns:1fr}
+  @media(min-width:900px){.split{grid-template-columns:1fr 1.05fr}}
+  .split__copy h2{margin-bottom:1.1rem}
+  .mem__rows{padding:.9rem 1.2rem;display:flex;flex-direction:column;gap:.5rem}
+  .mem__row{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;padding:.7rem .9rem;border:1px solid var(--line-2);border-radius:11px;
+    opacity:0;transform:translateX(-10px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+  .mem__row.in{opacity:1;transform:none}
+  .mem__row .w{font-size:.88rem;color:var(--bone-dim)}
+  .mem__row .w b{color:var(--bone);font-weight:560}
+  .mem__row .c{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.06em;color:var(--accent);white-space:nowrap}
+
+  /* ── ASK IT ANYTHING ── */
+  .ask{display:grid;gap:clamp(2rem,5vw,4.5rem);align-items:center;grid-template-columns:1fr}
+  @media(min-width:900px){.ask{grid-template-columns:1fr 1.06fr}}
+  .ask__copy h2{margin-bottom:1.1rem}
+  .ask__stack{display:flex;flex-direction:column;gap:.9rem}
+  .ask__card{border:1px solid var(--line);border-radius:16px;background:var(--ink-2);
+    padding:1.2rem 1.35rem;opacity:0;transform:translateY(14px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+  .ask__card.in{opacity:1;transform:none}
+  .ask__q{display:flex;align-items:center;gap:.6rem;font-size:.96rem;color:var(--bone);font-weight:560;margin-bottom:.7rem}
+  .ask__q .ic{width:1.6rem;height:1.6rem;border-radius:8px;background:var(--lime);display:grid;place-items:center;color:var(--on-accent);flex:none}
+  .ask__q .ic svg{width:.9rem;height:.9rem}
+  .ask__a{font-size:.92rem;line-height:1.56;color:var(--bone-dim)}
+  .ask__a b{color:var(--accent);font-weight:600}
+  .ask__src{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.85rem}
+  .ask__src span{font-family:var(--font-mono);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bone-faint);
+    border:1px solid var(--line-2);border-radius:99px;padding:.3em .7em}
+
+  /* ═══ SIGNATURE — THE OVERNIGHT (scrubbed) ═══
+     Flows with the page (themed, no block). .night is tall; .night__stage pins.
+     JS sets --t (0 = 23:41, 1 = 07:00): the clock ticks, a warm morning glow
+     grows, and each action logs in as --t passes its --at. */
+  .night{position:relative;z-index:2;height:300vh}
+  .night--static{height:auto}
+  .night__stage{position:sticky;top:0;height:100vh;overflow:hidden;--t:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(1.4rem,3.5vh,2.4rem);padding:6rem var(--pad)}
+  .night--static .night__stage{position:relative;height:auto;padding:5rem var(--pad)}
+  /* a soft warm "morning" bloom that grows toward 07:00 — no hard block */
+  .night__glow{position:absolute;left:50%;top:42%;width:min(64rem,92vw);height:44rem;transform:translate(-50%,-50%);z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 58% 50% at 50% 50%,rgba(245,96,2,.15),transparent 68%);opacity:calc(.18 + .82*var(--t))}
+  .night__head,.night__log{position:relative;z-index:2}
+  .night__head{text-align:center;display:flex;flex-direction:column;align-items:center;gap:1rem}
+  /* clock — reuses the homepage countdown UI (display font, lime pill on the ticking unit) */
+  .night__clock{font-family:var(--font-display);font-weight:440;letter-spacing:-.03em;font-size:clamp(2.6rem,6vw,4rem);
+    color:var(--bone);display:inline-flex;align-items:baseline;font-variant-numeric:tabular-nums;line-height:1}
+  .night__clock .sep{color:var(--bone-faint);padding:0 .06em}
+  .night__clock b{font-weight:440;background:var(--lime);color:var(--on-accent);border-radius:8px;padding:0 .16em}
+  .night__cap{font-family:var(--font-display);font-weight:330;letter-spacing:-.02em;font-size:clamp(1.3rem,3vw,2rem);color:var(--bone)}
+  .night__cap em{font-style:italic;color:var(--accent)}
+  .night__log{width:min(40rem,90vw);display:flex;flex-direction:column;gap:.55rem}
+  .nlog{display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;padding:.85rem 1.1rem;
+    background:var(--glass);border:1px solid var(--line);border-radius:13px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    opacity:clamp(0, calc((var(--t) - var(--at)) * 12), 1);
+    transform:translateY(calc(16px * (1 - clamp(0, calc((var(--t) - var(--at)) * 12), 1))))}
+  .nlog .t{font-family:var(--font-mono);font-size:.72rem;color:var(--bone-faint)}
+  .nlog .w{font-size:.9rem;color:var(--bone-dim)}
+  .nlog .w u{text-decoration:none;color:var(--bone-faint);font-size:.82em}
+  .nlog .s{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;padding:.3em .7em;border-radius:99px;white-space:nowrap}
+  .nlog .s.ok{color:var(--accent);border:1px solid var(--line)}
+  /* in light mode accent == signal (orange), so mute "Done" there to keep the
+     one "Needs you" item standing out; dark keeps its lime "Done" */
+  :root[data-theme="light"] .nlog .s.ok{color:var(--bone-dim);border-color:var(--line-2)}
+  .nlog--wait{border-style:dashed;border-color:rgba(245,96,2,.5);background:rgba(245,96,2,.06)}
+  .nlog--wait .s{color:var(--signal);border:1px solid rgba(245,96,2,.5)}
+  .night__brief{margin-top:.5rem;padding:1.1rem 1.3rem;background:var(--ink-2);border:1px solid var(--line);border-left:2px solid var(--accent);border-radius:14px;
+    font-size:.98rem;line-height:1.5;color:var(--bone);
+    opacity:clamp(0, calc((var(--t) - var(--at)) * 12), 1);
+    transform:translateY(calc(16px * (1 - clamp(0, calc((var(--t) - var(--at)) * 12), 1))))}
+  .night__brief b{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.4rem}
+  .night--static .nlog,.night--static .night__brief{opacity:1;transform:none}
+
+  /* ── TRUST — guarantees, grouped as one editorial panel (not generic tiles) ── */
+  .trust{display:grid;gap:clamp(2rem,5vw,4rem);align-items:center;grid-template-columns:1fr}
+  @media(min-width:860px){.trust{grid-template-columns:1fr 1.1fr}}
+  .guar{border:1px solid var(--line);border-radius:20px;background:var(--glass);overflow:clip}
+  .guar__item{display:grid;grid-template-columns:auto 1fr;gap:1.1rem;padding:1.5rem 1.5rem;transition:background .3s}
+  .guar__item + .guar__item{border-top:1px solid var(--line-2)}
+  .guar__item:hover{background:var(--hover-tint)}
+  .guar__ic{width:2.5rem;height:2.5rem;border-radius:11px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);flex:none}
+  .guar__ic svg{width:1.15rem;height:1.15rem}
+  .guar__t{font-family:var(--font-display);font-weight:500;font-size:1.12rem;letter-spacing:-.01em;color:var(--bone)}
+  .guar__d{color:var(--bone-dim);font-size:.9rem;line-height:1.55;margin-top:.3rem}
+</style>
+</head>
+<body data-nav="platform">
+
+<!-- ══ HERO ══ -->
+<section class="phero">
+  <div class="phero__in">
+    <p class="phero__ask reveal"><em>Meet TeamMate.</em></p>
+    <h1 class="h1 reveal" style="transition-delay:.08s">The mind inside<br><em>your operation.</em></h1>
+    <p class="lede reveal" style="transition-delay:.16s;margin-inline:auto">TeamMate remembers every version, thread, and decision across your whole release, and reasons across all of it, so the answer to "where do we actually stand?" is always one question away.</p>
+    <div class="phero__cta reveal" style="transition-delay:.24s">
+      <a class="btn btn--solid" href="pricing.html#beta">Get started</a>
+      <a class="btn btn--ghost" href="#demo" data-demo>Get a demo <span class="btn__arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MEMORY ══ -->
+<section class="section container" id="memory">
+  <div class="split reveal">
+    <div class="split__copy">
+      <h2 class="h2">The context that usually lives <em>everywhere and nowhere.</em></h2>
+      <p class="lede">Every master version, every Slack thread, every budget change, every approval, every deadline. TeamMate holds the whole history of a release in one place, so nothing has to live in someone's memory until they're on vacation.</p>
+    </div>
+    <div class="tm-panel ui-dark" id="memPanel">
+      <div class="tm-panel__bar"><span class="mk"><img src="assets/logo/team-logomark-white-trim.png" alt=""></span>TeamMate remembers · Midnight Static</div>
+      <div class="mem__rows">
+        <div class="mem__row"><span class="w"><b>Masters</b> — every bounce, who approved which</span><span class="c">9 versions</span></div>
+        <div class="mem__row"><span class="w"><b>Conversations</b> — decisions buried in threads</span><span class="c">3 threads · 14 decisions</span></div>
+        <div class="mem__row"><span class="w"><b>People</b> — who owns what, right now</span><span class="c">mix · a&amp;r · distro</span></div>
+        <div class="mem__row"><span class="w"><b>Money</b> — budget, POs, splits, changes</span><span class="c">tracked live</span></div>
+        <div class="mem__row"><span class="w"><b>Dates</b> — embargo, launch, every dependency</span><span class="c">launch t–9w</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ASK IT ANYTHING ══ -->
+<section class="section container" id="ask-sec">
+  <div class="ask" id="ask">
+    <div class="ask__copy">
+      <h2 class="h2">Ask it anything.<br><em>It already knows.</em></h2>
+      <p class="lede">No blank session that forgets you the moment you close the tab. Ask TeamMate about a release and it answers from the whole operation, with the receipts to back it up.</p>
+    </div>
+    <div class="ask__stack ui-dark">
+      <div class="ask__card">
+        <p class="ask__q"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>Where's the final master?</p>
+        <p class="ask__a"><b>v10 · Single_Master_v10.wav</b>, approved by Maya in #audio on Tuesday. The one-sheet and distributor brief already reference it.</p>
+        <div class="ask__src"><span>Dropbox</span><span>Slack #audio</span><span>One-sheet</span></div>
+      </div>
+      <div class="ask__card">
+        <p class="ask__q"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>What's blocking Friday's release?</p>
+        <p class="ask__a">Two things. The <b>vinyl PO needs your sign-off</b>, and the video export is still rendering. Everything else for Friday is cleared.</p>
+        <div class="ask__src"><span>Notion</span><span>Gmail</span><span>Calendar</span></div>
+      </div>
+      <div class="ask__card">
+        <p class="ask__q"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>Did we ever clear that sample?</p>
+        <p class="ask__a">Yes, <b>cleared on 12 May.</b> The license is in the release folder and the credit is already in the metadata.</p>
+        <div class="ask__src"><span>Drive</span><span>Metadata</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SIGNATURE — THE OVERNIGHT ══ -->
+<section class="night" id="night">
+  <div class="night__stage">
+    <div class="night__glow"></div>
+    <div class="night__head">
+      <div class="night__clock" id="nightClock"><span id="nH">23</span><span class="sep">:</span><b id="nM">41</b></div>
+      <p class="night__cap">While you slept, <em>TeamMate kept working.</em></p>
+    </div>
+    <div class="night__log">
+      <div class="nlog" style="--at:.03"><span class="t">23:41</span><span class="w">Re-cut the release timeline around the new launch date</span><span class="s ok">Done</span></div>
+      <div class="nlog" style="--at:.20"><span class="t">23:43</span><span class="w">Updated the budget in Notion + the one-sheet <u>source: Sheets</u></span><span class="s ok">Done</span></div>
+      <div class="nlog" style="--at:.40"><span class="t">02:57</span><span class="w">Re-briefed the press list on the new embargo date</span><span class="s ok">Done</span></div>
+      <div class="nlog nlog--wait" style="--at:.60"><span class="t">06:05</span><span class="w">Vinyl PO #1042 needs your sign-off before Friday</span><span class="s">Needs you</span></div>
+      <p class="night__brief" style="--at:.80"><b>TeamMate · 07:00</b>Morning. Four things moved overnight. I handled three. The fourth needs a decision only you can make.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DATA STAYS YOURS ══ -->
+<section class="section container">
+  <div class="trust reveal">
+    <div class="split__copy">
+      <h2 class="h2">A brain on your stack,<br><em>on your terms.</em></h2>
+      <p class="lede">TeamMate reasons over your operation to help you, never to train on. Connections are permissioned and revocable, and everything you build in Team is yours to keep.</p>
+      <a class="btn btn--ghost" href="security.html" style="margin-top:.4rem">See our security &amp; trust <span class="btn__arr">→</span></a>
+    </div>
+    <div class="guar">
+      <div class="guar__item">
+        <span class="guar__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <div><p class="guar__t">Works for you, only</p><p class="guar__d">Your data is never used to train models, full stop. TeamMate reasons over your operation to help you run it, and for nothing else.</p></div>
+      </div>
+      <div class="guar__item">
+        <span class="guar__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+        <div><p class="guar__t">Permissioned, and revocable</p><p class="guar__d">You choose what TeamMate can see, source by source, and you can cut off any connection the moment you decide to.</p></div>
+      </div>
+      <div class="guar__item">
+        <span class="guar__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 15V3M8 7l4-4 4 4M5 15v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg></span>
+        <div><p class="guar__t">Yours to keep</p><p class="guar__d">Everything you build in Team stays portable and exportable. No lock-in, no data held hostage if you ever leave.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="section ctaband container">
+  <h2 class="h2">Put a brain on your <em>next release.</em></h2>
+  <div class="ctaband__row">
+    <a class="btn btn--solid" href="pricing.html#beta">Get started</a>
+    <a class="btn btn--ghost" href="#demo" data-demo>Get a demo <span class="btn__arr">→</span></a>
+  </div>
+</section>
+
+<script src="js/brain.js"></script>
+<script src="js/chrome.js"></script>
+<script>
+/* memory + ask cards animate in on scroll (shared TM helper) */
+(() => {
+  const wire = (id, sel, gap, delay, thr) => {
+    const root = document.getElementById(id); if (!root || !window.TM) return;
+    const s = window.TM.seq(root.querySelectorAll(sel), 'in', gap, delay);
+    window.TM.replay(root, s.play, s.reset, thr);
+  };
+  wire('memPanel', '.mem__row', 170, 120, .35);
+  wire('ask', '.ask__card', 300, 150, .3);
+})();
+
+/* SIGNATURE — scrub the overnight. JS sets --t (0→1); the clock ticks 23:41→07:00
+   and CSS reveals each action + grows the morning glow off that one value. */
+(() => {
+  const night = document.getElementById('night'); if (!night) return;
+  const stage = night.querySelector('.night__stage');
+  const nH = document.getElementById('nH'), nM = document.getElementById('nM');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const touch = matchMedia('(pointer: coarse)').matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const START = 23 * 60 + 41, END = 7 * 60 + 1440;              // 23:41 → 07:00 (next day)
+  const setClock = m => { m = Math.round(m) % 1440; nH.textContent = String(Math.floor(m / 60)).padStart(2, '0'); nM.textContent = String(m % 60).padStart(2, '0'); };
+
+  if (reduced || touch) { night.classList.add('night--static'); stage.style.setProperty('--t', 1); setClock(END); return; }
+  let raf = 0;
+  const tick = () => {
+    raf = 0;
+    const total = night.offsetHeight - innerHeight;
+    const p = clamp(-night.getBoundingClientRect().top / total);
+    stage.style.setProperty('--t', p.toFixed(3));
+    setClock(START + p * (END - START));
+  };
+  const onScroll = () => { if (!raf) raf = requestAnimationFrame(tick); };
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  tick();
+})();
+</script>
+</body>
+</html>

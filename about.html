@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tm-theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.dataset.theme=t}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>About — building the operational brain for music | Team</title>
+<meta name="description" content="We started Team because the most important work in music, getting a release out, still runs on scattered tools and one person's memory. We think it deserves a brain.">
+<link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-Variable.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/app-preview.css">
+<style>
+  .story-bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+  /* product preview sits in the built beat, not full-height like the homepage.
+     position/z-index re-asserted so it stays above the fixed darkening scrim */
+  #devband{position:relative;z-index:2;padding:1.5rem var(--pad) 0;display:grid;place-items:center}
+  /* lighter, theme-aware scrim so the neural cloud reads through in both modes */
+  :root{--a-scrim:rgba(13,12,11,.32);--a-edge:rgba(13,12,11,.6)}
+  :root[data-theme="light"]{--a-scrim:rgba(244,240,233,.28);--a-edge:rgba(244,240,233,.66)}
+  body::after{background:
+    linear-gradient(var(--a-scrim),var(--a-scrim)),
+    radial-gradient(ellipse 96% 68% at 50% 42%,transparent 26%,var(--a-edge) 100%) !important}
+
+  /* hero */
+  .ahero{position:relative;z-index:2;min-height:88vh;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:10rem 0 4rem}
+  .ahero .h1{font-size:clamp(2.3rem,4.7vw,4rem);max-width:none;margin:0 auto;line-height:1.06}
+  .ahero .lede{margin:1.9rem auto 0;text-align:center;max-width:44rem}
+  .ahero__cue{margin-top:3.2rem;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--bone-faint)}
+  .ahero__cue i{display:block;margin:.7rem auto 0;font-style:normal;animation:cuebob 1.8s ease-in-out infinite}
+  @keyframes cuebob{50%{transform:translateY(4px)}}
+
+  /* prose beats */
+  .abeat{max-width:46rem;margin:0 auto}
+  .abody{font-size:clamp(1.08rem,1.55vw,1.32rem);color:var(--bone-dim);line-height:1.62;margin-top:1.3rem;max-width:56ch}
+  .abeat--center{text-align:center;max-width:46rem;margin:0 auto}
+  .abeat--center .abody{margin-left:auto;margin-right:auto}
+  .abeat .btn,.abeat--center .btn{margin-top:1.9rem}
+
+  /* pull-quote / mission */
+  .apull{text-align:center;max-width:54rem;margin:0 auto}
+  .apull .apull__q{font-size:clamp(1.9rem,4.3vw,3.4rem)}
+  .apull__q{font-family:var(--font-display);font-weight:330;letter-spacing:-.02em;font-size:clamp(2.3rem,5.6vw,4.1rem);line-height:1.08;color:var(--bone)}
+  .apull__q em{color:var(--accent)}
+  .mission{text-align:center;max-width:42rem;margin:0 auto}
+  .mission .apull__q{max-width:none}
+  .mission .abody{margin:1.7rem auto 0;text-align:center;max-width:48ch}
+
+  /* the Team mark above "So we built Team" */
+  .abuilt__mark{display:inline-block;margin-bottom:1.5rem}
+  .abuilt__mark img{height:1.9rem;width:auto;opacity:.9;filter:brightness(0) invert(1)}
+  :root[data-theme="light"] .abuilt__mark img{filter:brightness(0)}
+
+  /* belief manifesto — editorial list, not tiles */
+  .beliefs{list-style:none;max-width:52rem;margin:2.8rem auto 0;padding:0}
+  .beliefs li{display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:baseline;padding:1.7rem 0;border-top:1px solid var(--line)}
+  .beliefs li:last-child{border-bottom:1px solid var(--line)}
+  .beliefs__n{font-family:var(--font-mono);font-size:.72rem;color:var(--accent);letter-spacing:.1em;padding-top:.5rem}
+  .beliefs p{font-family:var(--font-display);font-weight:400;font-size:clamp(1.3rem,2.7vw,2.05rem);letter-spacing:-.01em;line-height:1.22;color:var(--bone)}
+  .beliefs p em{color:var(--accent)}
+
+  /* mission: a release timeline in motion (the product, no section background) */
+  .mtl{max-width:40rem;margin:2.8rem auto 0;border:1px solid var(--line);border-radius:18px;background:var(--ink-2);padding:1.6rem 1.7rem 1.7rem;text-align:left;box-shadow:0 30px 70px rgba(0,0,0,.4)}
+  .mtl__bar{display:flex;align-items:center;gap:.5rem;margin-bottom:1.5rem;font-family:var(--font-mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-faint)}
+  .mtl__bar .mk{width:17px;height:17px;border-radius:5px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center}
+  .mtl__bar .mk img{width:9px}
+  .mtl__bar .live{margin-left:auto;display:flex;align-items:center;gap:.4rem;color:var(--accent)}
+  .mtl__bar .live i{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime)}
+  .mtl__row{position:relative;display:flex;justify-content:space-between;margin:0 .2rem}
+  .mtl__line{position:absolute;left:.52rem;right:.52rem;top:.5rem;height:2px;background:rgba(239,235,227,.1)}
+  .mtl__line i{display:block;height:100%;background:var(--lime);width:0;transition:width 1.2s var(--ease) .35s}
+  .mtl.in .mtl__line i{width:50%}
+  .mtl__step{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:.55rem;text-align:center;flex:1}
+  .mtl__dot{width:1.05rem;height:1.05rem;border-radius:50%;background:var(--ink-3);border:2px solid rgba(239,235,227,.2)}
+  .mtl__step.done .mtl__dot{background:var(--lime);border-color:var(--accent)}
+  .mtl__step.now .mtl__dot{background:var(--lime);border-color:var(--accent);box-shadow:0 0 0 4px rgba(217,250,135,.2)}
+  .mtl__lab{font-size:.64rem;color:var(--bone-faint);font-family:var(--font-mono);letter-spacing:.03em}
+  .mtl__step.now .mtl__lab{color:var(--bone)}
+  .mtl__next{margin-top:1.6rem;display:flex;align-items:center;gap:.8rem;padding:.9rem 1.1rem;border:1px solid var(--line);border-radius:12px;background:rgba(22,20,18,.5)}
+  .mtl__next .mk{width:1.8rem;height:1.8rem;border-radius:8px;background:var(--lime);display:grid;place-items:center;flex:none}
+  .mtl__next .mk img{width:11px;filter:brightness(0)}
+  .mtl__next p{font-size:.9rem;color:var(--bone);line-height:1.4}
+
+  /* close */
+  .aclose{position:relative;z-index:2;overflow:hidden;margin-top:clamp(3rem,7vw,6rem);border-top:1px solid var(--line);
+    background:linear-gradient(180deg,var(--ink-2),var(--ink));padding:clamp(4.5rem,10vw,8rem) var(--pad)}
+  .aclose::before{content:'';position:absolute;left:50%;top:-25%;width:min(80rem,150%);height:150%;transform:translateX(-50%);
+    background:radial-gradient(ellipse 42% 46% at 50% 0%,rgba(217,250,135,.18),transparent 62%);pointer-events:none}
+  .aclose__in{position:relative;max-width:44rem;margin:0 auto;text-align:center}
+  .aclose__mark{width:3.6rem;height:3.6rem;border-radius:15px;background:var(--lime);display:grid;place-items:center;margin:0 auto 1.6rem;box-shadow:0 0 54px rgba(217,250,135,.34)}
+  .aclose__mark img{width:1.8rem;filter:brightness(0)}
+  .aclose__tag{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+  .aclose__tag i{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime)}
+  .aclose h2{margin-bottom:1rem}
+  .aclose__sub{color:var(--bone-dim);max-width:44ch;margin:0 auto 2.2rem;font-size:1.05rem;line-height:1.55}
+</style>
+</head>
+<body data-nav="resources">
+
+<canvas class="story-bg" aria-hidden="true"></canvas>
+
+<!-- ══ HERO ══ -->
+<section class="ahero container">
+  <h1 class="h1">Music runs on releases.<br>And releases run on <em>chaos.</em></h1>
+  <p class="lede">We started Team because the most important work in music, getting a release out into the world, still runs on a mess of tools, threads, and one person's memory. We think it deserves a brain.</p>
+  <p class="ahero__cue">Read our story<i>↓</i></p>
+</section>
+
+<!-- ══ THE PROBLEM ══ -->
+<section class="section container">
+  <div class="abeat--center reveal">
+    <h2 class="h2">Every release is<br><em>a small operation.</em></h2>
+    <p class="abody">A dozen tools. Twice as many hands. Masters in one folder, approvals buried in a thread, the budget in a sheet, the plan in someone's head. The context that decides whether a release goes well lives everywhere, and nowhere at once.</p>
+    <p class="abody">And somehow, one person is expected to hold all of it together. Until they take a week off, and it turns out they were the system.</p>
+  </div>
+</section>
+
+<!-- ══ PULL QUOTE ══ -->
+<section class="section container">
+  <div class="apull reveal">
+    <p class="apull__q">The tools were never the problem.<br><em>The gaps between them were.</em></p>
+  </div>
+</section>
+
+<!-- ══ WHAT WE BELIEVE ══ -->
+<section class="section container">
+  <div class="abeat--center reveal">
+    <h2 class="h2">A few things <em>we believe.</em></h2>
+  </div>
+  <ol class="beliefs reveal">
+    <li><span class="beliefs__n">01</span><p>Your stack isn't broken. You shouldn't have to <em>leave it</em> to get organized.</p></li>
+    <li><span class="beliefs__n">02</span><p>Holding the context should be the <em>software's job</em>, not yours.</p></li>
+    <li><span class="beliefs__n">03</span><p>AI should work <em>for you</em>, and never train <em>on</em> you.</p></li>
+    <li><span class="beliefs__n">04</span><p>The answer to "where do we actually stand?" should always be <em>one question away.</em></p></li>
+  </ol>
+</section>
+
+<!-- ══ WHAT WE BUILT (convergence anchor) ══ -->
+<section class="section container" id="form-anchor">
+  <div class="abeat--center reveal">
+    <span class="abuilt__mark"><img src="assets/logo/team-logo-live.svg" alt="Team"></span>
+    <h2 class="h2">So we built <em>Team.</em></h2>
+    <p class="abody">One operational brain for a release. It connects the tools you already use, reasons across all of them, and does the work, so nothing falls through the cracks and nothing lives in one person's head. We're building the operating system for music releases, starting at the moment everything converges.</p>
+    <a class="btn btn--ghost" href="platform.html">See how it works <span class="btn__arr">→</span></a>
+  </div>
+</section>
+
+<!-- ══ THE PRODUCT — the app in action (reused from the homepage) ══ -->
+<section class="devband ui-dark" id="devband" aria-label="Team interface preview">
+  <div class="device">
+    <div class="device__screen dvc--app">
+      <div class="app__top">
+        <img class="app__mark" src="assets/logo/team-logomark-black.png" alt="">
+        <p class="app__crumb mono">HOME / AVA NORTH / MIDNIGHT STATIC / TIMELINE</p>
+        <span class="app__pill mono">+ RELEASE</span>
+        <span class="app__on mono"><i></i>1 ONLINE &middot; JUST YOU</span>
+        <span class="app__share mono">SHARE</span>
+      </div>
+      <div class="app__cols">
+        <aside class="app__nav">
+          <p class="mono app__navlab">RELEASE</p>
+          <p class="app__rel">Midnight Static</p>
+          <p class="app__newrel mono">+ NEW RELEASE</p>
+          <p class="mono app__navlab">ARTIST</p>
+          <ul><li>Home</li><li>Artist DNA</li><li>Assets</li><li>Intelligence</li><li>Connectors</li><li>Touring</li></ul>
+          <p class="mono app__navlab">RELEASE</p>
+          <ul><li class="on">Timeline</li><li>Strategy</li><li>Research</li><li>Tracks</li><li>Territories</li><li>DSP Priorities</li><li>Budget</li><li>Ready to Roll</li></ul>
+        </aside>
+        <div class="app__main">
+          <p class="app__chip mono"><i></i>TIMELINE &middot; 3 TASKS &middot; RELEASE 18 SEPT</p>
+          <h3 class="app__h">Midnight Static, <em>drops in</em></h3>
+          <p class="app__count">85<small>d</small><span>&middot;</span>11<small>h</small><span>&middot;</span><u id="appMins">06</u><small>m</small><span>&middot;</span><b><u id="appSecs">27</u><small>s</small></b></p>
+          <div class="app__filters mono"><span class="app__f--search">SEARCH TASK</span><span class="app__f--dark">TODAY</span><span><i></i>RELEASE &middot; SEP 18</span><span>STACKS &middot; 1</span><span>ACTUAL</span></div>
+          <p class="app__stacked mono">STACKED WITH: <b>&#9679; JUNO VALE — SLOW MOTION (2026-06-26)</b> &middot; ACTUAL DATES</p>
+          <div class="app__days">
+            <div class="app__day is-today">
+              <p class="app__date mono"><b>WED</b>24<span>JUN</span><em>TODAY</em></p>
+              <div class="tcard tcard--purple"><p class="mono tcard__meta">ACTIVE &middot; SOON</p><b>Pitch to Country Editorial Playlists</b><span class="mono">MARKETING</span><i>Unassigned</i></div>
+              <div class="tcard tcard--dark"><p class="mono tcard__meta">ACTIVE &middot; SOON</p><b>Pitch to Faith Editorial Playlists</b><span class="mono">MARKETING</span></div>
+            </div>
+            <div class="app__day">
+              <p class="app__date mono"><b>THU</b>25<span>JUN</span></p>
+              <div class="tcard tcard--ref"><p class="mono tcard__ref">&#9679; JUNO VALE — SLOW MOTION &nbsp;REF</p><b>Final Pre-Save Push: Email + Social Blast (48 Hours&hellip;)</b><span class="mono">MARKETING</span></div>
+              <div class="tcard tcard--add mono">+ ADD TASK</div>
+            </div>
+            <div class="app__day">
+              <p class="app__date mono"><b>FRI</b>26<span>JUN</span><em class="is-rel">&#9679; RELEASE</em></p>
+              <div class="tcard tcard--ref"><p class="mono tcard__ref">&#9679; JUNO VALE — SLOW MOTION &nbsp;REF</p><b>RELEASE DAY: Convert Pre-Save Link to Streaming&hellip;</b><span class="mono">DSP_ACTIVATION</span></div>
+              <div class="tcard tcard--ref"><p class="mono tcard__ref">&#9679; JUNO VALE — SLOW MOTION &nbsp;REF</p><b>RELEASE DAY: Post Announcement Content&hellip;</b><span class="mono">SOCIAL</span></div>
+            </div>
+            <div class="app__day">
+              <p class="app__date mono"><b>SAT</b>27<span>JUN</span></p>
+              <div class="tcard tcard--ref"><p class="mono tcard__ref">&#9679; JUNO VALE — SLOW MOTION &nbsp;REF</p><b>Research &amp; Shortlist Intimate Venues (50&ndash;150&hellip;)</b><span class="mono">OTHER</span></div>
+              <div class="tcard tcard--add mono">+ ADD TASK</div>
+            </div>
+          </div>
+        </div>
+        <aside class="app__chat">
+          <p class="app__chathead mono"><img src="assets/logo/team-logomark-white-trim.png" alt=""> TEAMMATE <em>on Timeline</em><span>NEW</span></p>
+          <div class="app__scroll">
+            <div class="app__msg"><u class="mono">TEAMMATE &middot; 12:44</u>
+              <p>Want me to build out a full task plan that assigns this $17,500 across the remaining categories with dates and owners?</p>
+              <span class="mono">&#9638; SHOW ME ON THE BOARD</span></div>
+            <div class="app__msg app__msg--you"><u class="mono">12:50 &middot; YOU</u>
+              <p>What's worked for Ava on previous releases?</p></div>
+            <div class="app__msg"><u class="mono">TEAMMATE &middot; 12:52</u>
+              <p>Let me pull the remaining documents on Ava's history.</p></div>
+          </div>
+          <div class="app__ask mono">ASK ABOUT TIMELINE&hellip;<i>&#8599;</i></div>
+          <p class="app__feed mono"><i></i>FEED THE BRAIN &middot; 7 DOCS &middot; 18 DONE TODAY</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BUILT IN THE OPEN ══ -->
+<section class="section container">
+  <div class="abeat--center reveal">
+    <h2 class="h2">Built in the open, <em>with the industry.</em></h2>
+    <p class="abody">Team is early, and in beta with the artists, managers, and labels who live this every day. We're building it with them, not for a boardroom. The people shaping it now are setting how the next decade of releases will run.</p>
+    <p class="abody">If that sounds like you, come help build it.</p>
+  </div>
+</section>
+
+<!-- ══ CLOSE ══ -->
+<section class="aclose">
+  <div class="aclose__in reveal">
+    <span class="aclose__mark"><img src="assets/logo/team-logomark-black.png" alt=""></span>
+    <p class="aclose__tag"><i></i>Early access · in beta</p>
+    <h2 class="h2">Discover your new brain<br><em>for music operations.</em></h2>
+    <p class="aclose__sub">Get early access, shape the product, and set the standard for how releases run. We'd love to build it with you.</p>
+    <div class="ctaband__row">
+      <a class="btn btn--solid" href="pricing.html#beta">Get early access</a>
+      <a class="btn btn--ghost" href="#demo" data-demo>Get a demo <span class="btn__arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<script src="js/story.js"></script>
+<script src="js/app-preview.js"></script>
+<script src="js/chrome.js"></script>
+</body>
+</html>

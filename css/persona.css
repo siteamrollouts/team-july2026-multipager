@@ -1,0 +1,131 @@
+/* ═══════════════════════════════════════════════════════════════
+   Persona (Solutions) pages — shared components layered over base.css.
+   One template, five audiences: hero → the scatter → their stack →
+   what TeamMate does → a night on the job → outcome → CTA.
+   ═══════════════════════════════════════════════════════════════ */
+
+.phero{padding-top:11rem}
+
+/* ── THE SCATTER — their world today: everywhere and nowhere ── */
+.scatter__grid{display:grid;gap:clamp(2rem,5vw,4.5rem);align-items:center;grid-template-columns:1fr}
+@media(min-width:900px){.scatter__grid{grid-template-columns:1fr 1.02fr}}
+.scatter__copy h2{margin-bottom:1.1rem}
+.scloud{position:relative;min-height:19rem;border:1px solid var(--line);border-radius:20px;
+  background:var(--glass);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  display:flex;flex-wrap:wrap;align-content:center;gap:.6rem;padding:2.4rem 1.5rem 1.5rem}
+.scloud__lab{position:absolute;top:.9rem;left:1.1rem;font-family:var(--font-mono);font-size:.58rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--bone-faint)}
+.schip{display:inline-flex;align-items:center;gap:.42rem;padding:.4rem .72rem;border:1px solid var(--line);
+  border-radius:99px;background:rgba(22,20,18,.72);font-size:.76rem;color:var(--bone-faint);white-space:nowrap;
+  opacity:0;transform:translateY(9px) scale(.96);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.schip:nth-child(3n){transform:translateY(9px) rotate(-2.5deg) scale(.96)}
+.schip:nth-child(4n){transform:translateY(9px) rotate(2deg) scale(.96)}
+.schip img{width:14px;height:14px;object-fit:contain}
+.schip.on{opacity:.92;transform:none}
+.schip--miss{border-style:dashed;border-color:rgba(245,96,2,.5);color:rgba(245,96,2,.85)}
+.schip--miss::before{content:'△';font-size:.7em;margin-right:.1em}
+/* the tension line under the cloud */
+.scatter__tension{margin-top:1.3rem;font-size:1.02rem;color:var(--bone-dim);line-height:1.55}
+.scatter__tension em{font-style:italic;color:var(--lime)}
+
+/* ── THEIR STACK — the wall of tools they already run on ── */
+.pstack{text-align:center;max-width:46rem;margin:0 auto}
+.pstack__wall{display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;margin:2rem auto 0;max-width:38rem}
+.pstack__wall .tile{width:3rem;height:3rem;border-radius:12px;background:#fbf9f4;display:grid;place-items:center;
+  box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.pstack__wall .tile img{width:1.65rem;height:1.65rem;object-fit:contain}
+.pstack__note{margin-top:1.6rem;font-family:var(--font-mono);font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--bone-faint)}
+.pstack__note b{color:var(--lime);font-weight:600}
+
+/* ── WHAT TEAMMATE DOES — jobs to be done (canonical card: ink-2 + lime chip) ── */
+.jtbd{display:grid;gap:1rem;grid-template-columns:1fr}
+@media(min-width:680px){.jtbd{grid-template-columns:1fr 1fr}}
+.jcard{position:relative;overflow:hidden;padding:1.55rem 1.6rem;border:1px solid var(--line);border-radius:18px;
+  background:var(--ink-2);transition:border-color .5s,transform .5s var(--ease)}
+.jcard:hover{border-color:rgba(217,250,135,.4);transform:translateY(-5px)}
+.jcard__edge{position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(var(--lime),transparent);opacity:0;transition:opacity .5s}
+.jcard:hover .jcard__edge{opacity:.9}
+.jcard .ic{width:2.55rem;height:2.55rem;border-radius:12px;background:var(--lime);color:var(--ink);
+  display:grid;place-items:center;margin-bottom:1.15rem;box-shadow:0 0 30px rgba(217,250,135,.26)}
+.jcard .ic svg{width:1.25rem;height:1.25rem}
+.jcard h3{font-family:var(--font-display);font-weight:400;font-size:1.28rem;letter-spacing:-.02em;margin-bottom:.55rem;line-height:1.12}
+.jcard h3 em{font-style:italic;color:var(--lime)}
+.jcard p{color:var(--bone-dim);font-size:.94rem;line-height:1.55}
+
+/* ── A NIGHT ON THE JOB — persona ledger ── */
+.pledger__grid{display:grid;gap:clamp(2rem,5vw,4rem);align-items:center;grid-template-columns:1fr}
+@media(min-width:920px){.pledger__grid{grid-template-columns:.92fr 1.08fr}}
+.pledger__copy .h2{margin-bottom:1rem}   /* standard headline → sub-copy gap */
+.pledger{border:1px solid var(--line);border-radius:20px;background:var(--glass);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);overflow:hidden}
+.pledger__bar{display:flex;align-items:center;gap:.6rem;padding:.9rem 1.2rem;border-bottom:1px solid var(--line);
+  font-family:var(--font-mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-faint)}
+.pledger__bar .mk{width:16px;height:16px;border-radius:4px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center}
+.pledger__bar .mk img{width:9px}
+.pledger__bar .clock{margin-left:auto;color:var(--lime)}
+.pled__row{display:flex;gap:.8rem;align-items:flex-start;padding:1rem 1.2rem;border-bottom:1px solid var(--line-2);
+  opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.pled__row.in{opacity:1;transform:none}
+.pled__row:last-of-type{border-bottom:0}
+.pled__tag{flex:none;width:1.4rem;height:1.4rem;border-radius:6px;display:grid;place-items:center;font-size:.7rem;margin-top:.1rem}
+.pled__tag--done{background:rgba(217,250,135,.14);color:var(--lime)}
+.pled__tag--risk{background:rgba(245,96,2,.14);color:var(--signal);border:1px dashed rgba(245,96,2,.5)}
+.pled__b{min-width:0}
+.pled__b p{font-size:.9rem;color:var(--bone);line-height:1.5}
+.pled__b p b{font-weight:600}
+.pled__b .src{margin-top:.3rem;font-family:var(--font-mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bone-faint)}
+.pled__brief{padding:1.1rem 1.2rem;background:rgba(239,235,227,.05)}
+.pled__brief p{font-size:.86rem;color:var(--bone-dim);line-height:1.55}
+.pled__brief p b{color:var(--bone);font-weight:600}
+
+/* ── OUTCOME — what changes for them ── */
+.poutcome{text-align:center;max-width:50rem;margin:0 auto}
+.poutcome .h2{max-width:24ch;margin:0 auto 1.2rem}
+.poutcome__row{display:grid;gap:.9rem;grid-template-columns:1fr;margin-top:2.4rem;text-align:left}
+@media(min-width:720px){.poutcome__row{grid-template-columns:repeat(3,1fr)}}
+.poutcome__b{padding:1.3rem 1.35rem;border:1px solid var(--line);border-radius:15px;background:var(--glass)}
+.poutcome__b .n{font-family:var(--font-display);font-weight:330;font-size:2.3rem;letter-spacing:-.02em;color:var(--lime);line-height:1}
+.poutcome__b b{display:block;color:var(--bone);font-weight:560;margin:.7rem 0 .3rem;font-size:.98rem}
+.poutcome__b span{color:var(--bone-dim);font-size:.86rem;line-height:1.5}
+
+/* ── THE TURN — one-line thesis bridging problem → solution ── */
+.thesis{text-align:center;max-width:34rem;margin:0 auto}
+.thesis p{font-family:var(--font-display);font-weight:var(--head-weight);letter-spacing:var(--head-track);
+  font-size:clamp(1.9rem,4vw,3rem);line-height:1.12}
+.thesis em{font-style:italic;color:var(--lime)}
+
+/* ── PROOF — founding-customer band (upgrades to real quotes/logos later) ── */
+.proof{position:relative;overflow:hidden;max-width:52rem;margin:0 auto;text-align:center;
+  padding:clamp(2.2rem,4.5vw,3.4rem);border:1px solid rgba(217,250,135,.24);border-radius:24px;background:var(--ink-2)}
+.proof::before{content:'';position:absolute;left:50%;top:-45%;width:130%;height:130%;transform:translateX(-50%);
+  background:radial-gradient(ellipse 46% 42% at 50% 0%,rgba(217,250,135,.12),transparent 66%);pointer-events:none}
+.proof>*{position:relative}
+.proof__tag{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.6rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--ink);background:var(--lime);border-radius:99px;padding:.4em .85em;margin-bottom:1.2rem}
+.proof__tag .d{width:6px;height:6px;border-radius:50%;background:var(--ink);animation:proofblink 1.8s steps(2) infinite}
+@keyframes proofblink{50%{opacity:.25}}
+.proof h2{margin-bottom:.9rem}
+.proof__sub{color:var(--bone-dim);max-width:40ch;margin:0 auto 1.7rem;font-size:1.02rem;line-height:1.55}
+
+/* ── "NOT YOU?" cross-links — route mismatched readers sideways ── */
+.xlinks{max-width:52rem;margin:0 auto;text-align:center}
+.xlinks .lab{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-faint);margin-bottom:1.1rem}
+.xlinks__row{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+.xlink{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.1rem;border:1px solid var(--line);border-radius:99px;
+  background:var(--glass);color:var(--bone-dim);font-size:.9rem;transition:border-color .3s,color .3s,transform .3s}
+.xlink:hover{border-color:rgba(217,250,135,.45);color:var(--bone);transform:translateY(-2px)}
+.xlink .arr{color:var(--lime);transition:transform .3s var(--ease)}
+.xlink:hover .arr{transform:translateX(.25em)}
+
+/* ── FINALE CTA — upgraded closer, shared with the Platform group ── */
+.finale-cta{position:relative;text-align:center;max-width:52rem;margin:0 auto;overflow:hidden;
+  padding:clamp(3rem,6vw,5rem) clamp(1.5rem,4vw,4rem);border:1px solid var(--line);border-radius:28px;background:var(--ink-2)}
+.finale-cta::before{content:'';position:absolute;left:50%;top:-40%;width:130%;height:130%;transform:translateX(-50%);
+  background:radial-gradient(ellipse 46% 42% at 50% 0%,rgba(217,250,135,.18),transparent 68%);pointer-events:none}
+.finale-cta>*{position:relative}
+.finale-cta__mark{width:3.5rem;height:3.5rem;border-radius:15px;background:var(--lime);display:grid;place-items:center;
+  margin:0 auto 1.7rem;box-shadow:0 0 54px rgba(217,250,135,.32)}
+.finale-cta__mark img{width:1.75rem;filter:brightness(0)}
+.finale-cta .h2{max-width:20ch;margin:0 auto 1rem}
+.finale-cta__sub{color:var(--bone-dim);max-width:40ch;margin:0 auto 2.1rem;font-size:1.04rem;line-height:1.55}

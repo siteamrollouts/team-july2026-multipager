@@ -1,0 +1,142 @@
+/* ═══════════════════════════════════════════════════════════════
+   Team app preview — the release timeline board + TeamMate chat,
+   the product 'in action'. Extracted verbatim from the homepage
+   (onepager.css) so it can be reused. Pair with js/app-preview.js.
+   ═══════════════════════════════════════════════════════════════ */
+   dark band (the brain field stays behind), glass device frame. ═══ */
+#devband{position:relative;z-index:2;padding:6vh var(--pad) 16vh;display:grid;place-items:center}
+#devband .mono{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-weight:500;letter-spacing:.1em}
+.device{width:min(1280px,94vw);border:1px solid rgba(154,150,140,.45);border-radius:24px;
+  padding:10px;background:rgba(22,20,18,.4);
+  backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+.device__screen{display:flex;flex-direction:column;aspect-ratio:1440/900;
+  background:#100f0e;border:1px solid rgba(239,235,227,.1);border-radius:16px;
+  overflow:hidden;box-shadow:0 44px 130px rgba(0,0,0,.45)}
+@media(max-width:900px){.device__screen{aspect-ratio:auto}}
+/* ═══ device screen: the Team app, recreated ═══ */
+.dvc--app{background:#f2eee6;color:var(--ink);display:flex;flex-direction:column;
+  aspect-ratio:1440/900;font-size:12px}
+.dvc--app .mono{letter-spacing:.1em}
+/* top bar */
+.app__top{display:flex;align-items:center;gap:1rem;padding:.65rem 1rem;flex:none;
+  background:#faf7f1;border-bottom:1px solid rgba(13,12,11,.08)}
+.app__mark{height:16px;width:auto}
+.app__crumb{font-size:.52rem;color:rgba(13,12,11,.55)}
+.app__pill{font-size:.5rem;padding:.45em .9em;border:1px solid rgba(13,12,11,.16);border-radius:5px;color:rgba(13,12,11,.7)}
+.app__on{margin-left:auto;display:flex;align-items:center;gap:.5em;font-size:.5rem;color:rgba(13,12,11,.5)}
+.app__on i{width:6px;height:6px;border-radius:50%;background:var(--lime);border:1px solid rgba(13,12,11,.2)}
+.app__share{font-size:.5rem;padding:.45em 1em;background:var(--ink);color:var(--bone);border-radius:99px}
+/* columns */
+.app__cols{flex:1;min-height:0;display:grid;grid-template-columns:172px 1fr 262px}
+/* left nav */
+.app__nav{background:#faf7f1;border-right:1px solid rgba(13,12,11,.08);padding:.9rem .95rem;overflow:hidden}
+.app__navlab{font-size:.44rem;letter-spacing:.24em;color:rgba(13,12,11,.4);margin:.9rem 0 .5rem}
+.app__navlab:first-child{margin-top:0}
+.app__rel{font-weight:560;font-size:.78rem}
+.app__newrel{margin-top:.45rem;font-size:.46rem;padding:.5em .8em;border:1px solid rgba(13,12,11,.14);border-radius:6px;color:rgba(13,12,11,.6);display:inline-block}
+.app__nav ul{list-style:none}
+.app__nav li{font-size:.68rem;font-weight:440;color:rgba(13,12,11,.66);padding:.32rem .5rem;border-radius:5px}
+.app__nav li.on{background:rgba(13,12,11,.08);color:var(--ink);font-weight:560}
+/* main */
+.app__main{padding:1rem 1.25rem;overflow:hidden;min-width:0}
+.app__chip{display:inline-flex;align-items:center;gap:.6em;font-size:.48rem;letter-spacing:.2em;
+  background:var(--lime);color:var(--ink);padding:.5em 1em;border-radius:99px}
+.app__chip i{width:5px;height:5px;border-radius:50%;background:var(--ink)}
+.app__h{margin-top:.55rem;font-family:var(--font-serif);font-weight:300;letter-spacing:-.01em;
+  font-size:clamp(1.2rem,2.2vw,2rem);line-height:1.05}
+.app__h em{font-style:italic}
+.app__count{margin-top:.3rem;font-family:var(--font-display);font-weight:440;letter-spacing:-.03em;
+  font-size:clamp(1.3rem,2.1vw,1.9rem);display:flex;align-items:baseline;gap:.25em}
+.app__count small{font-size:.45em;color:rgba(13,12,11,.45);font-weight:500}
+.app__count span{color:rgba(13,12,11,.3)}
+.app__count b{font-weight:440;background:var(--lime);border-radius:6px;padding:0 .18em;display:inline-flex;align-items:baseline}
+.app__count b small{color:rgba(13,12,11,.6)}
+.app__filters{display:flex;gap:.4rem;margin-top:.75rem;flex-wrap:wrap}
+.app__filters span{display:inline-flex;align-items:center;gap:.5em;font-size:.46rem;letter-spacing:.14em;
+  padding:.55em 1em;border:1px solid rgba(13,12,11,.13);border-radius:99px;color:rgba(13,12,11,.6);white-space:nowrap}
+.app__filters span i{width:5px;height:5px;border-radius:50%;background:var(--signal)}
+.app__f--dark{background:var(--ink);color:var(--bone) !important;border-color:var(--ink) !important}
+.app__f--search{min-width:7rem}
+.app__stacked{margin-top:.7rem;font-size:.46rem;color:rgba(13,12,11,.45);
+  background:#faf7f1;border:1px solid rgba(13,12,11,.06);border-radius:6px;padding:.55em .9em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.app__stacked b{color:#c2497c;font-weight:600}
+/* day columns */
+.app__days{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin-top:.7rem;min-height:0}
+.app__day{border-left:1px dashed rgba(13,12,11,.1);padding-left:.55rem;min-width:0}
+.app__day:first-child{border-left:0;padding-left:0}
+.app__day.is-today .app__date{background:#e7effa;border-radius:8px}
+.app__date{display:flex;align-items:baseline;gap:.45em;padding:.45em .6em;font-size:.5rem;color:rgba(13,12,11,.5)}
+.app__date b{font-weight:600;letter-spacing:.14em}
+.app__date{font-size:.46rem}
+.app__date span{letter-spacing:.16em}
+.app__date em{font-style:normal;margin-left:auto;font-size:.9em;letter-spacing:.14em;
+  background:#d5e3f6;padding:.3em .7em;border-radius:99px;color:rgba(13,12,11,.55)}
+.app__date em.is-rel{background:var(--lime);color:var(--ink)}
+.tcard{border-radius:9px;padding:.6rem .65rem;margin-top:.5rem;min-width:0}
+.tcard b{display:block;font-size:.62rem;font-weight:540;line-height:1.35}
+.tcard > span{display:inline-block;margin-top:.45rem;font-size:.4rem;letter-spacing:.16em;
+  padding:.35em .8em;border-radius:99px;background:rgba(13,12,11,.1)}
+.tcard__meta{font-size:.4rem;letter-spacing:.18em;margin-bottom:.35rem;opacity:.75}
+.tcard--purple{background:#a743e6;color:#fff}
+.tcard--purple > span{background:rgba(255,255,255,.2)}
+.tcard--purple i{display:block;margin-top:1.2rem;font-size:.52rem;opacity:.75}
+.tcard--dark{background:#241f1c;color:var(--bone)}
+.tcard--dark > span{background:rgba(239,235,227,.14)}
+.tcard--ref{background:#fdf4f5;border:1px dashed #eeb4c3}
+.tcard__ref{font-size:.38rem;letter-spacing:.12em;color:#c2497c;margin-bottom:.35rem;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tcard--ref > span{background:#f7e2e8;color:#a45}
+.tcard--add{border:1px dashed rgba(13,12,11,.18);color:rgba(13,12,11,.45);
+  text-align:center;padding:.9rem 0;font-size:.46rem;letter-spacing:.18em}
+/* teammate chat */
+.app__chat{background:#161311;color:var(--bone);display:flex;flex-direction:column;
+  border-left:1px solid rgba(13,12,11,.2);padding:.9rem .95rem;min-height:0}
+.app__chathead{display:flex;align-items:center;gap:.55em;font-size:.5rem;letter-spacing:.16em;color:var(--bone-dim);
+  padding-bottom:.7rem;border-bottom:1px solid var(--line);flex:none}
+.app__chathead img{height:11px;width:auto}
+.app__chathead em{font-family:var(--font-serif);font-style:italic;text-transform:none;letter-spacing:0;font-size:1.15em}
+.app__chathead span{margin-left:auto;font-size:.42rem;border:1px solid rgba(217,250,135,.4);color:var(--lime);
+  padding:.3em .8em;border-radius:99px}
+.app__scroll{flex:1;min-height:0;overflow:hidden;padding-top:.8rem}
+.app__msg{margin-bottom:.85rem}
+.app__msg u{display:block;text-decoration:none;font-size:.42rem;letter-spacing:.18em;color:var(--bone-faint);margin-bottom:.4rem}
+.app__msg p{font-size:.66rem;line-height:1.5;background:#e9e5dc;color:#1d1b18;
+  border-radius:10px;padding:.65rem .75rem}
+.app__msg > span{display:inline-block;margin-top:.45rem;font-size:.42rem;letter-spacing:.14em;
+  border:1px solid var(--line);border-radius:99px;padding:.45em .9em;color:var(--bone-dim)}
+.app__msg--you{text-align:right}
+.app__msg--you p{background:#2a2622;color:var(--bone);text-align:left}
+.app__ask{flex:none;display:flex;align-items:center;font-size:.5rem;letter-spacing:.18em;color:var(--bone-faint);
+  border:1px solid var(--line);border-radius:9px;padding:.8em .95em;margin-top:.4rem}
+.app__ask i{margin-left:auto;width:20px;height:20px;border-radius:50%;background:var(--lime);color:var(--ink);
+  display:grid;place-items:center;font-style:normal;font-size:.6rem}
+.app__feed{flex:none;display:flex;align-items:center;gap:.6em;font-size:.44rem;letter-spacing:.16em;
+  color:var(--bone-faint);padding-top:.75rem}
+.app__feed i{width:6px;height:6px;border-radius:50%;background:var(--lime)}
+@media(max-width:1100px){.app__cols{grid-template-columns:1fr 250px}.app__nav{display:none}}
+@media(max-width:760px){
+  .dvc--app{aspect-ratio:auto}
+  .app__cols{grid-template-columns:1fr}
+  .app__chat{border-left:0;border-top:1px solid rgba(13,12,11,.15);max-height:260px}
+  .app__days{grid-template-columns:1fr 1fr}
+  .app__days .app__day:nth-child(n+3){display:none}
+  .app__crumb,.app__on{display:none}
+}
+/* app screen, animated: extra task colours, landings, chat flow */
+.app__count u{text-decoration:none}
+.tcard--blue{background:#4a68d8;color:#fff}
+.tcard--blue > span{background:rgba(255,255,255,.2)}
+.tcard--teal{background:#2f8f80;color:#fff}
+.tcard--teal > span{background:rgba(255,255,255,.2)}
+.tcard--amber{background:#e8b04b;color:var(--ink)}
+.tcard--amber > span{background:rgba(13,12,11,.12)}
+@keyframes tpop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+.tcard--pop{animation:tpop .55s var(--ease) both}
+.tcard--out{opacity:0;transform:translateY(-8px) scale(.97);transition:opacity .5s,transform .5s}
+@keyframes msgin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.app__msg--in{animation:msgin .5s var(--ease) both}
+.app__scroll{display:flex;flex-direction:column;justify-content:flex-end}
+
+/* reduced motion: the scrubbed ledger renders complete */
+@media (prefers-reduced-motion:reduce){

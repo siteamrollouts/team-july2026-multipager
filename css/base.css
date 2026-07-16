@@ -1,0 +1,252 @@
+/* nav + footer are the shared chrome — one source of truth, imported here
+   so every page that loads base.css gets the exact same bar the homepage does */
+@import url('chrome.css');
+
+/* ═══════════════════════════════════════════════════════════════
+   Team — multi-pager · shared design system
+   Inherits the one-pager's language: Inter light + Nyght light italic,
+   ink / bone / one lime, orange = risk only. Chrome + section primitives
+   for the deep pages (Platform, Solutions, etc.).
+   ═══════════════════════════════════════════════════════════════ */
+@font-face{font-family:'Nyght';src:url('../assets/fonts/NyghtSerif-Light.woff') format('woff');font-weight:300;font-display:swap}
+@font-face{font-family:'Nyght';src:url('../assets/fonts/NyghtSerif-LightItalic.woff') format('woff');font-style:italic;font-weight:300;font-display:swap}
+@font-face{font-family:'InterV';src:url('../assets/fonts/Inter-Variable.ttf') format('truetype');font-weight:100 900;font-display:swap}
+
+/* ═══════════════════════════════════════════════════════════════
+   THEME TOKENS — the single source of truth for colour.
+   Names are semantic ROLES, not literal colours:
+     --ink / --ink-2 / --ink-3  = base / raised / inset surfaces
+     --bone / --bone-dim/-faint = primary / secondary / tertiary text
+     --line / --line-2          = borders
+     --lime                     = accent FILL (buttons, chips) — light-green in both themes
+     --on-accent                = text ON a lime fill — always near-black (lime is always light)
+     --accent                   = accent used as TEXT / active state — readable in both themes
+     --signal                   = risk / warning (orange) — reserved
+   Flip the whole site by overriding these under [data-theme]. Components
+   must reference these vars, never hardcode a colour, so theming stays central.
+   Default below = DARK. Light overrides + system-preference follow.
+   ═══════════════════════════════════════════════════════════════ */
+:root{
+  --font-display:'InterV',Inter,-apple-system,sans-serif;
+  --font-serif:'Nyght',Georgia,serif;
+  --font-sans:'InterV',Inter,-apple-system,sans-serif;
+  --font-mono:ui-monospace,'SF Mono','JetBrains Mono',Menlo,monospace;
+  --head-weight:330;--head-track:-0.03em;
+
+  --ink:#0d0c0b;--ink-2:#161412;--ink-3:#1e1a15;
+  --bone:#efebe3;--bone-dim:rgba(239,235,227,.56);--bone-faint:rgba(239,235,227,.3);
+  --line:rgba(239,235,227,.13);--line-2:rgba(239,235,227,.07);
+  --orange:#f56002;               /* the brand orange — change it here, once */
+  --signal:var(--orange);--lime:#d9fa87;--glass:rgba(22,20,18,.6);
+  --on-accent:#0d0c0b;              /* text on a lime fill — dark in both themes */
+  --accent:#d9fa87;                 /* accent-as-text / active — = lime in dark */
+  --bg-1:#18130d;--bg-2:#14110c;    /* body ground wash stops */
+  --scrim:rgba(13,12,11,.5);        /* legibility scrim over the ambient brain */
+  --shadow:rgba(0,0,0,.4);          /* card shadow */
+  --shadow-lg:rgba(0,0,0,.5);       /* dropdown / overlay shadow */
+  --bloom:rgba(217,250,135,.07);    /* ambient lime bloom */
+  --nav-bg:rgba(13,12,11,.72);      /* scrolled nav backdrop */
+  --mnav-bg:rgba(13,12,11,.97);     /* mobile menu backdrop */
+  --hover-tint:rgba(239,235,227,.05); /* subtle hover fill */
+  --wordmark:#efebe3;               /* giant footer wordmark fill */
+
+  --ease:cubic-bezier(.16,1,.3,1);--ease-io:cubic-bezier(.65,0,.35,1);
+  --pad:clamp(1.3rem,5vw,4.5rem);--maxw:78rem;
+  color-scheme:dark;
+}
+
+/* ── LIGHT THEME ── warm paper, near-black ink, a deeper green for accent
+   text (lime stays the fill). Applied when the user picks light, or when the
+   OS prefers light and the user hasn't chosen. */
+:root[data-theme="light"]{
+  --ink:#f4f0e7;--ink-2:#fbf9f4;--ink-3:#ebe5d8;
+  --bone:#191512;--bone-dim:rgba(25,21,18,.64);--bone-faint:rgba(25,21,18,.4);
+  --line:rgba(25,21,18,.13);--line-2:rgba(25,21,18,.06);
+  --glass:rgba(255,255,255,.66);
+  --accent:var(--orange);           /* brand orange for emphasis text on light */
+  --bg-1:#f7f3ea;--bg-2:#efe9db;
+  --scrim:rgba(244,240,233,.46);
+  --shadow:rgba(60,48,24,.12);
+  --shadow-lg:rgba(60,48,24,.18);
+  --bloom:rgba(150,190,60,.12);
+  --nav-bg:rgba(246,242,234,.8);
+  --mnav-bg:rgba(246,242,234,.97);
+  --hover-tint:rgba(25,21,18,.05);
+  --wordmark:#191512;
+  color-scheme:light;
+}
+@media(prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    --ink:#f4f0e7;--ink-2:#fbf9f4;--ink-3:#ebe5d8;
+    --bone:#191512;--bone-dim:rgba(25,21,18,.64);--bone-faint:rgba(25,21,18,.4);
+    --line:rgba(25,21,18,.13);--line-2:rgba(25,21,18,.06);
+    --glass:rgba(255,255,255,.66);
+    --accent:var(--orange);
+    --bg-1:#f7f3ea;--bg-2:#efe9db;
+    --scrim:rgba(244,240,233,.46);
+    --shadow:rgba(60,48,24,.12);
+    --bloom:rgba(150,190,60,.12);
+    color-scheme:light;
+  }
+}
+/* product-UI mockups stay DARK in both themes (like real app screenshots on a
+   light page — the premium, consistent choice). Re-scope the palette tokens to
+   their dark values on the container; every child that reads a token renders
+   dark. Wrap any device/board mockup in .ui-dark. */
+.ui-dark{
+  --ink:#0d0c0b;--ink-2:#161412;--ink-3:#1e1a15;
+  --bone:#efebe3;--bone-dim:rgba(239,235,227,.56);--bone-faint:rgba(239,235,227,.3);
+  --line:rgba(239,235,227,.13);--line-2:rgba(239,235,227,.07);
+  --glass:rgba(22,20,18,.6);--accent:#d9fa87;--on-accent:#0d0c0b;
+  --shadow:rgba(0,0,0,.45);--bloom:rgba(217,250,135,.07);
+  color:var(--bone);color-scheme:dark;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+html,body{color:var(--bone)}
+/* one continuous ground — a soft vertical wash, no hard stops — with the
+   ambient brain fixed behind everything and a legibility vignette above it.
+   Sections sit transparent on top (z-2), so the whole page is one field. */
+body{font-family:var(--font-sans);font-weight:400;line-height:1.62;overflow-x:clip;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-synthesis:none;
+  background:
+    radial-gradient(120% 90% at 50% -8%, var(--bg-1) 0%, transparent 55%),
+    radial-gradient(100% 70% at 50% 108%, var(--bg-2) 0%, transparent 55%),
+    var(--ink)}
+.brain-bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+/* the brain is ambient, not a feature — a uniform wash keeps text legible
+   over it, with a vignette darkening the edges further */
+body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(var(--scrim),var(--scrim)),
+    radial-gradient(ellipse 92% 74% at 50% 42%,transparent 18%,var(--scrim) 100%)}
+.phero,.section,.band,.foot,main{position:relative;z-index:2}
+img,svg{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+::selection{background:var(--lime);color:var(--on-accent)}
+em{font-family:var(--font-serif);font-style:italic;font-weight:300}
+
+/* ── type recipe ── */
+.h1,.h2,.h3{font-family:var(--font-display);font-weight:var(--head-weight);letter-spacing:var(--head-track);line-height:1.04}
+.h1{font-size:clamp(2.6rem,6vw,5rem)}
+.h2{font-size:clamp(2rem,4.4vw,3.4rem)}
+.h3{font-size:clamp(1.4rem,2.4vw,1.9rem);letter-spacing:-.02em}
+.h1 em,.h2 em,.h3 em{font-style:italic;color:var(--accent);letter-spacing:-.01em}
+.lede{font-size:clamp(1.05rem,1.5vw,1.28rem);color:var(--bone-dim);max-width:42rem;line-height:1.5}
+.eyebrow{font-family:var(--font-mono);font-size:.66rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+.mono{font-family:var(--font-mono);font-weight:500;letter-spacing:.1em}
+
+/* ── layout primitives ── */
+.container{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+.section{padding-block:clamp(4rem,9vw,8rem);position:relative}
+.section--tight{padding-block:clamp(3rem,6vw,5rem)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+/* ── buttons (one-pager register) ── */
+.btn{display:inline-flex;align-items:center;gap:.55em;justify-content:center;border-radius:99px;
+  font-weight:600;font-size:.92rem;letter-spacing:.01em;padding:.95rem 1.7rem;
+  transition:background .28s,color .28s,border-color .28s,transform .28s}
+.btn--solid{background:var(--lime);color:var(--on-accent)}
+.btn--solid:hover{background:var(--bone);color:var(--ink)}
+.btn--ghost{border:1px solid var(--bone-faint);color:var(--bone)}
+.btn--ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn__arr{display:inline-block;transition:transform .3s var(--ease)}
+.btn:hover .btn__arr{transform:translateX(.28em)}
+
+
+/* ═══ shared sections ═══ */
+/* page hero */
+.phero{padding:9rem var(--pad) clamp(3rem,6vw,5rem);position:relative;overflow:clip;text-align:center}
+.phero__in{max-width:52rem;margin:0 auto;position:relative;z-index:2}
+.phero .eyebrow{margin-bottom:1.4rem}
+.phero .lede{margin:1.6rem auto 0}
+.phero__cta{margin-top:2.4rem;display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+.phero__field{position:absolute;inset:0;z-index:1;opacity:.5;pointer-events:none;
+  -webkit-mask-image:radial-gradient(ellipse 70% 62% at 50% 42%,#000 20%,transparent 78%);
+  mask-image:radial-gradient(ellipse 70% 62% at 50% 42%,#000 20%,transparent 78%)}
+
+/* pillars — frosted glass cards floating over the field, soft not blocky */
+.pillars{display:grid;gap:clamp(.9rem,1.6vw,1.3rem)}
+@media(min-width:820px){.pillars{grid-template-columns:repeat(3,1fr)}}
+.pillar{background:var(--glass);border:1px solid var(--line);border-radius:18px;
+  padding:clamp(1.6rem,3vw,2.4rem);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
+.pillar__n{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.16em;color:var(--accent);margin-bottom:1.1rem}
+.pillar h3{font-family:var(--font-display);font-weight:400;font-size:1.4rem;letter-spacing:-.02em;margin-bottom:.7rem}
+.pillar h3 em{color:var(--accent)}
+.pillar p{color:var(--bone-dim);font-size:.96rem}
+
+/* split (copy + viz) */
+.split{display:grid;gap:clamp(2rem,5vw,5rem);align-items:center}
+@media(min-width:900px){.split{grid-template-columns:1fr 1fr}.split--rev .split__copy{order:2}}
+.split__copy h2{margin-bottom:1.1rem}
+.split__copy .lede{margin-bottom:1.4rem}
+.ticks{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.ticks li{display:flex;gap:.7rem;align-items:baseline;color:var(--bone-dim)}
+.ticks li::before{content:'✳';color:var(--accent);font-size:.8em;flex:none}
+
+/* moat band — no rules, just a soft lime bloom rising out of the field */
+.band{position:relative}
+/* glow extends far past the band's own box so its falloff lands inside the
+   sections above and below (and the footer) — no hard edge at the boundary */
+.band::before{content:'';position:absolute;left:0;right:0;top:-48%;bottom:-48%;pointer-events:none;z-index:-1;
+  background:radial-gradient(ellipse 66% 52% at 50% 50%,var(--bloom),transparent 72%)}
+.band__in{max-width:var(--maxw);margin:0 auto;padding:clamp(3rem,6vw,5.5rem) var(--pad);text-align:center}
+.band__in .h2{max-width:26ch;margin:0 auto}
+
+/* cta band */
+.ctaband{text-align:center}
+.ctaband .h2{max-width:20ch;margin:0 auto 1.6rem}
+.ctaband__row{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+
+/* ═══ shared continuity components (reused across deep pages) ═══ */
+/* homepage-register hero lead-in — small serif italic above a big title */
+.phero__ask{font-family:var(--font-serif);font-style:italic;font-weight:300;font-size:clamp(1.2rem,2vw,1.6rem);color:var(--bone-dim);margin-bottom:1.2rem}
+.phero__ask em{color:var(--accent);font-style:italic}
+
+
+/* ═══ animated chat comparison (ported from the one-pager) ═══ */
+.chat__head{text-align:center;max-width:44rem;margin:0 auto 1rem}
+.chat__head em{color:var(--accent)}
+.chat__sub{max-width:46rem;margin:0 auto 2.6rem;text-align:center;color:var(--bone-dim);font-size:clamp(.95rem,1.2vw,1.1rem)}
+.chat__panes{display:grid;grid-template-columns:1fr;gap:clamp(1rem,2.2vw,1.6rem);max-width:64rem;margin:0 auto}
+@media(min-width:760px){.chat__panes{grid-template-columns:1fr 1fr}}
+.pane{background:var(--glass);border:1px solid var(--line);border-radius:20px;display:flex;flex-direction:column;overflow:clip;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 30px 70px var(--shadow)}
+/* inside a dark-locked mockup the translucent glass washes to grey over a light
+   page — use the solid near-black surface so the comparison tiles stay black */
+.ui-dark .pane{background:var(--ink)}
+.pane--bot{filter:saturate(.5)}
+.pane__bar{display:flex;align-items:center;gap:.55rem;padding:.95rem 1.25rem;border-bottom:1px solid var(--line-2);
+  font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--bone-dim)}
+.pane__bar i{font-style:normal;color:var(--bone-faint)}
+.pane--team .pane__bar{color:var(--accent)}
+.pane__bar .mark{width:20px;height:20px;border-radius:6px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;flex:none}
+.pane__bar .mark img{width:11px;height:11px}
+.pane__body{padding:1.15rem 1.25rem;flex:1;display:flex;flex-direction:column;gap:.9rem}
+.pane__q{font-size:.98rem;font-weight:540;min-height:1.5em;color:var(--bone)}
+.pane__q .caret{display:inline-block;width:7px;height:14px;background:var(--bone-dim);margin-left:2px;vertical-align:-2px;animation:cblink 1.05s steps(2) infinite}
+@keyframes cblink{50%{opacity:0}}
+.pane__a{font-size:.9rem;line-height:1.6;color:var(--bone-dim);min-height:5.5em}
+.strata{display:flex;flex-direction:column;gap:.45rem}
+.stratum{display:grid;grid-template-columns:4.6rem 1fr;gap:.9rem;align-items:center;border:1px solid var(--line-2);border-radius:10px;
+  padding:.5rem .8rem;font-size:.76rem;color:var(--bone-faint);opacity:.4;transition:opacity .5s var(--ease),border-color .5s,background .5s,color .5s}
+.stratum b{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;font-weight:640}
+.stratum.lit{opacity:1;color:var(--bone-dim);border-color:rgba(217,250,135,.35);background:rgba(217,250,135,.05)}
+.stratum.lit b{color:var(--accent)}
+.pane__ans{opacity:0;transform:translateY(10px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.pane__ans.on{opacity:1;transform:none}
+.pane__ans p{font-size:.9rem;line-height:1.6;color:var(--bone-dim)}
+.pane__ans b{color:var(--bone);font-weight:600}
+.pane__rcpts{margin-top:.7rem;display:flex;flex-wrap:wrap;gap:.45em 1.4em;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;font-weight:620;color:var(--accent)}
+.pane__rcpts span{white-space:nowrap}
+.pane__tags{padding:.85rem 1.25rem;border-top:1px solid var(--line-2);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:var(--bone-faint)}
+.pane__tags--team{color:var(--accent)}
+@media(prefers-reduced-motion:reduce){
+  .pane__ans{opacity:1 !important;transform:none !important}
+  .stratum{opacity:1 !important}
+  .pane__q .caret{animation:none !important}
+}

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tm-theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.dataset.theme=t}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Security &amp; trust — your releases, your data, your rules | Team</title>
+<meta name="description" content="Team sits on top of your whole operation, so trust is the unlock. Encryption, permissioned and revocable connections, and an AI that works for you only — never to train on your data.">
+<link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-Variable.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/base.css">
+<style>
+  /* ═══════════════════════════════════════════════════════════════
+     Security — trust is the unlock. Signature: the BOUNDARY — your data
+     works for you only, never trains a model, never leaves. Then the
+     foundations, enterprise controls, FAQ. Shared elements (.phero__ask,
+     .ui-dark) come from base.css.
+     ═══════════════════════════════════════════════════════════════ */
+  .phero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-top:7rem;padding-bottom:3rem}
+  .phero .h1{font-size:clamp(3rem,7.2vw,6rem)}
+
+  /* ═══ SIGNATURE — THE BOUNDARY ═══ */
+  .vaultsec{display:grid;gap:clamp(2.2rem,5vw,4.5rem);align-items:center;grid-template-columns:1fr}
+  @media(min-width:940px){.vaultsec{grid-template-columns:.92fr 1.08fr}}
+  .vaultsec__copy h2{margin-bottom:1.1rem}
+  .vpts{list-style:none;display:flex;flex-direction:column;gap:.7rem;margin-top:1.6rem}
+  .vpts li{display:flex;gap:.65rem;align-items:baseline;color:var(--bone-dim);font-size:.95rem}
+  .vpts li b{color:var(--bone);font-weight:560}
+  .vpts .yes{color:var(--accent);flex:none;font-weight:700}
+  .vpts .no{color:var(--signal);flex:none;font-weight:700}
+
+  /* the vault: what's inside your wall (protected) vs blocked outside it */
+  .vault{position:relative;border:1px solid var(--line);border-radius:22px;background:var(--ink-2);padding:clamp(1.3rem,3vw,1.9rem);
+    box-shadow:0 30px 70px var(--shadow)}
+  .vault::before{content:'';position:absolute;inset:0;border-radius:22px;pointer-events:none;
+    box-shadow:inset 0 0 0 1px rgba(217,250,135,.18),0 0 60px rgba(217,250,135,.08)}
+  .vault__lab{display:flex;align-items:center;gap:.55rem;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:1.1rem}
+  .vault__lab svg{width:.95rem;height:.95rem}
+  .vault__lab .sealed{margin-left:auto;display:flex;align-items:center;gap:.35rem;color:var(--bone-faint)}
+  .vault__lab .sealed i{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px rgba(217,250,135,.7);animation:blink 2s ease-in-out infinite}
+  @keyframes blink{50%{opacity:.4}}
+  .vault__chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem}
+  .vchip{font-size:.8rem;color:var(--bone-dim);border:1px solid var(--line);border-radius:99px;padding:.4rem .85rem;background:var(--glass)}
+  .vault__core{display:flex;align-items:center;gap:.9rem;padding:1rem 1.1rem;border:1px solid rgba(217,250,135,.3);border-radius:14px;background:rgba(217,250,135,.05)}
+  .vault__core .mk{width:2.2rem;height:2.2rem;border-radius:9px;background:var(--lime);display:grid;place-items:center;flex:none}
+  .vault__core .mk img{width:1.1rem;filter:brightness(0)}
+  .vault__core b{display:block;color:var(--bone);font-weight:560;font-size:.95rem}
+  .vault__core span{display:block;color:var(--bone-dim);font-size:.82rem;margin-top:.1rem}
+  .vault__ok{display:flex;align-items:center;gap:.55rem;margin-top:1rem;font-size:.9rem;color:var(--bone)}
+  .vault__ok .a{color:var(--accent);font-weight:700}
+  /* the wall + what's blocked outside it */
+  .vault__wall{margin-top:1.3rem;padding-top:1.2rem;border-top:1px dashed var(--line);display:flex;flex-direction:column;gap:.5rem}
+  .vault__wall .wlab{font-family:var(--font-mono);font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-faint);margin-bottom:.15rem}
+  .vblock{display:flex;align-items:center;gap:.6rem;font-size:.88rem;color:var(--bone-faint);text-decoration:line-through;text-decoration-color:var(--signal)}
+  .vblock .x{width:1.15rem;height:1.15rem;border-radius:5px;background:rgba(245,96,2,.12);color:var(--signal);display:grid;place-items:center;font-size:.7rem;flex:none;text-decoration:none;font-weight:700}
+  /* the vault fills in on scroll-down and empties on scroll-up (TM.replay) */
+  .vault__lab,.vchip,.vault__core,.vault__ok,.wlab,.vblock{opacity:0;transform:translateY(12px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  .vault__lab.in,.vchip.in,.vault__core.in,.vault__ok.in,.wlab.in,.vblock.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.vault__lab,.vchip,.vault__core,.vault__ok,.wlab,.vblock{opacity:1;transform:none}}
+
+  /* ═══ FOUNDATIONS — rich cards ═══ */
+  .sgrid{display:grid;gap:1rem;grid-template-columns:1fr}
+  @media(min-width:680px){.sgrid{grid-template-columns:1fr 1fr}}
+  .scard{position:relative;overflow:hidden;background:var(--glass);border:1px solid var(--line);border-radius:18px;padding:1.6rem 1.7rem;
+    transition:transform .5s var(--ease),border-color .5s,background .5s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .scard::after{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .4s}
+  .scard:hover{transform:translateY(-4px);border-color:var(--line-2);background:var(--ink-2)}
+  .scard:hover::after{opacity:.75}
+  .scard .ic{width:2.5rem;height:2.5rem;border-radius:11px;background:var(--ink-3);border:1px solid var(--line);color:var(--accent);display:grid;place-items:center;margin-bottom:1.15rem;transition:border-color .5s,color .5s}
+  .scard:hover .ic{border-color:rgba(217,250,135,.4)}
+  .scard .ic svg{width:1.25rem;height:1.25rem}
+  .scard h3{font-family:var(--font-display);font-weight:400;font-size:1.26rem;letter-spacing:-.02em;margin-bottom:.5rem;line-height:1.12;color:var(--bone)}
+  .scard h3 em{color:var(--accent);font-style:italic}
+  .scard p{color:var(--bone-dim);font-size:.92rem;line-height:1.56}
+
+  /* ═══ ENTERPRISE CALL-OUT ═══ */
+  .entcall{position:relative;overflow:hidden;border:1px solid rgba(217,250,135,.28);border-radius:26px;background:var(--ink-2);
+    padding:clamp(2rem,4vw,3.2rem);display:grid;gap:clamp(1.6rem,4vw,3.2rem);grid-template-columns:1fr;align-items:center}
+  @media(min-width:880px){.entcall{grid-template-columns:1fr 1fr}}
+  .entcall::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 90% at 100% 0%,var(--bloom),transparent 58%)}
+  .entcall>*{position:relative}
+  .entcall h2{margin-bottom:.9rem}
+  .entcall .lede{margin-bottom:1.4rem}
+  .ctrls{display:grid;gap:.65rem;grid-template-columns:1fr}
+  @media(min-width:520px){.ctrls{grid-template-columns:1fr 1fr}}
+  .ctrl{display:flex;gap:.6rem;align-items:baseline;padding:.85rem 1rem;border:1px solid var(--line-2);border-radius:11px;color:var(--bone-dim);font-size:.88rem;background:var(--glass)}
+  .ctrl::before{content:'✳';color:var(--accent);font-size:.8em;flex:none}
+  .ctrl b{color:var(--bone);font-weight:560}
+
+  /* ═══ FAQ ═══ */
+  .faq{max-width:44rem;margin:0 auto}
+  .faq details{border-bottom:1px solid var(--line);padding:.3rem 0}
+  .faq summary{list-style:none;cursor:pointer;padding:1.1rem .2rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;font-size:1.02rem;font-weight:500;color:var(--bone)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .pl{width:1rem;height:1rem;flex:none;position:relative}
+  .faq summary .pl::before,.faq summary .pl::after{content:'';position:absolute;background:var(--accent);border-radius:2px}
+  .faq summary .pl::before{left:0;right:0;top:calc(50% - 1px);height:2px}
+  .faq summary .pl::after{top:0;bottom:0;left:calc(50% - 1px);width:2px;transition:transform .3s var(--ease)}
+  .faq details[open] summary .pl::after{transform:scaleY(0)}
+  .faq details p{color:var(--bone-dim);font-size:.94rem;line-height:1.6;padding:0 .2rem 1.1rem;max-width:60ch}
+</style>
+</head>
+<body data-nav="platform">
+
+<!-- ══ HERO ══ -->
+<section class="phero">
+  <div class="phero__in">
+    <p class="phero__ask reveal"><em>Trust is the whole deal.</em></p>
+    <h1 class="h1 reveal" style="transition-delay:.08s">Your data,<br><em>your rules.</em></h1>
+    <p class="lede reveal" style="transition-delay:.16s;margin-inline:auto">Team reasons across your entire operation, files, messages, money, plans. That only works if it stays private, permissioned, and yours. Here's how we make sure it does.</p>
+    <div class="phero__cta reveal" style="transition-delay:.24s">
+      <a class="btn btn--solid" href="pricing.html#beta">Get started</a>
+      <a class="btn btn--ghost" href="contact.html">Request security docs <span class="btn__arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SIGNATURE — THE BOUNDARY ══ -->
+<section class="section container">
+  <div class="vaultsec" id="vaultsec">
+    <div class="vaultsec__copy">
+      <h2 class="h2">Your operation is never <em>anyone's training data.</em></h2>
+      <p class="lede">TeamMate reasons over your release to help you, and only you. Your data stays inside a wall around your organization, it goes in to answer your questions, and it does not come out.</p>
+      <ul class="vpts">
+        <li><span class="yes">✓</span><span><b>Works for you only.</b> Your masters, threads, and numbers answer your questions, nothing more.</span></li>
+        <li><span class="no">✕</span><span><b>Never trains a model.</b> Not ours, not anyone's.</span></li>
+        <li><span class="no">✕</span><span><b>Never shared across customers.</b> Your data is isolated to your organization.</span></li>
+        <li><span class="yes">✓</span><span><b>Gone on your say-so.</b> Disconnect or delete and it's removed from the brain.</span></li>
+      </ul>
+    </div>
+    <div class="vault" id="vault">
+      <div class="vault__lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Your organization<span class="sealed"><i></i>Sealed</span></div>
+      <div class="vault__chips"><span class="vchip">Masters</span><span class="vchip">Threads</span><span class="vchip">Budgets</span><span class="vchip">Plans</span><span class="vchip">Contacts</span></div>
+      <div class="vault__core"><span class="mk"><img src="assets/logo/team-logomark-black.png" alt=""></span><span><b>TeamMate reasons in here</b><span>Over your data, to answer your questions</span></span></div>
+      <div class="vault__ok"><span class="a">→</span> Answers, only to you</div>
+      <div class="vault__wall">
+        <span class="wlab">Blocked at the wall</span>
+        <div class="vblock"><span class="x">✕</span>Model training</div>
+        <div class="vblock"><span class="x">✕</span>Other customers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOUNDATIONS ══ -->
+<section class="section container" id="secure">
+  <div style="max-width:44rem;margin:0 auto 2.6rem;text-align:center" class="reveal">
+    <h2 class="h2">Protection built in,<br><em>not bolted on.</em></h2>
+    <p class="lede" style="margin:1rem auto 0;text-align:center">The controls underneath every connection, so the brain only ever sees what you allow, and you can prove what it did.</p>
+  </div>
+  <div class="sgrid reveal">
+    <div class="scard">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+      <h3>Encrypted <em>end to end</em></h3><p>Your data is encrypted in transit and at rest. Credentials for your connected tools live in a dedicated secrets vault, never in plain text.</p></div>
+    <div class="scard">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+      <h3>Permissioned <em>&amp; revocable</em></h3><p>You decide what each connection can see, and you can cut any of them off in one click. Team only ever reads the scopes you've granted.</p></div>
+    <div class="scard">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="9" cy="8" r="3.2"/><path d="M4 20a5 5 0 0 1 10 0M16 11l2 2 4-4"/></svg></span>
+      <h3>Granular <em>access</em></h3><p>Role-based controls decide who on your team sees what. The right people get the whole picture; everyone else gets exactly their slice.</p></div>
+    <div class="scard">
+      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="18" cy="18" r="3"/></svg></span>
+      <h3>A full <em>audit trail</em></h3><p>Every action Team takes is logged with a receipt, so you can always see what changed, when, and where the answer came from.</p></div>
+  </div>
+</section>
+
+<!-- ══ ENTERPRISE CALL-OUT ══ -->
+<section class="section container">
+  <div class="entcall reveal">
+    <div class="entcall__copy">
+      <h2 class="h2">Enterprise controls, <em>when you need them.</em></h2>
+      <p class="lede">Running at scale means stricter requirements. Team is built to meet them, with the controls and paperwork procurement teams expect to see.</p>
+      <a class="btn btn--solid" href="enterprise.html">Explore Enterprise <span class="btn__arr">→</span></a>
+    </div>
+    <div class="ctrls">
+      <div class="ctrl"><span><b>SSO &amp; SAML</b> sign-on</span></div>
+      <div class="ctrl"><span><b>Role-based access</b> control</span></div>
+      <div class="ctrl"><span><b>DPA</b> on request</span></div>
+      <div class="ctrl"><span><b>Data residency</b> options</span></div>
+      <div class="ctrl"><span><b>Exportable</b> audit logs</span></div>
+      <div class="ctrl"><span><b>Dedicated</b> support</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section class="section container">
+  <div style="max-width:44rem;margin:0 auto 2.4rem;text-align:center" class="reveal">
+    <h2 class="h2">Your questions, <em>answered.</em></h2>
+  </div>
+  <div class="faq reveal">
+    <details><summary>Does TeamMate train on my data?<span class="pl"></span></summary><p>No. TeamMate uses your connected data to answer your questions and do work for your release. We don't train models on it, and your data is never pooled with other customers'.</p></details>
+    <details><summary>Who on my team can see my data?<span class="pl"></span></summary><p>Only the people you invite, at the access level you set. Role-based controls let you give the right people the whole picture while limiting everyone else to their slice.</p></details>
+    <details><summary>Can I disconnect a tool or delete my data?<span class="pl"></span></summary><p>Any time. Every connection is revocable in one click, and when you disconnect a tool or delete your data, it's removed from the brain. Everything you build in Team stays portable and yours to keep.</p></details>
+    <details><summary>How are my connected accounts protected?<span class="pl"></span></summary><p>Connections are made through each provider's official, permissioned access, and the credentials are held in a dedicated secrets vault. Team only ever reads the scopes you've granted.</p></details>
+    <details><summary>Where is my data stored?<span class="pl"></span></summary><p>Your data is encrypted in transit and at rest with a reputable cloud provider. Enterprise plans can discuss data residency options. Request our security documentation for the full detail.</p></details>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="section ctaband container">
+  <h2 class="h2">Connect your whole stack, <em>with confidence.</em></h2>
+  <div class="ctaband__row">
+    <a class="btn btn--solid" href="pricing.html#beta">Get started</a>
+    <a class="btn btn--ghost" href="contact.html">Request security docs <span class="btn__arr">→</span></a>
+  </div>
+</section>
+
+<script src="js/brain.js"></script>
+<script src="js/chrome.js"></script>
+<script>
+/* the vault fills in on scroll-down and empties back out on scroll-up */
+(() => {
+  const vault = document.getElementById('vault'); if (!vault || !window.TM) return;
+  const items = vault.querySelectorAll('.vault__lab,.vchip,.vault__core,.vault__ok,.wlab,.vblock');
+  const s = window.TM.seq(items, 'in', 90, 60);
+  window.TM.replay(vault, s.play, s.reset, .3);
+})();
+</script>
+</body>
+</html>

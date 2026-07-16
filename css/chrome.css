@@ -1,0 +1,124 @@
+/* ═══════════════════════════════════════════════════════════════
+   Shared chrome — the ONE source of truth for the nav + footer.
+   The homepage loads this directly; every other page gets it because
+   base.css @imports it. Edit the nav/footer here and it changes site-
+   wide. It defines its own width tokens (--chrome-*) so the bar sits
+   the same width on every page, regardless of that page's own --maxw.
+   ═══════════════════════════════════════════════════════════════ */
+/* nav + footer span the full page width, with a little side padding (like the
+   one-pager). --chrome-maxw caps the inner width — set to none for edge-to-edge. */
+:root{--chrome-maxw:none;--chrome-pad:clamp(1.3rem,4vw,3.5rem);
+  /* Dark DEFAULTS for the theme tokens chrome uses. base.css re-defines these
+     and adds light overrides for the deep pages; the homepage (onepager.css +
+     chrome.css, no base.css) falls back to these and stays dark-locked. */
+  --accent:#d9fa87;--on-accent:#0d0c0b;
+  --nav-bg:rgba(13,12,11,.72);--mnav-bg:rgba(13,12,11,.97);
+  --hover-tint:rgba(239,235,227,.05);--shadow-lg:rgba(0,0,0,.5);
+  --bloom:rgba(217,250,135,.055);--wordmark:#efebe3}
+
+/* nav triggers are <button>; reset them (homepage loads chrome.css without base.css's global reset) */
+.nav button{background:none;border:0;font-family:inherit;cursor:pointer;color:inherit}
+
+/* ═══ NAV — 5-slot, two-axis dropdowns ═══ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .4s,border-color .4s,backdrop-filter .4s}
+.nav__in{max-width:var(--chrome-maxw);margin:0 auto;padding:.85rem var(--chrome-pad);display:flex;align-items:center;gap:1.5rem}
+.nav.scrolled{background:var(--nav-bg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav__brand{flex:none;display:flex;align-items:center}
+.nav__brand img{height:26px;width:auto;filter:brightness(0) invert(1)}
+:root[data-theme="light"] .nav__brand img{filter:brightness(0)}
+.nav__menu{display:flex;align-items:center;gap:.15rem;margin-left:.5rem}
+.nav__item{position:relative}
+.nav__link{display:inline-flex;align-items:center;gap:.35em;padding:.55rem .85rem;border-radius:8px;
+  font-size:.9rem;font-weight:450;color:var(--bone);transition:color .2s,background .2s}
+.nav__link:hover,.nav__item:hover .nav__link,.nav__item:focus-within .nav__link{color:var(--bone);background:var(--hover-tint)}
+.nav__link .caret{width:.5em;height:.5em;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+  transform:rotate(45deg) translateY(-1px);opacity:.6;transition:transform .25s}
+.nav__item:hover .caret,.nav__item:focus-within .caret{transform:rotate(225deg) translateY(-1px)}
+.nav__spacer{flex:1}
+.nav__cta{display:flex;align-items:center;gap:.7rem;flex:none}
+.nav__signin{font-size:.9rem;color:var(--bone-dim);padding:.55rem .6rem}
+.nav__signin:hover{color:var(--bone)}
+.nav__theme{display:grid;place-items:center;width:2.15rem;height:2.15rem;border-radius:9px;color:var(--bone-dim);transition:color .2s,background .2s}
+.nav__theme:hover{color:var(--bone);background:var(--hover-tint)}
+.nav__theme svg{width:1.05rem;height:1.05rem;grid-area:1/1}
+.nav__theme .moon{display:none}
+:root[data-theme="light"] .nav__theme .sun{display:none}
+:root[data-theme="light"] .nav__theme .moon{display:block}
+.mnav__theme{width:auto;height:auto;justify-content:flex-start;gap:.6rem;grid-auto-flow:column;padding:.5rem 0;color:var(--bone-dim);font-size:.95rem}
+.mnav__theme span{font-family:inherit}
+.nav__beta{background:var(--lime);color:var(--on-accent);font-weight:600;font-size:.86rem;padding:.6rem 1.15rem;border-radius:99px;transition:background .25s}
+.nav__beta:hover{background:var(--bone)}
+/* dropdown panel */
+.nav__panel{position:absolute;top:calc(100% + .5rem);left:0;min-width:26rem;
+  background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:.7rem;
+  box-shadow:0 30px 70px var(--shadow-lg);
+  opacity:0;visibility:hidden;transform:translateY(6px);pointer-events:none;
+  transition:opacity .22s var(--ease),transform .22s var(--ease),visibility .22s}
+/* invisible bridge across the gap so the hover doesn't drop between
+   the trigger and the panel (the panel is a descendant, so hovering the
+   bridge keeps .nav__item:hover alive) */
+.nav__panel::before{content:'';position:absolute;left:0;right:0;top:-.7rem;height:.7rem}
+.nav__item:hover .nav__panel,.nav__item:focus-within .nav__panel{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+.nav__plabel{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bone-faint);padding:.5rem .75rem .35rem}
+.nav__prow{display:flex;gap:.8rem;align-items:flex-start;padding:.6rem .75rem;border-radius:9px;transition:background .18s}
+.nav__prow:hover{background:var(--hover-tint)}
+.nav__prow .ic{width:1.7rem;height:1.7rem;border-radius:7px;background:var(--ink-3);border:1px solid var(--line);flex:none;display:grid;place-items:center;color:var(--accent)}
+.nav__prow .ic svg{width:.95rem;height:.95rem}
+.nav__prow b{display:block;font-size:.9rem;font-weight:560;color:var(--bone)}
+.nav__prow span{display:block;font-size:.78rem;color:var(--bone-dim);margin-top:.1rem;line-height:1.4}
+.nav__burger{display:none;flex-direction:column;gap:5px;width:40px;height:40px;align-items:center;justify-content:center;flex:none}
+.nav__burger i{width:20px;height:1.6px;background:var(--bone);transition:transform .35s var(--ease),opacity .2s}
+body.menu-open .nav__burger i:nth-child(1){transform:translateY(3.3px) rotate(45deg)}
+body.menu-open .nav__burger i:nth-child(2){opacity:0}
+body.menu-open .nav__burger i:nth-child(3){transform:translateY(-3.3px) rotate(-45deg)}
+
+/* mobile menu */
+.mnav{position:fixed;inset:0;z-index:95;background:var(--mnav-bg);backdrop-filter:blur(20px);
+  padding:6rem var(--chrome-pad) 2rem;overflow-y:auto;opacity:0;visibility:hidden;transition:opacity .4s,visibility .4s}
+body.menu-open .mnav{opacity:1;visibility:visible}
+.mnav__grp{border-bottom:1px solid var(--line);padding:1.1rem 0}
+.mnav__grp>p{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-faint);margin-bottom:.7rem}
+.mnav__grp a{display:block;font-size:1.15rem;padding:.35rem 0;color:var(--bone)}
+.mnav__cta{display:flex;flex-direction:column;gap:.7rem;margin-top:1.6rem}
+@media(max-width:940px){
+  .nav__menu,.nav__signin{display:none}
+  .nav__burger{display:flex}
+  .nav__spacer{flex:1}
+}
+
+/* ═══ FOOTER ═══ (kept in sync with base.css so the homepage, which loads
+   chrome.css instead of base.css, renders the same footer) */
+.foot{position:relative;overflow:hidden;border-top:1px solid var(--line);padding:clamp(4rem,7vw,6rem) var(--chrome-pad) 1.2rem;background:var(--ink)}
+.foot::before{content:'';position:absolute;top:-8rem;right:-6rem;width:26rem;height:26rem;border-radius:50%;
+  background:radial-gradient(circle,var(--bloom),transparent 70%);pointer-events:none}
+.foot__in{max-width:var(--chrome-maxw);margin:0 auto;position:relative;z-index:1}
+.foot__news{display:grid;gap:1.8rem;grid-template-columns:1fr;align-items:center;padding-bottom:3rem;margin-bottom:3rem;border-bottom:1px solid var(--line)}
+@media(min-width:820px){.foot__news{grid-template-columns:1fr auto}}
+.foot__news h3{font-family:var(--font-display);font-weight:330;letter-spacing:-.02em;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.12;color:var(--bone);margin-bottom:.6rem}
+.foot__news h3 em{font-style:italic;color:var(--accent)}
+.foot__news p{color:var(--bone-dim);font-size:.92rem;max-width:34rem;line-height:1.55}
+.foot__form{display:flex;align-items:center;background:var(--glass);border:1px solid var(--line);border-radius:99px;padding:.35rem .35rem .35rem 1.4rem;min-width:min(28rem,100%);transition:border-color .25s}
+.foot__form:focus-within{border-color:rgba(217,250,135,.5)}
+.foot__form input{flex:1;border:0;outline:none;background:transparent;color:var(--bone);font-family:inherit;font-size:.94rem;padding:.6rem 0;min-width:0}
+.foot__form input::placeholder{color:var(--bone-faint)}
+.foot__form button{background:var(--lime);color:var(--on-accent);border:0;border-radius:99px;padding:.6rem 1.3rem;font-family:inherit;font-size:.88rem;font-weight:600;cursor:pointer;flex:none;transition:background .3s,color .3s}
+.foot__form button:hover{background:var(--bone)}
+.foot__form.done button{background:var(--ink-3);color:var(--accent);cursor:default}
+.foot__hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+.foot__grid{display:grid;gap:2.4rem;grid-template-columns:1fr 1fr}
+@media(min-width:820px){.foot__grid{grid-template-columns:1.6fr repeat(4,1fr)}}
+.foot__brand img{height:26px;filter:brightness(0) invert(1);margin-bottom:1.1rem}
+:root[data-theme="light"] .foot__brand img{filter:brightness(0)}
+.foot__brand p{color:var(--bone-dim);font-size:.88rem;max-width:19rem;line-height:1.6}
+.foot__social{display:flex;gap:.7rem;margin-top:1.3rem}
+.foot__social a{width:2.05rem;height:2.05rem;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--bone-dim);transition:color .25s,border-color .25s}
+.foot__social a:hover{color:var(--accent);border-color:rgba(217,250,135,.4)}
+.foot__social svg{width:1rem;height:1rem}
+.foot__col p{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-faint);margin-bottom:1rem}
+.foot__col a{display:block;color:var(--bone-dim);font-size:.9rem;padding:.32rem 0;transition:color .2s}
+.foot__col a:hover{color:var(--bone)}
+.foot__bot{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;margin-top:3rem;padding-top:1.6rem;border-top:1px solid var(--line);color:var(--bone-faint)}
+.foot__bot .mono{letter-spacing:.14em;text-transform:uppercase;font-size:.62rem}
+.foot__wordmark{display:block;width:100%;margin:1.6rem 0 -.4rem;user-select:none;pointer-events:none;overflow:visible}
+.foot__wordmark text{font-family:var(--font-display);font-weight:700;font-size:210px}
+.foot__wordmark stop{stop-color:var(--wordmark)}

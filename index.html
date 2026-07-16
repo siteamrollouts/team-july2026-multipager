@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Team — A Brain for Music Operations</title>
+<meta name="description" content="Team is the operational brain for music companies, artist teams, and modern music businesses. It connects the systems your operation already runs on and turns them into one living intelligence layer.">
+<link rel="canonical" href="https://teamrollouts.com/">
+<meta name="theme-color" content="#0d0c0b">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Team">
+<meta property="og:title" content="Team — A Brain for Music Operations">
+<meta property="og:description" content="The operational brain for music businesses. Team connects the systems your operation already runs on, remembers the history, and helps you see what matters next.">
+<meta property="og:url" content="https://teamrollouts.com/">
+<meta property="og:image" content="https://teamrollouts.com/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Team — A Brain for Music Operations">
+<meta name="twitter:description" content="The operational brain for music businesses. Team connects the systems your operation already runs on, remembers the history, and helps you see what matters next.">
+<meta name="twitter:image" content="https://teamrollouts.com/assets/og.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/logo/favicon.png">
+<link rel="apple-touch-icon" href="assets/logo/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-Variable.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/onepager.css">
+<link rel="stylesheet" href="css/chrome.css">
+<style>/* homepage: hide the one-pager's own chrome; the shared nav/footer are injected */
+.capsule,.brand,.menu,.finale .footer{display:none !important}</style>
+<!-- HIDDEN for now (per Simon, 2026-07-08): styles for the parked lorbit/notifications hero
+<link rel="stylesheet" href="css/nh-hero.css"> -->
+
+</head>
+<body data-loading>
+
+<!-- ══════════════ LOADER ══════════════ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__mark">
+    <img src="assets/logo/team-logo-live.svg" alt="team" class="loader__logo">
+    <p class="loader__tag">Operational Intelligence for Music Releases</p>
+  </div>
+</div>
+
+<!-- ══════════════ CHROME ══════════════ -->
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true">
+  <div class="cursor__eq"><i></i><i></i><i></i><i></i><i></i></div>
+</div>
+<canvas id="field" class="field" aria-hidden="true"></canvas>
+
+<!-- the core born in the turn; travels into the orbit -->
+<div class="traveler" id="traveler" aria-hidden="true">
+  <img src="assets/logo/team-logomark-black.png" alt="">
+</div>
+
+<!-- ══════════════ NAV — the narrator ══════════════ -->
+<a class="brand" href="#top" data-hover><img src="assets/logo/team-logo-live.svg" alt="team — home"></a>
+
+<header class="capsule" id="capsule">
+  <div class="capsule__orb" aria-hidden="true">
+    <svg viewBox="0 0 44 44">
+      <circle class="orb__track" cx="22" cy="22" r="19"/>
+      <circle class="orb__prog" cx="22" cy="22" r="19" id="orbProg"/>
+    </svg>
+    <span class="orb__star">✳</span>
+  </div>
+  <div class="capsule__act" aria-hidden="true">
+    <span class="capsule__name" id="actName">Overture</span>
+  </div>
+  <nav class="capsule__links" aria-label="Page">
+    <a href="#act-access" class="capsule__cta" data-hover>Join the beta</a>
+  </nav>
+  <button class="capsule__burger" id="burger" aria-label="Menu" aria-expanded="false" data-hover>
+    <i></i><i></i>
+  </button>
+</header>
+
+<div class="menu" id="menu" aria-hidden="true">
+  <nav class="menu__list" aria-label="Menu">
+    <a href="#act-turn"    data-hover><em>01</em>The idea</a>
+    <a href="#act-connect" data-hover><em>02</em>How it works</a>
+    <a href="#act-who"     data-hover><em>03</em>Who it's for</a>
+    <a href="#act-access"  data-hover><em>04</em>Join the beta</a>
+  </nav>
+  <p class="menu__foot">Intelligence for music releases <span>✳</span> teamrollouts.com</p>
+</div>
+
+<main id="top">
+
+<!-- ══════════════ ACT 0 · OVERTURE ══════════════ -->
+
+
+<!-- ══════════════ OVERTURE — notifications hero; on scroll it fades in place as the tools fall into orbit around Team ══════════════ -->
+<!-- HIDDEN for now (per Simon, 2026-07-08) — remove style="display:none" to bring the notifications hero + logo orbit back -->
+<section class="lorbit" id="lorbit" aria-hidden="true" style="display:none">
+  <div class="lorbit__stage">
+    <div class="nh-hero nh-hero--layer" id="nhHero">
+  <div class="nh-hero__grain"></div>
+  <div class="nh-hero__orb nh-hero__orb--orange"></div>
+  <div class="nh-hero__orb nh-hero__orb--lime"></div>
+  <div class="nh-hero-notif-overlay"></div>
+  <div class="nh-notif-layer" id="nhNotifLayer">
+    <div class="nh-notif" data-depth="0.05" data-layer="near" data-float-y="8" data-float-x="3" data-float-dur="5.2" style="top:12%;left:3%;"><div class="nh-notif__icon"></div><div class="nh-notif__body"><div class="nh-notif__row"><span class="nh-notif__title"></span><span class="nh-notif__time"></span></div><div class="nh-notif__msg"></div></div></div>
+    <div class="nh-notif" data-depth="0.06" data-layer="near" data-float-y="6" data-float-x="4" data-float-dur="4.8" style="bottom:14%;right:2%;"><div class="nh-notif__icon"></div><div class="nh-notif__body"><div class="nh-notif__row"><span class="nh-notif__title"></span><span class="nh-notif__time"></span></div><div class="nh-notif__msg"></div></div></div>
+    <div class="nh-notif" data-depth="0.055" data-layer="near" data-float-y="7" data-float-x="2" data-float-dur="5.6" style="bottom:28%;left:1%;"><div class="nh-notif__icon"></div><div class="nh-notif__body"><div class="nh-notif__row"><span class="nh-notif__title"></span><span class="nh-notif__time"></span></div><div class="nh-notif__msg"></div></div></div>
+    <div class="nh-notif" data-depth="0.04" data-layer="mid" data-float-y="5" data-float-x="3" data-float-dur="6.2" style="top:8%;right:8%;filter:blur(0.5px);"><div class="nh-notif__icon"></div><div class="nh-notif__body"><div class="nh-notif__row"><span class="nh-notif__title"></span><span class="nh-notif__time"></span></div><div class="nh-notif__msg"></div></div></div>
+    <div class="nh-notif" data-depth="0.035" data-layer="mid" data-float-y="6" data-float-x="2" data-float-dur="5.8" style="top:38%;right:0%;filter:blur(0.5px);"><div class="nh-notif__icon"></div><div class="nh-notif__body"><div class="nh-notif__row"><span class="nh-notif__title"></span><span class="nh-notif__time"></span></div><div class="nh-notif__msg"></div></div></div>
+    <div class="nh-notif" data-depth="0.03" data-layer="mid" data-float-y="4" data-float-x="3" data-float-dur="6.5" style="bottom:8%;left:12%;filter:blur(0.5px);"><div class="nh-notif__icon"></div><div class="nh-notif__body"><div class="nh-notif__row"><span class="nh-notif__title"></span><span class="nh-notif__time"></span></div><div class="nh-notif__msg"></div></div></div>
+    <div class="nh-notif" data-depth="0.02" data-layer="far" data-float-y="3" data-float-x="2" data-float-dur="7.0" style="top:22%;left:18%;filter:blur(2px);"><div class="nh-notif__icon"></div><div class="nh-notif__body"><div class="nh-notif__row"><span class="nh-notif__title"></span><span class="nh-notif__time"></span></div><div class="nh-notif__msg"></div></div></div>
+    <div class="nh-notif" data-depth="0.015" data-layer="far" data-float-y="4" data-float-x="1" data-float-dur="7.5" style="bottom:32%;right:12%;filter:blur(2px);"><div class="nh-notif__icon"></div><div class="nh-notif__body"><div class="nh-notif__row"><span class="nh-notif__title"></span><span class="nh-notif__time"></span></div><div class="nh-notif__msg"></div></div></div>
+    <div class="nh-notif" data-depth="0.022" data-layer="far" data-float-y="3" data-float-x="2" data-float-dur="7.2" style="top:5%;left:40%;filter:blur(2px);"><div class="nh-notif__icon"></div><div class="nh-notif__body"><div class="nh-notif__row"><span class="nh-notif__title"></span><span class="nh-notif__time"></span></div><div class="nh-notif__msg"></div></div></div>
+    <div class="nh-notif" data-depth="0.012" data-layer="far" data-float-y="2" data-float-x="3" data-float-dur="8.0" style="bottom:5%;right:30%;filter:blur(2px);"><div class="nh-notif__icon"></div><div class="nh-notif__body"><div class="nh-notif__row"><span class="nh-notif__title"></span><span class="nh-notif__time"></span></div><div class="nh-notif__msg"></div></div></div>
+  </div>
+  <div class="nh-hero__content">
+    <p class="hero__ask"><em>Meet Team.</em></p>
+    <h1 class="hero__title">A <em>brain</em> for music operations.</h1>
+    <p class="hero__sub">Team connects the systems your music operation already runs on,<br class="bp-md"> turning every tool, file, message, plan, and data point into one living intelligence layer.</p>
+    <div class="hero__ctas">
+      <a class="btn btn--solid" href="#act-access" data-hover>Join the beta</a>
+      <a class="btn btn--ghost" href="#demo" data-demo data-hover>Book a walkthrough</a>
+    </div>
+  </div>
+    </div>
+    <div class="lorbit__halo"></div>
+    <div class="lorbit__path" id="lorbitPath"></div>
+    <div class="lorbit__center"><img src="assets/logo/team-logomark-white-trim.png" alt="team"></div>
+    <div class="lorbit__chips" id="lorbitChips"></div>
+  </div>
+</section>
+
+<section class="hero" id="act-hero">
+  <div class="hero__stick">
+  <div class="hero__bg"><img src="assets/img/bg-01.jpg" alt="" aria-hidden="true"></div>
+  <div class="hero__center">
+    <p class="hero__ask" data-reveal><em>Meet Team.</em></p>
+    <h1 class="hero__title" data-reveal data-delay="70">A <em>brain</em> for music operations.</h1>
+    <p class="hero__sub" data-reveal data-delay="140">Team connects the systems your music operation already runs on,<br class="bp-md"> turning every tool, file, message, plan, and data point into one living intelligence layer.</p>
+    <div class="hero__ctas" data-reveal data-delay="210">
+      <a class="btn btn--solid" href="#act-access" data-hover>Join the beta</a>
+      <a class="btn btn--ghost" href="#demo" data-demo data-hover>Book a walkthrough</a>
+    </div>
+  </div>
+  <div class="tmate" id="tmate" aria-hidden="true">
+    <div class="tmate__head">
+      <span class="tmate__mark"><img src="assets/logo/team-logomark-white-trim.png" alt=""></span>
+      <b>teammate</b>
+      <span class="tmate__time" id="tmateTime">just now</span>
+      <span class="tmate__status"></span>
+    </div>
+    <p class="tmate__msg" id="tmateMsg"></p>
+    <span class="tmate__pill"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="7" cy="7" r="2.6"/><circle cx="17" cy="7" r="2.6"/><circle cx="7" cy="17" r="2.6"/><circle cx="17" cy="17" r="2.6"/></svg>Show me on the board</span>
+  </div>
+  </div>
+
+</section>
+
+<!-- ══════════════ ACT 1 · THE SCATTER ══════════════ -->
+<section class="pin pin--scatter" id="act-scatter" data-scrub="scatter">
+  <div class="pin__stage">
+
+    <div class="track">
+      <p class="track__lead">Music businesses don’t run on <em>one tool.</em></p>
+      <ol class="track__list">
+        <li class="trow" data-trow data-group="master"><b>01</b><span>The master</span></li>
+        <li class="trow" data-trow data-group="artwork"><b>02</b><span>The artwork</span></li>
+        <li class="trow" data-trow data-group="budget"><b>03</b><span>The budget</span></li>
+        <li class="trow" data-trow data-group="plan"><b>04</b><span>The plan</span></li>
+        <li class="trow" data-trow data-group="convo"><b>05</b><span>The conversation</span></li>
+      </ol>
+    </div>
+
+    <p class="truth truth--memory" data-memory><span>And, somehow, one person who remembers everything…<br class="bp-md"> <em>until they’re on vacation.</em></span></p>
+    <p class="truth" data-truth><span>The truth lives<br><em>everywhere</em> and <em>nowhere</em>.</span></p>
+
+    <!-- notification tiles · real apps · grouped to the tracklist -->
+    <div class="tile" data-group="master"  style="--x:56%; --y:22%; --d:1.15; --r:-5deg; --b:0px"  data-tile><img src="assets/logos/dropbox.svg" alt=""><div><b>Dropbox</b><span>Single_Master_FINAL_v9.wav</span><i>3 versions older than the email thread</i></div><u>1</u></div>
+    <div class="tile" data-group="master"  style="--x:70%; --y:58%; --d:0.8;  --r:3deg;  --b:1px"  data-tile><img src="assets/logos/gmail.svg" alt=""><div><b>Gmail</b><span>“which master is final-final?”</span><i>Nobody is sure</i></div><u>2</u></div>
+    <div class="tile" data-group="master"  style="--x:80%; --y:34%; --d:0.95; --r:4deg;  --b:1px"  data-tile><img src="assets/logos/googledrive.svg" alt=""><div><b>Drive</b><span>Mix_final_MASTERED (1).wav</span><i>A duplicate of the Dropbox file</i></div><u>1</u></div>
+    <div class="tile" data-group="master"  style="--x:48%; --y:68%; --d:1.3;  --r:-4deg; --b:2px"  data-tile><img src="assets/logos/slack.svg" alt=""><div><b>Slack</b><span>“is the v10 bounce in yet?”</span><i>#audio · no reply</i></div><u>3</u></div>
+    <div class="tile" data-group="artwork" style="--x:64%; --y:26%; --d:0.9;  --r:4deg;  --b:0px"  data-tile><img src="assets/logos/googledrive.svg" alt=""><div><b>Drive</b><span>artwork_3000x3000_v7.png</span><i>Still unapproved</i></div><u>4</u></div>
+    <div class="tile" data-group="artwork" style="--x:52%; --y:62%; --d:1.2;  --r:-3deg; --b:1px"  data-tile><img src="assets/logos/slack.svg" alt=""><div><b>Slack</b><span>“Wait, is that the final artwork?”</span><i>#design · unanswered</i></div><u>1</u></div>
+    <div class="tile" data-group="artwork" style="--x:78%; --y:46%; --d:0.7;  --r:2deg;  --b:2px"  data-tile><img src="assets/logos/trello.svg" alt=""><div><b>Trello</b><span>Artwork — Awaiting approval</span><i>Card untouched for 9 days</i></div><u>2</u></div>
+    <div class="tile" data-group="artwork" style="--x:46%; --y:36%; --d:1.05; --r:-5deg; --b:0px"  data-tile><img src="assets/logos/gmail.svg" alt=""><div><b>Gmail</b><span>Re: cover art notes</span><i>Feedback was on v5, not v7</i></div><u>3</u></div>
+    <div class="tile" data-group="budget"  style="--x:58%; --y:30%; --d:1.35; --r:-3deg; --b:0px"  data-tile><img src="assets/logos/googlesheets.svg" alt=""><div><b>Sheets</b><span>Budget — $2,500 → <em>$3,100</em></span><i>Edited 14:02 · nobody was told</i></div><u>2</u></div>
+    <div class="tile" data-group="budget"  style="--x:68%; --y:64%; --d:0.7;  --r:5deg;  --b:2px"  data-tile><img src="assets/logos/notion.svg" alt=""><div><b>Notion</b><span>One-sheet still shows $2,500</span><i>Out of date since 14:02</i></div><u>1</u></div>
+    <div class="tile" data-group="budget"  style="--x:76%; --y:18%; --d:0.85; --r:3deg;  --b:1px"  data-tile><img src="assets/logos/googledocs.svg" alt=""><div><b>Docs</b><span>Budget notes — video shoot</span><i>Contradicts the sheet by $600</i></div><u>1</u></div>
+    <div class="tile" data-group="budget"  style="--x:46%; --y:50%; --d:1.1;  --r:-5deg; --b:0px"  data-tile><img src="assets/logos/dropbox.svg" alt=""><div><b>Dropbox</b><span>vinyl_quote_2024.pdf</span><i>Never added to the sheet</i></div><u>1</u></div>
+    <div class="tile" data-group="budget"  style="--x:84%; --y:42%; --d:0.95; --r:4deg;  --b:1px"  data-tile><img src="assets/logos/bmi.svg" alt=""><div><b>BMI</b><span>Q3 royalty statement posted</span><i>Splits don't match the sheet — 2 writers missing</i></div><u>2</u></div>
+    <div class="tile" data-group="plan"    style="--x:54%; --y:18%; --d:0.9;  --r:5deg;  --b:1px"  data-tile><img src="assets/logos/notion.svg" alt=""><div><b>Notion</b><span>Rollout plan / Week 3</span><i>41 blocks · last synced never</i></div><u>7</u></div>
+    <div class="tile" data-group="plan"    style="--x:72%; --y:42%; --d:1.1;  --r:-4deg; --b:1px"  data-tile><img src="assets/logos/monday.svg" alt="" class="wide"><div><b>Monday</b><span>Release board — 6 overdue</span><i>3 duplicates of the Notion plan</i></div><u>6</u></div>
+    <div class="tile" data-group="plan"    style="--x:50%; --y:66%; --d:0.75; --r:3deg;  --b:2px"  data-tile><img src="assets/logos/asana.svg" alt=""><div><b>Asana</b><span>Pitch playlists — due Fri</span><i>Unassigned</i></div><u>2</u></div>
+    <div class="tile" data-group="plan"    style="--x:80%; --y:70%; --d:1.25; --r:-6deg; --b:2px"  data-tile><img src="assets/logos/googlecalendar.svg" alt=""><div><b>Calendar</b><span>Video shoot — Thu 14</span><i>No call sheet attached</i></div><u>1</u></div>
+    <div class="tile" data-group="plan"    style="--x:62%; --y:52%; --d:1.05; --r:3deg;  --b:1px"  data-tile><img src="assets/logos/believe.png" alt="" class="wide winv"><div><b>Believe</b><span>Delivery window closes Friday</span><i>Metadata incomplete · artwork still missing</i></div><u>2</u></div>
+    <div class="tile" data-group="convo"   style="--x:52%; --y:20%; --d:0.8;  --r:-5deg; --b:1px"  data-tile><img src="assets/logos/slack.svg" alt=""><div><b>Slack</b><span>“Who approved this?”</span><i>#release-ops · 11:47pm</i></div><u>3</u></div>
+    <div class="tile" data-group="convo"   style="--x:74%; --y:36%; --d:1.15; --r:4deg;  --b:0px"  data-tile><img src="assets/logos/microsoftteams.svg" alt=""><div><b>Teams</b><span>“Which deck has the DSP plan?”</span><i>Three decks say three things</i></div><u>1</u></div>
+    <div class="tile" data-group="convo"   style="--x:60%; --y:64%; --d:1.0;  --r:2deg;  --b:1px"  data-tile><img src="assets/logos/zoom.svg" alt=""><div><b>Zoom</b><span>Distributor call — 45:12</span><i>Actions live in someone's notebook</i></div><u>1</u></div>
+    <div class="tile" data-group="convo"   style="--x:84%; --y:56%; --d:0.65; --r:-3deg; --b:2px"  data-tile><img src="assets/logos/gmail.svg" alt=""><div><b>Gmail</b><span>Re: Press embargo date?</span><i>Unanswered · 3 days</i></div><u>12</u></div>
+  </div>
+</section>
+
+<!-- ══════════════ ACT 2 · THE TURN ══════════════ -->
+<section class="pin pin--turn" id="act-turn" data-scrub="turn">
+  <div class="pin__stage">
+    <div class="turn__until"><p>Until now<span class="blink">.</span></p></div>
+    <div class="turn__reveal">
+      <h2 class="turn__title turn__title--plain">Team is the <em>operational brain</em> for music companies, artist teams, and modern music businesses.</h2>
+    </div>
+    <img class="turn__mark" id="turnMark" src="assets/logo/team-logomark-white-trim.png" alt="" aria-hidden="true">
+  </div>
+</section>
+
+<!-- ══════════════ ACT 2.5 · THE PRODUCT — the app itself ══════════════ -->
+<section class="devband" id="devband" aria-label="Team interface preview">
+  <div class="device" data-reveal>
+    <div class="device__screen dvc--app">
+      <div class="app__top">
+        <img class="app__mark" src="assets/logo/team-logomark-black.png" alt="">
+        <p class="app__crumb mono">HOME / AVA NORTH / MIDNIGHT STATIC / TIMELINE</p>
+        <span class="app__pill mono">+ RELEASE</span>
+        <span class="app__on mono"><i></i>1 ONLINE &middot; JUST YOU</span>
+        <span class="app__share mono">SHARE</span>
+      </div>
+      <div class="app__cols">
+        <aside class="app__nav">
+          <p class="mono app__navlab">RELEASE</p>
+          <p class="app__rel">Midnight Static</p>
+          <p class="app__newrel mono">+ NEW RELEASE</p>
+          <p class="mono app__navlab">ARTIST</p>
+          <ul><li>Home</li><li>Artist DNA</li><li>Assets</li><li>Intelligence</li><li>Connectors</li><li>Touring</li></ul>
+          <p class="mono app__navlab">RELEASE</p>
+          <ul><li class="on">Timeline</li><li>Strategy</li><li>Research</li><li>Tracks</li><li>Territories</li><li>DSP Priorities</li><li>Budget</li><li>Ready to Roll</li></ul>
+        </aside>
+        <div class="app__main">
+          <p class="app__chip mono"><i></i>TIMELINE &middot; 3 TASKS &middot; RELEASE 18 SEPT</p>
+          <h3 class="app__h">Midnight Static, <em>drops in</em></h3>
+          <p class="app__count">85<small>d</small><span>&middot;</span>11<small>h</small><span>&middot;</span><u id="appMins">06</u><small>m</small><span>&middot;</span><b><u id="appSecs">27</u><small>s</small></b></p>
+          <div class="app__filters mono"><span class="app__f--search">SEARCH TASK</span><span class="app__f--dark">TODAY</span><span><i></i>RELEASE &middot; SEP 18</span><span>STACKS &middot; 1</span><span>ACTUAL</span></div>
+          <p class="app__stacked mono">STACKED WITH: <b>&#9679; JUNO VALE — SLOW MOTION (2026-06-26)</b> &middot; ACTUAL DATES</p>
+          <div class="app__days">
+            <div class="app__day is-today">
+              <p class="app__date mono"><b>WED</b>24<span>JUN</span><em>TODAY</em></p>
+              <div class="tcard tcard--purple"><p class="mono tcard__meta">ACTIVE &middot; SOON</p><b>Pitch to Country Editorial Playlists</b><span class="mono">MARKETING</span><i>Unassigned</i></div>
+              <div class="tcard tcard--dark"><p class="mono tcard__meta">ACTIVE &middot; SOON</p><b>Pitch to Faith Editorial Playlists</b><span class="mono">MARKETING</span></div>
+            </div>
+            <div class="app__day">
+              <p class="app__date mono"><b>THU</b>25<span>JUN</span></p>
+              <div class="tcard tcard--ref"><p class="mono tcard__ref">&#9679; JUNO VALE — SLOW MOTION &nbsp;REF</p><b>Final Pre-Save Push: Email + Social Blast (48 Hours&hellip;)</b><span class="mono">MARKETING</span></div>
+              <div class="tcard tcard--add mono">+ ADD TASK</div>
+            </div>
+            <div class="app__day">
+              <p class="app__date mono"><b>FRI</b>26<span>JUN</span><em class="is-rel">&#9679; RELEASE</em></p>
+              <div class="tcard tcard--ref"><p class="mono tcard__ref">&#9679; JUNO VALE — SLOW MOTION &nbsp;REF</p><b>RELEASE DAY: Convert Pre-Save Link to Streaming&hellip;</b><span class="mono">DSP_ACTIVATION</span></div>
+              <div class="tcard tcard--ref"><p class="mono tcard__ref">&#9679; JUNO VALE — SLOW MOTION &nbsp;REF</p><b>RELEASE DAY: Post Announcement Content&hellip;</b><span class="mono">SOCIAL</span></div>
+            </div>
+            <div class="app__day">
+              <p class="app__date mono"><b>SAT</b>27<span>JUN</span></p>
+              <div class="tcard tcard--ref"><p class="mono tcard__ref">&#9679; JUNO VALE — SLOW MOTION &nbsp;REF</p><b>Research &amp; Shortlist Intimate Venues (50&ndash;150&hellip;)</b><span class="mono">OTHER</span></div>
+              <div class="tcard tcard--add mono">+ ADD TASK</div>
+            </div>
+          </div>
+        </div>
+        <aside class="app__chat">
+          <p class="app__chathead mono"><img src="assets/logo/team-logomark-white-trim.png" alt=""> TEAMMATE <em>on Timeline</em><span>NEW</span></p>
+          <div class="app__scroll">
+            <div class="app__msg"><u class="mono">TEAMMATE &middot; 12:44</u>
+              <p>Want me to build out a full task plan that assigns this $17,500 across the remaining categories with dates and owners?</p>
+              <span class="mono">&#9638; SHOW ME ON THE BOARD</span></div>
+            <div class="app__msg app__msg--you"><u class="mono">12:50 &middot; YOU</u>
+              <p>What's worked for Ava on previous releases?</p></div>
+            <div class="app__msg"><u class="mono">TEAMMATE &middot; 12:52</u>
+              <p>Let me pull the remaining documents on Ava's history.</p></div>
+          </div>
+          <div class="app__ask mono">ASK ABOUT TIMELINE&hellip;<i>&#8599;</i></div>
+          <p class="app__feed mono"><i></i>FEED THE BRAIN &middot; 7 DOCS &middot; 18 DONE TODAY</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ACT 3 · CONNECT ══════════════ -->
+<section class="pin pin--connect" id="act-connect" data-scrub="connect">
+  <div class="pin__stage stage--split">
+    <div class="split__copy">
+      <h2 class="h2">Replace nothing.<br>Connect <em>everything.</em></h2>
+      <p class="lede">Team brings together the context that usually lives everywhere and nowhere at the same time: artist strategy, campaign planning, release history, DSP priorities, budgets, approvals, performance data, partner conversations, and the decisions people swear they remember accurately.</p>
+      <p class="lede lede--follow">So you keep using all your existing tools, exactly like you do today.</p>
+      <ul class="ticks">
+        <li>Nothing to migrate</li>
+        <li>Nothing to rip out</li>
+        <li>No new software to learn</li>
+      </ul>
+    </div>
+    <div class="split__viz">
+      <svg class="orbit" viewBox="0 0 640 640" role="img" aria-label="Your tools connected to one core">
+        <defs>
+          <radialGradient id="ofade" gradientUnits="userSpaceOnUse" cx="320" cy="320" r="300">
+            <stop offset="0" stop-color="#efebe3" stop-opacity=".4"/>
+            <stop offset=".55" stop-color="#efebe3" stop-opacity=".22"/>
+            <stop offset="1" stop-color="#efebe3" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <g class="orbit__rings" fill="none" stroke="currentColor">
+          <circle cx="320" cy="320" r="150" opacity=".10"/>
+          <circle cx="320" cy="320" r="225" opacity=".07"/>
+          <circle cx="320" cy="320" r="295" opacity=".05"/>
+        </g>
+        <!-- phantom connections — drawn by js, fading out from the core -->
+        <g class="orbit__ghosts" id="oghosts" fill="none"></g>
+        <g class="orbit__lines" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path class="oline" d="M320 320 L320 95"/>
+          <path class="oline" d="M320 320 L529 111"/>
+          <path class="oline" d="M320 320 L545 320"/>
+          <path class="oline" d="M320 320 L529 529"/>
+          <path class="oline" d="M320 320 L320 545"/>
+          <path class="oline" d="M320 320 L111 529"/>
+          <path class="oline" d="M320 320 L95 320"/>
+          <path class="oline" d="M320 320 L214 214"/>
+        </g>
+        <g class="orbit__packets" id="packets"></g>
+        <g class="orbit__nodes">
+          <g class="onode" data-x="320" data-y="95"  transform="translate(320 95)"><circle r="34"/><image href="assets/logos/googlesheets.svg" x="-13" y="-13" width="26" height="26"/><text x="0" y="-52">DOCS</text></g>
+          <g class="onode" data-x="529" data-y="111" transform="translate(529 111)"><circle r="34"/><image href="assets/logos/bmi.svg" x="-15" y="-15" width="30" height="30"/><text x="0" y="-52">PROs</text></g>
+          <g class="onode" data-x="545" data-y="320" transform="translate(545 320)"><circle r="34"/><image href="assets/logos/notion.svg" x="-13" y="-13" width="26" height="26"/><text x="0" y="-52">PM TOOLS</text></g>
+          <g class="onode" data-x="529" data-y="529" transform="translate(529 529)"><circle r="34"/><image href="assets/logos/googledrive.svg" x="-13" y="-13" width="26" height="26"/><text x="0" y="62">DRIVE</text></g>
+          <g class="onode" data-x="320" data-y="545" transform="translate(320 545)"><circle r="34"/><image href="assets/logos/gmail.svg" x="-13" y="-13" width="26" height="26"/><text x="0" y="62">EMAIL</text></g>
+          <g class="onode" data-x="111" data-y="529" transform="translate(111 529)"><circle r="34"/><image href="assets/logos/theorchard.svg" x="-19" y="-19" width="38" height="38"/><text x="0" y="62">DISTRIBUTORS</text></g>
+          <g class="onode" data-x="95"  data-y="320" transform="translate(95 320)"><circle r="34"/><image href="assets/logos/slack.svg" x="-13" y="-13" width="26" height="26"/><text x="0" y="-52">CHAT TOOLS</text></g>
+          <g class="onode" data-x="214" data-y="214" transform="translate(214 214)"><circle r="34"/><image href="assets/logos/googlecalendar.svg" x="-13" y="-13" width="26" height="26"/><text x="0" y="-52">CALENDARS</text></g>
+        </g>
+        <g class="orbit__core" id="orbitCore" transform="translate(320 320)">
+          <circle r="54" class="core__disc"/>
+          <image class="core__mark" href="assets/logo/team-logomark-black.png" x="-22" y="-22" width="44" height="44"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ACT 3.5 · THE DIFFERENCE — chat window vs Team ══════════════ -->
+<section class="pin pin--chat" id="act-chat" data-scrub="chat">
+  <div class="pin__stage stage--chat">
+    <h2 class="h2 chat__head">AI chat tools <em>answer.</em><br>Team <em>understands.</em></h2>
+    <p class="chat__sub">So instead of digging through six tools to prove something everyone vaguely remembers, you can just ask Team.</p>
+    <div class="chat__panes">
+      <div class="pane pane--bot">
+        <p class="pane__bar">Generic AI chat <i>·</i> New session</p>
+        <div class="pane__body">
+          <p class="pane__q"><span id="botQ"></span><i class="caret"></i></p>
+          <p class="pane__a" id="botA"></p>
+        </div>
+        <p class="pane__tags">No memory · Resets every session · Sees only what you paste</p>
+        <div class="pane__brands" aria-label="Claude, ChatGPT, Gemini, Perplexity">
+          <img src="assets/logos/ai/claude.svg" alt="Claude">
+          <img src="assets/logos/ai/openai.svg" alt="ChatGPT">
+          <img src="assets/logos/ai/googlegemini.svg" alt="Gemini">
+          <img src="assets/logos/ai/perplexity.svg" alt="Perplexity">
+        </div>
+      </div>
+      <div class="pane pane--team">
+        <p class="pane__bar"><span class="tmate__mark"><img src="assets/logo/team-logomark-white-trim.png" alt=""></span>Team <i>·</i> Inside your operation</p>
+        <div class="pane__body">
+          <p class="pane__q"><span id="teamQ"></span><i class="caret"></i></p>
+          <div class="strata" id="strata">
+            <div class="stratum" data-stratum><b>Tools</b><span>Dropbox · Slack · Sheets · Notion · Gmail</span></div>
+            <div class="stratum" data-stratum><b>History</b><span>9 versions · 3 threads · 14 decisions</span></div>
+            <div class="stratum" data-stratum><b>People</b><span>Mix: Maya · A&amp;R: Theo · Distro: Sam</span></div>
+            <div class="stratum" data-stratum><b>Money</b><span>Vinyl PO · shoot budget · splits</span></div>
+            <div class="stratum" data-stratum><b>Dates</b><span>Embargo Fri · launch t–9w</span></div>
+          </div>
+          <div class="pane__ans" id="teamA">
+            <p><b>v10 · /Masters/Single_Master_v10.wav.</b> Approved by Maya in #audio on Tuesday.
+              The one-sheet and distributor brief already reference it. I re-briefed both when it landed at 23:41.</p>
+            <p class="pane__rcpts"><span>Dropbox ✓</span><span>#audio ✓</span><span>One-sheet ✓</span><span>Distro brief ✓</span></p>
+          </div>
+        </div>
+        <p class="pane__tags pane__tags--team">Built-in memory · Whole-business context · Already working</p>
+        <div class="pane__brands pane__brands--team">
+          <img src="assets/logo/team-logo-live.svg" alt="Team">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ACT 4 · REASON ══════════════ -->
+<section class="pin pin--reason" id="act-reason" data-scrub="reason">
+  <div class="pin__stage stage--split stage--rev">
+    <div class="split__copy">
+      <h2 class="h2">Team holds<br><em>the whole picture.</em></h2>
+      <p class="lede">It remembers the history, understands what’s happening now, and helps you see what changed, what matters, and what to do next. Across every artist, campaign, rollout, release, budget, and decision.</p>
+    </div>
+    <div class="split__viz split__viz--cards">
+      <div class="pulse" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="insight" data-insight data-kind="change">
+        <div class="insight__head">
+          <span class="insight__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg></span>
+          <span class="insight__tag">Change detected</span>
+          <span class="insight__dot"></span>
+        </div>
+        <p>Marketing budget <b>$2,500 → $3,100</b>. Your one-sheet and Notion plan still show the old figure.</p>
+        <span class="insight__src">source · Sheets, row 14 — 14:02</span>
+      </div>
+      <div class="insight" data-insight data-kind="risk">
+        <div class="insight__head">
+          <span class="insight__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+          <span class="insight__tag">Timeline risk</span>
+          <span class="insight__dot"></span>
+        </div>
+        <p>Vinyl lead time is <b>11 weeks</b>. Street date is 9 weeks out. Flagging before the PO is placed.</p>
+        <span class="insight__src">source · PO #1042 + release timeline</span>
+      </div>
+      <div class="insight" data-insight data-kind="signal">
+        <div class="insight__head">
+          <span class="insight__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg></span>
+          <span class="insight__tag">Signal</span>
+          <span class="insight__dot"></span>
+        </div>
+        <p>Pre-save velocity <b>doubled</b> since the teaser posted. Worth moving the playlist pitch up.</p>
+        <span class="insight__src">source · DSP feed, last 48h</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ACT 5 · ACT ══════════════ -->
+<section class="actwork" id="act-act">
+  <div class="actwork__inner">
+    <div class="split__copy">
+      <h2 class="h2" data-reveal>Then Team<br><em>does the work.</em></h2>
+      <p class="lede" data-reveal data-delay="140">Timelines re-cut. Budgets synced everywhere. The missing master chased. Whatever the update, Team provides receipts for all of it, and makes sure only the actions that need a human reach you.</p>
+    </div>
+    <div class="ledger" data-ledger>
+      <div class="ledger__head">
+        <span class="tmate__mark"><img src="assets/logo/team-logomark-white-trim.png" alt=""></span>
+        <b>teammate</b>
+        <span class="ledger__when">Overnight — while you slept</span>
+        <span class="ledger__status"></span>
+      </div>
+      <div class="ledger__row" data-line><span class="t">23:41</span><span class="w">Re-cut release timeline around the new street date</span><span class="s ok">done</span></div>
+      <div class="ledger__row" data-line><span class="t">23:43</span><span class="w">Updated budget in Notion + one-sheet <i>(source: Sheets)</i></span><span class="s ok">done</span></div>
+      <div class="ledger__row" data-line><span class="t">02:57</span><span class="w">Re-briefed press list on the new embargo date</span><span class="s ok">done</span></div>
+      <div class="ledger__row" data-line><span class="t">06:05</span><span class="w">Vinyl PO #1042 needs your sign-off before Friday</span><span class="s wait">needs you</span></div>
+      <p class="ledger__sms" data-line>Morning. Four things moved overnight — I handled three. The vinyl PO needs your call before Friday.</p>
+      <span class="ledger__pill" data-line><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="7" cy="7" r="2.6"/><circle cx="17" cy="7" r="2.6"/><circle cx="7" cy="17" r="2.6"/><circle cx="17" cy="17" r="2.6"/></svg>Open the morning brief</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ACT 6 · THE CATCH ══════════════ -->
+<!-- HIDDEN for now (per Simon, 2026-07-08) — remove style="display:none" to bring the 02:43am story back -->
+<section class="pin pin--catch" id="act-catch" data-scrub="catch" style="display:none">
+  <div class="pin__stage">
+    <div class="catch__bg"><img src="assets/img/bg-02.jpg" alt="" aria-hidden="true"></div>
+    <div class="catch__sheet">
+      <p class="kline" data-k>It's 02:43am.</p>
+      <p class="kline" data-k>The video budget doubles in Sheets.</p>
+      <p class="kline" data-k>Now the one-sheet, the plan and the PO are all wrong.</p>
+      <p class="kline" data-k>Team re-cuts everything.</p>
+      <p class="catch__huge" data-slept>All while you <em>slept.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ ACT 7 · WHO ══════════════ -->
+<section class="who" id="act-who">
+  <h2 class="h2 who__head" data-reveal>Designed for the people <em>who run releases.</em></h2>
+  <p class="who__sub" data-reveal data-delay="100">Music businesses don’t run on one tool. They run on ‘I think it’s in the deck.’</p>
+  <div class="who__grid">
+    <a class="whocard-link" href="for-artists.html"><article class="whocard" data-reveal>
+      <span class="whocard__no">①</span>
+      <div class="whocard__img"><img src="assets/img/bg-02.jpg" alt="" loading="lazy"></div>
+      <h3>Solo<br>Artists</h3>
+      <p class="whocard__line"><em>Make the record. Team runs the rollout.</em></p>
+      <p>Stay across every moving part of your release without living in the admin of it.</p>
+    </article></a>
+    <a class="whocard-link" href="for-managers.html"><article class="whocard" data-reveal data-delay="100">
+      <span class="whocard__no">②</span>
+      <div class="whocard__img"><img src="assets/img/bg-03.jpg" alt="" loading="lazy"></div>
+      <h3>Artist<br>managers</h3>
+      <p class="whocard__line"><em>The roster runs while you're on the road.</em></p>
+      <p>Ops keep moving between flights, calls and shows. You get the three things that actually need you.</p>
+    </article></a>
+    <a class="whocard-link" href="for-labels.html"><article class="whocard" data-reveal data-delay="200">
+      <span class="whocard__no">③</span>
+      <div class="whocard__img"><img src="assets/img/bg-01.jpg" alt="" loading="lazy"></div>
+      <h3>Indie &amp;<br>major labels</h3>
+      <p class="whocard__line"><em>Every artist, every release — one picture.</em></p>
+      <p>See how the whole slate ties together: what's working, what's slipping, where to double down next.</p>
+    </article></a>
+    <a class="whocard-link" href="for-partners.html"><article class="whocard" data-reveal data-delay="300">
+      <span class="whocard__no">④</span>
+      <div class="whocard__img"><img src="assets/img/bg-02.jpg" alt="" loading="lazy" style="transform:scaleX(-1)"></div>
+      <h3>Distributors &amp;<br>partners</h3>
+      <p class="whocard__line"><em>Scale without the spreadsheet sprawl.</em></p>
+      <p>Hundreds of releases, one reasoning layer across every partner, pipeline and deadline.</p>
+    </article></a>
+  </div>
+</section>
+
+<!-- ══════════════ ACT 8 · CREDO ══════════════ -->
+<!-- HIDDEN for now (per Simon, 2026-07-08) — remove style="display:none" to bring the credo back -->
+<section class="credo" id="act-credo" style="display:none">
+  <svg class="credo__star" viewBox="0 0 100 100" aria-hidden="true"><g stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"><line x1="50" y1="4" x2="50" y2="96"/><line x1="10" y1="27" x2="90" y2="73"/><line x1="90" y1="27" x2="10" y2="73"/></g></svg>
+  <div class="credo__grid">
+    <div class="credo__copy">
+      <h2 class="credo__title" data-reveal>Not another tool.<br><span>The <em>intelligence</em><br>between them.</span></h2>
+      <p class="lede" data-reveal data-delay="120">Everything you already use keeps working. Team is the layer underneath — watching, reasoning, acting — so the stack finally behaves like one system.</p>
+      <p class="credo__mark" data-reveal data-delay="200"><em>Connected</em>
+        <svg class="star star--m spin" viewBox="0 0 100 100" aria-hidden="true"><g stroke="currentColor" stroke-width="8" stroke-linecap="round"><line x1="50" y1="6" x2="50" y2="94"/><line x1="12" y1="28" x2="88" y2="72"/><line x1="88" y1="28" x2="12" y2="72"/></g></svg>
+      <em>by design</em></p>
+    </div>
+    <ul class="credo__rail">
+      <li class="chip" data-strike><i>01</i>Another dashboard to check</li>
+      <li class="chip" data-strike><i>02</i>Another tab to keep open</li>
+      <li class="chip" data-strike><i>03</i>Another system to migrate to</li>
+      <li class="chip" data-strike><i>04</i>Another login to forget</li>
+      <li class="chip chip--lit" data-reveal data-delay="300"><i>✳</i>One layer that connects them all — <img src="assets/logo/team-logo-live.svg" alt="team"></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════════ ACT 9 · FINALE ══════════════ -->
+<section class="finale" id="act-access">
+  <div class="finale__bg"><img src="assets/img/bg-03.jpg" alt="" aria-hidden="true"></div>
+  <div class="finale__inner">
+    <h2 class="finale__title" data-reveal>Try it on your<br><em>next release.</em></h2>
+    <p class="finale__sub" data-reveal data-delay="150">The Team beta program is now open. Sign up today.</p>
+    <form class="finale__form" id="betaForm" data-reveal data-delay="260">
+      <div class="finale__names">
+        <input type="text" name="first_name" required placeholder="First name" aria-label="First name" autocomplete="given-name">
+        <input type="text" name="last_name" required placeholder="Last name" aria-label="Last name" autocomplete="family-name">
+      </div>
+      <div class="finale__row">
+        <input type="email" name="email" required placeholder="you@yourlabel.com" aria-label="Email address" autocomplete="email">
+        <button type="submit" data-hover>Sign me up</button>
+      </div>
+      <input type="text" name="website" class="finale__hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <span class="finale__sent">✳ &nbsp;You're on the list — we'll be in touch.</span>
+      <span class="finale__err">Something went wrong — please try again, or email simon@teamrollouts.com.</span>
+    </form>
+    <a class="finale__demo" href="#demo" data-demo data-hover>Book a walkthrough →</a>
+  </div>
+  <footer class="footer">
+    <img src="assets/logo/team-logo-live.svg" alt="team" class="footer__logo">
+    <p>Operational Intelligence for Music Releases</p>
+    <p class="footer__legal">© 2026 Team Rollouts</p>
+  </footer>
+</section>
+
+</main>
+<script src="js/onepager.js"></script>
+<script src="js/chrome.js"></script>
+<!-- HIDDEN for now (per Simon, 2026-07-08): scripts for the parked lorbit/notifications hero
+<script src="js/nh-hero.js"></script>
+<script src="js/orbit-logos.js"></script> -->
+</body>
+</html>

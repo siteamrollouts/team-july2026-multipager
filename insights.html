@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tm-theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.dataset.theme=t}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Insights | Team</title>
+<meta name="description" content="Strategy, industry trends, and how the best teams ship releases. Playbooks and ideas from Team.">
+<link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-Variable.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/insights.css">
+</head>
+<body data-nav="resources">
+
+<section class="phero container" id="top">
+  <div class="phero__in">
+    <h1 class="h1"><em>Insights.</em></h1>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="itools reveal">
+    <div class="ichips"><button class="ichip on" data-cat="all">All</button><button class="ichip" data-cat="guides">Guides</button><button class="ichip" data-cat="strategy">Strategy</button><button class="ichip" data-cat="industry">Industry</button></div>
+    <label class="isearch"><input type="search" id="isearch" placeholder="Search posts..." aria-label="Search posts"></label>
+  </div>
+  <div class="igrid" id="igrid">
+    <a class="icard reveal" href="insights/the-88-percent-problem.html" data-cat="strategy" data-search="the 88% problem: why most music fails before anyone hears it last year, 88% of tracks got fewer than 1,000 plays. the reason has almost nothing to do with the music, and almost everything to do with the campaign infrastructure around it.">
+      <div class="icard__top">
+        <span class="icard__cat">Strategy</span>
+        <span class="icard__read">9 min</span>
+      </div>
+      <h2 class="icard__title">The 88% Problem: Why Most Music Fails Before Anyone Hears It</h2>
+      <p class="icard__excerpt">Last year, 88% of tracks got fewer than 1,000 plays. The reason has almost nothing to do with the music, and almost everything to do with the campaign infrastructure around it.</p>
+      <div class="icard__foot"><span>July 8, 2026</span><span class="icard__arrow">&rarr;</span></div>
+    </a>
+    <a class="icard reveal" href="insights/real-ai-problem-in-music.html" data-cat="industry" data-search="the real ai problem in music has nothing to do with music the industry is fixated on whether ai can make music. the more urgent question is what happens around the music, where coordination, not creativity, is what actually breaks.">
+      <div class="icard__top">
+        <span class="icard__cat">Industry</span>
+        <span class="icard__read">5 min</span>
+      </div>
+      <h2 class="icard__title">The Real AI Problem in Music Has Nothing to Do With Music</h2>
+      <p class="icard__excerpt">The industry is fixated on whether AI can make music. The more urgent question is what happens around the music, where coordination, not creativity, is what actually breaks.</p>
+      <div class="icard__foot"><span>June 24, 2026</span><span class="icard__arrow">&rarr;</span></div>
+    </a>
+    <a class="icard reveal" href="insights/ai-music-industry-nuanced.html" data-cat="industry" data-search="the music industry's relationship with ai is more nuanced than you think ai is not replacing the instincts that make great music teams. it is giving those instincts context. here is how the sharpest teams use it without losing the human touch.">
+      <div class="icard__top">
+        <span class="icard__cat">Industry</span>
+        <span class="icard__read">6 min</span>
+      </div>
+      <h2 class="icard__title">The Music Industry's Relationship With AI Is More Nuanced Than You Think</h2>
+      <p class="icard__excerpt">AI is not replacing the instincts that make great music teams. It is giving those instincts context. Here is how the sharpest teams use it without losing the human touch.</p>
+      <div class="icard__foot"><span>April 14, 2026</span><span class="icard__arrow">&rarr;</span></div>
+    </a>
+    <a class="icard reveal" href="insights/stop-treating-release-as-project.html" data-cat="strategy" data-search="stop treating your release like a project a release is not a project with an end date. it is an operation that runs. the teams that internalize the difference are the ones that scale without breaking.">
+      <div class="icard__top">
+        <span class="icard__cat">Strategy</span>
+        <span class="icard__read">7 min</span>
+      </div>
+      <h2 class="icard__title">Stop Treating Your Release Like a Project</h2>
+      <p class="icard__excerpt">A release is not a project with an end date. It is an operation that runs. The teams that internalize the difference are the ones that scale without breaking.</p>
+      <div class="icard__foot"><span>March 18, 2026</span><span class="icard__arrow">&rarr;</span></div>
+    </a>
+    <a class="icard reveal" href="insights/release-day-checklist.html" data-cat="guides" data-search="the release day checklist for independent artists release day is the most important 24 hours of your campaign. everything you have built toward comes down to execution. here is what to do, broken down by timing.">
+      <div class="icard__top">
+        <span class="icard__cat">Guides</span>
+        <span class="icard__read">10 min</span>
+      </div>
+      <h2 class="icard__title">The Release Day Checklist for Independent Artists</h2>
+      <p class="icard__excerpt">Release day is the most important 24 hours of your campaign. Everything you have built toward comes down to execution. Here is what to do, broken down by timing.</p>
+      <div class="icard__foot"><span>February 25, 2026</span><span class="icard__arrow">&rarr;</span></div>
+    </a>
+  </div>
+  <p class="iempty" id="iempty" hidden>No posts match that yet.</p>
+</section>
+
+<script src="js/brain.js"></script>
+<script src="js/chrome.js"></script>
+<script>
+/* category + search filtering, client-side */
+(() => {
+  const grid = document.getElementById('igrid');
+  const cards = [...grid.querySelectorAll('.icard')];
+  const chips = [...document.querySelectorAll('.ichip')];
+  const search = document.getElementById('isearch');
+  const empty = document.getElementById('iempty');
+  let cat = 'all';
+  const apply = () => {
+    const q = search.value.trim().toLowerCase();
+    let shown = 0;
+    cards.forEach(c => {
+      const ok = (cat === 'all' || c.dataset.cat === cat) && (!q || c.dataset.search.includes(q));
+      c.style.display = ok ? '' : 'none';
+      if (ok) shown++;
+    });
+    empty.hidden = shown > 0;
+  };
+  chips.forEach(ch => ch.addEventListener('click', () => {
+    chips.forEach(x => x.classList.remove('on'));
+    ch.classList.add('on');
+    cat = ch.dataset.cat;
+    apply();
+  }));
+  search.addEventListener('input', apply);
+})();
+</script>
+</body>
+</html>

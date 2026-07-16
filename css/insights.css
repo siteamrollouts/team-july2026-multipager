@@ -1,0 +1,66 @@
+/* ═══ Insights — index grid + post prose ═══
+   Loaded by insights.html (index) and every insights/<slug>.html (post).
+   Depends on base.css tokens. */
+
+/* keep hero + sections above the ambient brain scrim (z-index:1) */
+.phero,.post,.itools,.igrid,.iempty{position:relative;z-index:2}
+
+/* ── index tools: filter chips + search ── */
+.itools{display:flex;flex-wrap:wrap;gap:1rem 1.5rem;align-items:center;justify-content:space-between;max-width:var(--maxw);margin:0 auto 2.4rem}
+.ichips{display:flex;flex-wrap:wrap;gap:.5rem}
+.ichip{background:var(--glass);border:1px solid var(--line);color:var(--bone-dim);font-family:inherit;font-size:.85rem;padding:.5rem 1rem;border-radius:99px;cursor:pointer;transition:color .2s,border-color .2s,background .2s}
+.ichip:hover{color:var(--bone);border-color:var(--line-2)}
+.ichip.on{background:var(--lime);color:var(--on-accent);border-color:var(--accent);font-weight:560}
+.isearch{display:flex;align-items:center}
+.isearch input{background:var(--glass);border:1px solid var(--line);border-radius:99px;padding:.6rem 1.2rem;color:var(--bone);font-family:inherit;font-size:.9rem;outline:none;min-width:15rem;transition:border-color .25s}
+.isearch input:focus{border-color:rgba(217,250,135,.5)}
+.isearch input::placeholder{color:var(--bone-faint)}
+
+/* ── card grid ── */
+.igrid{display:grid;gap:1.2rem;grid-template-columns:1fr;max-width:var(--maxw);margin:0 auto}
+@media(min-width:640px){.igrid{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.igrid{grid-template-columns:1fr 1fr 1fr}}
+.icard{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:20px;background:var(--ink-2);padding:1.7rem 1.6rem 1.4rem;transition:border-color .35s,transform .35s var(--ease),background .35s}
+.icard:hover{transform:translateY(-4px);border-color:var(--line-2);background:var(--ink-3)}
+.icard__top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem}
+.icard__cat{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.icard__read{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--bone-faint)}
+.icard__title{font-family:var(--font-display);font-weight:400;font-size:1.28rem;line-height:1.22;letter-spacing:-.01em;color:var(--bone);margin:0 0 .7rem}
+.icard__excerpt{color:var(--bone-dim);font-size:.92rem;line-height:1.55;margin:0;flex:1}
+.icard__foot{display:flex;align-items:center;justify-content:space-between;margin-top:1.4rem;padding-top:1.1rem;border-top:1px solid var(--line-2);color:var(--bone-faint);font-size:.82rem}
+.icard__arrow{color:var(--accent);transition:transform .3s var(--ease)}
+.icard:hover .icard__arrow{transform:translateX(4px)}
+.iempty{text-align:center;color:var(--bone-dim);margin-top:2rem}
+
+/* ── post page ── */
+.post{max-width:46rem;padding-top:9rem}
+.post__back{display:inline-block;color:var(--bone-dim);font-size:.86rem;margin-bottom:2rem;transition:color .2s}
+.post__back:hover{color:var(--accent)}
+.post__cat{display:block;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+.post__title{font-family:var(--font-display);font-weight:360;font-size:clamp(2rem,4.6vw,3.1rem);line-height:1.1;letter-spacing:-.02em;color:var(--bone);margin:0}
+.post__meta{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;margin-top:1.4rem;color:var(--bone-faint);font-size:.86rem}
+.post__meta .dot{width:3px;height:3px;border-radius:50%;background:var(--bone-faint)}
+.post__hero{width:100%;border-radius:16px;margin-top:2.2rem;border:1px solid var(--line)}
+
+/* prose — the rendered markdown body */
+.prose{margin-top:2.6rem;color:var(--bone-dim);font-size:1.05rem;line-height:1.72}
+.prose>*+*{margin-top:1.3rem}
+.prose h2{font-family:var(--font-display);font-weight:400;font-size:clamp(1.4rem,2.8vw,1.8rem);line-height:1.25;letter-spacing:-.01em;color:var(--bone);margin-top:2.8rem}
+.prose h3{font-family:var(--font-display);font-weight:500;font-size:1.2rem;color:var(--bone);margin-top:2rem}
+.prose p{margin-top:1.3rem}
+.prose a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.prose a:hover{color:var(--bone)}
+.prose strong{color:var(--bone);font-weight:600}
+.prose em{font-family:var(--font-serif);font-style:italic}
+.prose ul,.prose ol{margin-top:1.3rem;padding-left:1.3rem;display:flex;flex-direction:column;gap:.65rem}
+.prose li{line-height:1.65}
+.prose li::marker{color:var(--accent)}
+.prose blockquote{border-left:2px solid var(--lime);padding:.2rem 0 .2rem 1.4rem;margin-top:1.8rem;color:var(--bone);font-family:var(--font-serif);font-style:italic;font-size:1.2rem;line-height:1.5}
+.prose img{width:100%;border-radius:14px;border:1px solid var(--line);margin-top:1.8rem}
+.prose hr{border:0;border-top:1px solid var(--line);margin-top:2.2rem}
+
+/* end-of-post CTA band (mirrors the pricing page's .pfinal) */
+.pfinal{position:relative;z-index:2;overflow:hidden;max-width:52rem;margin:0 auto;text-align:center;padding:clamp(3rem,6vw,5rem) clamp(1.5rem,4vw,4rem);border:1px solid var(--line);border-radius:28px;background:var(--ink-2)}
+.pfinal::before{content:'';position:absolute;left:50%;top:-40%;width:130%;height:130%;transform:translateX(-50%);background:radial-gradient(ellipse 46% 42% at 50% 0%,rgba(217,250,135,.18),transparent 68%);pointer-events:none}
+.pfinal>*{position:relative}
+.pfinal .h2{max-width:20ch;margin:0 auto 1.6rem}

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tm-theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.dataset.theme=t}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Platform — How Team works | A brain for music operations</title>
+<meta name="description" content="Team connects the tools your music operation already runs on, reasons across all of them, and does the work. Replace nothing. Connect everything.">
+<link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-Variable.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/base.css">
+<style>
+  /* ═══════════════════════════════════════════════════════════════
+     Overview — cinematic. One continuous argument: fragmented tools →
+     converge into the brain → answers emit → every source sharpens them →
+     generic AI can't do this → start. The brain is the protagonist; the
+     background evolves; one scroll-scrubbed transformation is the signature.
+     ═══════════════════════════════════════════════════════════════ */
+  .phero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+    padding-top:7rem;padding-bottom:4rem}
+  .phero__in{max-width:56rem}
+  .phero .h1{font-size:clamp(2.8rem,6.4vw,5.4rem)}
+
+  /* ═══ SIGNATURE — scroll-scrubbed convergence ═══
+     .cvg is tall; .cvg__stage pins (sticky) for its duration. JS sets --conv
+     (0→1 tools fly into the core) and --emit (0→1 answers stream out). All the
+     motion is pure CSS driven by those two custom props — buttery, no thrash. */
+  .cvg{position:relative;z-index:2;height:300vh}
+  .cvg--static{height:auto}
+  .cvg__stage{position:sticky;top:0;height:100vh;overflow:hidden;display:grid;grid-template-rows:auto 1fr;
+    --conv:0;--emit:0}
+  .cvg--static .cvg__stage{position:relative;height:auto;min-height:82vh;padding-block:4rem}
+  /* the stage warms into an "activated" field as the tools cohere */
+  .cvg__stage::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 52% 46% at 50% 56%,rgba(217,250,135,calc(.16*var(--conv))),transparent 70%);
+    opacity:calc(.4 + .6*var(--conv))}
+  :root[data-theme="light"] .cvg__stage::before{background:radial-gradient(ellipse 52% 46% at 50% 56%,rgba(150,190,60,calc(.16*var(--conv))),transparent 70%)}
+
+  .cvg__cap{position:relative;z-index:3;text-align:center;padding:clamp(4.5rem,9vh,7rem) var(--pad) 0}
+  .cvg__k{position:absolute;left:0;right:0;top:clamp(4.5rem,9vh,7rem);opacity:0;transform:translateY(10px);
+    transition:opacity .32s var(--ease),transform .32s var(--ease);pointer-events:none}
+  .cvg__k.on{opacity:1;transform:none}
+  .cvg__k h2{font-size:clamp(1.6rem,3.6vw,2.7rem)}
+  .cvg__k p{color:var(--bone-dim);max-width:34rem;margin:.9rem auto 0;font-size:clamp(.95rem,1.3vw,1.1rem);line-height:1.5}
+  .cvg--static .cvg__k{position:static;opacity:1;transform:none;margin-bottom:2.5rem}
+
+  .cvg__field{position:relative;z-index:2;align-self:center;width:100%;height:100%;min-height:46vh}
+  .cvg--static .cvg__field{height:auto;min-height:0;margin-top:1rem}
+  /* scattered tools — each flies from (--sx,--sy) to centre as --conv→1 */
+  .cvg__tool{position:absolute;left:50%;top:50%;width:clamp(2.6rem,5vw,3.4rem);height:clamp(2.6rem,5vw,3.4rem);
+    border-radius:14px;background:var(--glass);border:1px solid var(--line);display:grid;place-items:center;
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    transform:translate(-50%,-50%)
+      translate(calc(var(--sx) * (1 - var(--conv))), calc(var(--sy) * (1 - var(--conv))))
+      scale(calc(1 - .42*var(--conv)));
+    opacity:calc((.35 + .65*var(--af)) * (1 - .78*var(--conv)));
+    transition:opacity .3s linear}
+  .cvg__tool img{width:56%;height:56%;object-fit:contain}
+  .cvg--static .cvg__tool{opacity:.16}
+  /* the brain core — grows + ignites as the tools land in it */
+  .cvg__core{position:absolute;left:50%;top:50%;width:clamp(5rem,11vw,7.5rem);height:clamp(5rem,11vw,7.5rem);
+    border-radius:50%;background:var(--lime);display:grid;place-items:center;
+    transform:translate(-50%,-50%) scale(calc(.52 + .68*var(--conv)));
+    box-shadow:0 0 calc(24px + 96px*var(--conv)) rgba(217,250,135,calc(.25 + .4*var(--conv)));
+    opacity:calc(.5 + .5*var(--conv))}
+  .cvg__core img{width:44%;filter:brightness(0)}
+  .cvg__pulse{position:absolute;left:50%;top:50%;width:clamp(5rem,11vw,7.5rem);height:clamp(5rem,11vw,7.5rem);
+    border-radius:50%;border:1px solid var(--accent);transform:translate(-50%,-50%) scale(calc(1 + 1.6*var(--emit)));
+    opacity:calc(.5*var(--emit)*(1 - var(--emit))*4);pointer-events:none}
+  /* the three answers, streaming out after convergence */
+  .cvg__out{position:absolute;left:50%;top:calc(50% + clamp(5rem,10vw,7rem));transform:translateX(-50%);
+    width:min(30rem,86vw);display:flex;flex-direction:column;gap:.65rem;z-index:4}
+  .cvg__ans{display:flex;gap:.7rem;align-items:center;padding:.8rem 1rem;border-radius:12px;
+    background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    font-size:.92rem;color:var(--bone);
+    opacity:clamp(0, calc(var(--emit)*3 - var(--d)), 1);
+    transform:translateY(calc(14px * (1 - clamp(0, calc(var(--emit)*3 - var(--d)), 1))))}
+  .cvg__ans b{color:var(--accent);font-weight:700;flex:none;width:1.1rem;text-align:center}
+
+  /* ═══ MOAT — every source sharpens every answer (the emotional peak) ═══ */
+  .moat__grid{display:grid;gap:clamp(2rem,5vw,4.5rem);align-items:center;grid-template-columns:1fr}
+  @media(min-width:900px){.moat__grid{grid-template-columns:1fr 1.05fr}}
+  .moat__copy h2{margin-bottom:1.1rem}
+  .moat__copy .btn{margin-top:1.7rem}
+  .moat__viz{position:relative}
+  .moat__sources{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem}
+  .moat__src{display:flex;align-items:center;gap:.5rem;padding:.5rem .8rem;border:1px solid var(--line);border-radius:99px;
+    font-size:.78rem;color:var(--bone-faint);background:var(--glass);opacity:.34;transform:translateY(5px);
+    transition:opacity .5s var(--ease),transform .5s var(--ease),color .5s,border-color .5s}
+  .moat__src img{width:15px;height:15px;object-fit:contain}
+  .moat__src.on{opacity:1;transform:none;color:var(--bone);border-color:rgba(217,250,135,.55);background:rgba(217,250,135,.06)}
+  .moat__answer{border:1px solid var(--line);border-radius:16px;background:var(--ink-2);padding:1.4rem 1.5rem;
+    filter:blur(4px);opacity:.55;transition:filter 1.1s var(--ease),opacity 1.1s var(--ease)}
+  .moat__answer.sharp{filter:none;opacity:1}
+  .moat__answer .top{display:flex;align-items:center;gap:.5rem;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-family:var(--font-mono);margin-bottom:.8rem}
+  .moat__answer .top .mk{width:18px;height:18px;border-radius:5px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center}
+  .moat__answer .top .mk img{width:10px}
+  .moat__answer p{font-size:.95rem;line-height:1.55;color:var(--bone)}
+  .moat__answer p b{color:var(--accent);font-weight:600}
+  .moat__meter{margin-top:1.1rem}
+  .moat__meter .lab{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-faint);margin-bottom:.4rem}
+  .moat__meter .lab b{color:var(--accent)}
+  .moat__bar{height:4px;border-radius:99px;background:rgba(239,235,227,.1);overflow:hidden}
+  .moat__bar i{display:block;height:100%;width:22%;background:var(--lime);border-radius:99px;transition:width 1.3s var(--ease)}
+  .moat__answer.sharp .moat__bar i{width:97%}
+
+  /* ═══ CONTRAST — a darker beat of stillness before the close ═══ */
+  .contrast{position:relative}
+  .contrast::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(0,0,0,.35),transparent 72%)}
+  :root[data-theme="light"] .contrast::before{background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(25,21,18,.05),transparent 72%)}
+
+  /* ═══ FINALE ═══ */
+  .finale-cta{position:relative;text-align:center;max-width:52rem;margin:0 auto;overflow:hidden;
+    padding:clamp(3rem,6vw,5rem) clamp(1.5rem,4vw,4rem);border:1px solid var(--line);border-radius:28px;background:var(--ink-2)}
+  .finale-cta::before{content:'';position:absolute;left:50%;top:-40%;width:130%;height:130%;transform:translateX(-50%);
+    background:radial-gradient(ellipse 46% 42% at 50% 0%,var(--bloom),transparent 68%);pointer-events:none;opacity:2.4}
+  .finale-cta>*{position:relative}
+  .finale-cta__mark{width:3.5rem;height:3.5rem;border-radius:15px;background:var(--lime);display:grid;place-items:center;
+    margin:0 auto 1.7rem;box-shadow:0 0 54px rgba(217,250,135,.32)}
+  .finale-cta__mark img{width:1.75rem;filter:brightness(0)}
+  .finale-cta .h2{max-width:18ch;margin:0 auto 1rem}
+  .finale-cta__sub{color:var(--bone-dim);max-width:40ch;margin:0 auto 2.1rem;font-size:1.04rem;line-height:1.55}
+</style>
+</head>
+<body data-nav="platform">
+
+<!-- ══ HERO ══ -->
+<section class="phero">
+  <div class="phero__in">
+    <h1 class="h1">Replace nothing.<br>Connect <em>everything.</em></h1>
+    <p class="lede" style="margin-inline:auto">Your release already runs across a dozen tools and twice as many hands. Team is the intelligence that connects them, reasons across all of it, and tells you what changed, what matters, and what to do next.</p>
+    <div class="phero__cta">
+      <a class="btn btn--solid" href="pricing.html#beta">Get started</a>
+      <a class="btn btn--ghost" href="#demo" data-demo>Get a demo <span class="btn__arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SIGNATURE — the convergence ══ -->
+<section class="cvg" id="cvg">
+  <div class="cvg__stage">
+    <div class="cvg__cap">
+      <div class="cvg__k" data-phase="0">
+        <h2 class="h2"><em>Connect</em> the stack you run on.</h2>
+        <p>Slack, Drive, Dropbox, Notion, Sheets, your distributor, your PRO. Nothing to migrate, nothing to rip out.</p>
+      </div>
+      <div class="cvg__k" data-phase="1">
+        <h2 class="h2">Understand <em>the whole release at once.</em></h2>
+        <p>Every change, thread, and file, read as it happens and held in one model. The context that usually lives everywhere and nowhere.</p>
+      </div>
+      <div class="cvg__k" data-phase="2">
+        <h2 class="h2">Act, and <em>only surface</em> what needs you.</h2>
+        <p>Timelines re-cut, budgets synced, the missing master chased, with receipts. Only the calls that need a human reach you.</p>
+      </div>
+    </div>
+    <div class="cvg__field" id="cvgField">
+      <span class="cvg__tool" style="--sx:-40vw;--sy:-22vh;--af:.9"><img src="assets/logos/slack.svg" alt="Slack"></span>
+      <span class="cvg__tool" style="--sx:38vw;--sy:-26vh;--af:.8"><img src="assets/logos/dropbox.svg" alt="Dropbox"></span>
+      <span class="cvg__tool" style="--sx:-44vw;--sy:14vh;--af:.7"><img src="assets/logos/notion.svg" alt="Notion"></span>
+      <span class="cvg__tool" style="--sx:44vw;--sy:10vh;--af:.85"><img src="assets/logos/googlesheets.svg" alt="Sheets"></span>
+      <span class="cvg__tool" style="--sx:-26vw;--sy:-32vh;--af:.6"><img src="assets/logos/gmail.svg" alt="Gmail"></span>
+      <span class="cvg__tool" style="--sx:24vw;--sy:30vh;--af:.7"><img src="assets/logos/googledrive.svg" alt="Drive"></span>
+      <span class="cvg__tool" style="--sx:-14vw;--sy:32vh;--af:.55"><img src="assets/logos/googlecalendar.svg" alt="Calendar"></span>
+      <span class="cvg__tool" style="--sx:14vw;--sy:-34vh;--af:.65"><img src="assets/logos/trello.svg" alt="Trello"></span>
+      <span class="cvg__tool" style="--sx:-34vw;--sy:-4vh;--af:.5"><img src="assets/logos/airtable.svg" alt="Airtable"></span>
+      <span class="cvg__tool" style="--sx:34vw;--sy:-6vh;--af:.5"><img src="assets/logos/linear.svg" alt="Linear"></span>
+      <div class="cvg__pulse"></div>
+      <div class="cvg__core"><img src="assets/logo/team-logomark-black.png" alt="Team"></div>
+      <div class="cvg__out">
+        <div class="cvg__ans" style="--d:0"><b>△</b> What changed, and what it breaks downstream</div>
+        <div class="cvg__ans" style="--d:1"><b>✳</b> What matters most, right now</div>
+        <div class="cvg__ans" style="--d:2"><b>→</b> The next move, done or flagged for you</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MOAT ══ -->
+<section class="section container band" id="moat">
+  <div class="moat__grid reveal">
+    <div class="moat__copy">
+      <h2 class="h2">Every source you add makes <em>every answer sharper.</em></h2>
+      <p class="lede">Team isn't a bundle of tools. It's a reasoning layer that gets smarter with every part of your operation it can see. Connect one tool and it helps. Connect your whole stack and almost nothing slips past it.</p>
+      <a class="btn btn--ghost" href="integrations.html">View all integrations <span class="btn__arr">→</span></a>
+    </div>
+    <div class="moat__viz">
+      <div class="moat__sources" id="moatSrc">
+        <span class="moat__src"><img src="assets/logos/dropbox.svg" alt="">Dropbox</span>
+        <span class="moat__src"><img src="assets/logos/slack.svg" alt="">Slack</span>
+        <span class="moat__src"><img src="assets/logos/googlesheets.svg" alt="">Sheets</span>
+        <span class="moat__src"><img src="assets/logos/notion.svg" alt="">Notion</span>
+        <span class="moat__src"><img src="assets/logos/gmail.svg" alt="">Gmail</span>
+        <span class="moat__src"><img src="assets/logos/googlecalendar.svg" alt="">Calendar</span>
+        <span class="moat__src"><img src="assets/logos/googledrive.svg" alt="">Drive</span>
+        <span class="moat__src"><img src="assets/logos/airtable.svg" alt="">Airtable</span>
+        <span class="moat__src"><img src="assets/logos/linear.svg" alt="">Linear</span>
+        <span class="moat__src"><img src="assets/logos/instagram.svg" alt="">Instagram</span>
+        <span class="moat__src"><img src="assets/logos/youtube.svg" alt="">YouTube</span>
+        <span class="moat__src"><img src="assets/logos/trello.svg" alt="">Trello</span>
+      </div>
+      <div class="moat__answer ui-dark" id="moatAns">
+        <div class="top"><span class="mk"><img src="assets/logo/team-logomark-white-trim.png" alt=""></span>Where's the final master?</div>
+        <p><b>v10 · Single_Master_v10.wav</b> in Dropbox, approved by Maya in #audio Tuesday. The one-sheet and distributor brief already reference it.</p>
+        <div class="moat__meter">
+          <div class="lab"><span>Answer confidence</span><b id="moatPct">22%</b></div>
+          <div class="moat__bar"><i></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTRAST ══ -->
+<section class="section container contrast" id="chat-demo">
+  <h2 class="h2 chat__head reveal">AI chat tools <em>answer.</em><br>Team <em>understands.</em></h2>
+  <p class="chat__sub reveal">So instead of digging through six tools to prove something everyone vaguely remembers, you can just ask Team.</p>
+  <div class="chat__panes ui-dark">
+    <div class="pane pane--bot">
+      <p class="pane__bar">Generic AI chat <i>·</i> New session</p>
+      <div class="pane__body">
+        <p class="pane__q"><span id="botQ"></span><i class="caret"></i></p>
+        <p class="pane__a" id="botA"></p>
+      </div>
+      <p class="pane__tags">No memory · Resets every session · Sees only what you paste</p>
+    </div>
+    <div class="pane pane--team">
+      <p class="pane__bar"><span class="mark"><img src="assets/logo/team-logomark-white-trim.png" alt=""></span>TeamMate <i>·</i> Inside your operation</p>
+      <div class="pane__body">
+        <p class="pane__q"><span id="teamQ"></span><i class="caret"></i></p>
+        <div class="strata" id="strata">
+          <div class="stratum"><b>Tools</b><span>Dropbox · Slack · Sheets · Notion · Gmail</span></div>
+          <div class="stratum"><b>History</b><span>9 versions · 3 threads · 14 decisions</span></div>
+          <div class="stratum"><b>People</b><span>Mix: Maya · A&amp;R: Theo · Distro: Sam</span></div>
+          <div class="stratum"><b>Money</b><span>Vinyl PO · shoot budget · splits</span></div>
+          <div class="stratum"><b>Dates</b><span>Embargo Fri · launch t–9w</span></div>
+        </div>
+        <div class="pane__ans" id="teamA">
+          <p><b>v10 · /Masters/Single_Master_v10.wav.</b> Approved by Maya in #audio on Tuesday. The one-sheet and distributor brief already reference it. I re-briefed both when it landed at 23:41.</p>
+          <p class="pane__rcpts"><span>Dropbox ✓</span><span>#audio ✓</span><span>One-sheet ✓</span><span>Distro brief ✓</span></p>
+        </div>
+      </div>
+      <p class="pane__tags pane__tags--team">Built-in memory · Whole-business context · Already working</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FINALE ══ -->
+<section class="section container">
+  <div class="finale-cta reveal">
+    <span class="finale-cta__mark"><img src="assets/logo/team-logomark-black.png" alt=""></span>
+    <h2 class="h2">Try it on your <em>next release.</em></h2>
+    <p class="finale-cta__sub">Connect your stack in minutes and let Team start reasoning across your release from day one.</p>
+    <div class="ctaband__row">
+      <a class="btn btn--solid" href="pricing.html#beta">Get started</a>
+      <a class="btn btn--ghost" href="#demo" data-demo>Get a demo <span class="btn__arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<script src="js/brain.js"></script>
+<script src="js/chrome.js"></script>
+<script>
+/* ── SIGNATURE: scrub the convergence. JS only sets --conv / --emit; all the
+   motion is CSS calc off those two props (no per-frame layout thrash). ── */
+(() => {
+  const cvg = document.getElementById('cvg'); if (!cvg) return;
+  const stage = cvg.querySelector('.cvg__stage');
+  const caps = [...cvg.querySelectorAll('.cvg__k')];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const touch = matchMedia('(pointer: coarse)').matches;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+
+  if (reduced || touch) {                         // static composed final state
+    cvg.classList.add('cvg--static');
+    stage.style.setProperty('--conv', 1);
+    stage.style.setProperty('--emit', 1);
+    caps.forEach(c => c.classList.add('on'));
+    return;
+  }
+  let raf = 0;
+  const tick = () => {
+    raf = 0;
+    const total = cvg.offsetHeight - innerHeight;
+    const p = clamp(-cvg.getBoundingClientRect().top / total);
+    const conv = clamp(p / 0.55);
+    const emit = clamp((p - 0.55) / 0.32);
+    stage.style.setProperty('--conv', conv.toFixed(3));
+    stage.style.setProperty('--emit', emit.toFixed(3));
+    const phase = emit > 0.12 ? 2 : conv > 0.55 ? 1 : 0;
+    caps.forEach((c, i) => c.classList.toggle('on', i === phase));
+  };
+  const onScroll = () => { if (!raf) raf = requestAnimationFrame(tick); };
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  tick();
+})();
+
+/* ── MOAT: connectors light up, the answer sharpens (once, on scroll-in) ── */
+(() => {
+  const sec = document.getElementById('moat'); if (!sec) return;
+  const srcs = [...document.querySelectorAll('#moatSrc .moat__src')];
+  const ans = document.getElementById('moatAns'), pct = document.getElementById('moatPct');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let played = false;
+  const run = () => {
+    const idx = srcs.map((_, i) => i);
+    for (let i = idx.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [idx[i], idx[j]] = [idx[j], idx[i]]; }
+    const pick = idx.slice(0, 7);
+    if (reduced) { pick.forEach(k => srcs[k].classList.add('on')); ans.classList.add('sharp'); pct.textContent = '97%'; return; }
+    pick.forEach((k, order) => setTimeout(() => {
+      srcs[k].classList.add('on');
+      pct.textContent = Math.round(22 + (order + 1) / pick.length * 75) + '%';
+    }, 300 + order * 280));
+    setTimeout(() => ans.classList.add('sharp'), 300 + pick.length * 280 + 200);
+  };
+  new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting && !played) { played = true; run(); o.disconnect(); } }), { threshold: .45 }).observe(sec);
+})();
+
+/* ── CONTRAST: typed comparison, replays on scroll ── */
+(() => {
+  const demo = document.getElementById('chat-demo'); if (!demo) return;
+  const botQ = document.getElementById('botQ'), teamQ = document.getElementById('teamQ'),
+        botA = document.getElementById('botA'), teamA = document.getElementById('teamA'),
+        strata = [...document.querySelectorAll('#strata .stratum')];
+  const Q = "Where's the final master?";
+  const BOT = "I don't have access to your files, but here are some best practices for organizing masters: use clear naming conventions, keep a single source of truth, and archive old versions…";
+  let timers = [];
+  const clear = () => { timers.forEach(t => { clearTimeout(t); clearInterval(t); }); timers = []; };
+  const type = (el, text, speed, cb) => { let i = 0; const t = setInterval(() => { el.textContent = text.slice(0, ++i); if (i >= text.length) { clearInterval(t); cb && cb(); } }, speed); timers.push(t); };
+  const reset = () => { clear(); botQ.textContent = ''; teamQ.textContent = ''; botA.textContent = ''; strata.forEach(s => s.classList.remove('lit')); teamA.classList.remove('on'); };
+  const run = () => {
+    reset();
+    if (window.TM && window.TM.reduced) { botQ.textContent = Q; teamQ.textContent = Q; botA.textContent = BOT; strata.forEach(s => s.classList.add('lit')); teamA.classList.add('on'); return; }
+    type(botQ, Q, 42, () => type(botA, BOT, 12));
+    type(teamQ, Q, 42, () => {
+      strata.forEach((s, i) => timers.push(setTimeout(() => s.classList.add('lit'), 140 + i * 260)));
+      timers.push(setTimeout(() => teamA.classList.add('on'), 140 + strata.length * 260 + 250));
+    });
+  };
+  window.TM.replay(demo, run, reset, .4);
+})();
+</script>
+</body>
+</html>

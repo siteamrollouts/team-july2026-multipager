@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tm-theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.dataset.theme=t}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Integrations — the tools you already use, connected | Team</title>
+<meta name="description" content="Team connects the tools your music operation already runs on — Notion, Slack, Gmail, Drive, Dropbox, Sheets and more — reads across all of them, and writes back.">
+<link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-Variable.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/base.css">
+<style>
+  /* ═══════════════════════════════════════════════════════════════
+     Integrations — its own story: DEPTH (a connector is a live, two-way
+     wire — Team reads AND writes back) + BREADTH (the marquee + full
+     catalog) + it's GROWING. Not Overview's convergence. Shared elements
+     (.phero__ask, .ui-dark) come from base.css.
+     ═══════════════════════════════════════════════════════════════ */
+  .ihero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-top:8rem;padding-bottom:2.5rem}
+  .ihero .phero__in{max-width:54rem}
+  .ihero .h1{font-size:clamp(3rem,7vw,5.8rem)}
+
+  /* hero proof wall — gently scrolling marquee of monochrome logos */
+  .wall{position:relative;align-self:stretch;margin-top:clamp(3rem,7vh,6rem);overflow:hidden;
+    -webkit-mask:linear-gradient(90deg,transparent,#000 13%,#000 87%,transparent);mask:linear-gradient(90deg,transparent,#000 13%,#000 87%,transparent)}
+  .wall__track{display:flex;align-items:center;width:max-content;animation:wallscroll 42s linear infinite}
+  /* each copy is a self-contained group with a trailing gap, so translateX(-50%)
+     equals exactly one group width — a truly seamless, endless loop */
+  .wall__group{display:flex;align-items:center;gap:clamp(2rem,4vw,3.6rem);padding-right:clamp(2rem,4vw,3.6rem)}
+  .wall:hover .wall__track{animation-play-state:paused}
+  .wall .tile{display:grid;place-items:center;flex:none;opacity:.6;transition:opacity .35s var(--ease)}
+  .wall .tile:hover{opacity:1}
+  .wall .tile img{height:1.85rem;width:auto;max-width:6.5rem;object-fit:contain;display:block;filter:var(--wall-w)}
+  .wall .tile img.mono{filter:var(--wall-m)}          /* colour logo → mono */
+  @keyframes wallscroll{to{transform:translateX(-50%)}}
+  @media(prefers-reduced-motion:reduce){.wall{-webkit-mask:none;mask:none}.wall__track{animation:none;width:auto}
+    .wall__group{flex-wrap:wrap;justify-content:center;padding-right:0}.wall__group+.wall__group{display:none}}
+  /* white-stored logos: keep white on dark, ink on light. colour logos: recolour to match. */
+  :root{--wall-w:none;--wall-m:brightness(0) invert(1)}
+  :root[data-theme="light"]{--wall-w:brightness(0);--wall-m:brightness(0)}
+
+  /* ═══ SIGNATURE — a connector is a live, two-way wire ═══ */
+  .wire{display:grid;gap:clamp(2rem,5vw,4.5rem);align-items:center;grid-template-columns:1fr}
+  @media(min-width:920px){.wire{grid-template-columns:.92fr 1.08fr}}
+  .wire__copy h2{margin-bottom:1.1rem}
+  .wire__pts{list-style:none;display:flex;flex-direction:column;gap:.9rem;margin-top:1.7rem}
+  .wire__pts li{display:flex;gap:.7rem;align-items:flex-start;color:var(--bone-dim);font-size:.95rem;line-height:1.5}
+  .wire__pts b{color:var(--bone);font-weight:560}
+  .wire__pts .k{width:1.5rem;height:1.5rem;border-radius:7px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);flex:none;margin-top:.05rem}
+  .wire__pts .k svg{width:.85rem;height:.85rem}
+  /* the live feed panel (dark-locked product UI) */
+  .feed{border-radius:20px;overflow:clip;box-shadow:0 30px 70px var(--shadow)}
+  .feed__bar{display:flex;align-items:center;gap:.7rem;padding:.95rem 1.2rem;border-bottom:1px solid var(--line);background:var(--ink-3)}
+  .feed__bar .lg{width:1.7rem;height:1.7rem;border-radius:8px;background:#fbf9f4;display:grid;place-items:center;flex:none}
+  .feed__bar .lg img{width:1.05rem;height:1.05rem}
+  .feed__bar b{font-weight:560;color:var(--bone);font-size:.95rem}
+  .feed__bar .live{margin-left:auto;display:flex;align-items:center;gap:.4rem;font-family:var(--font-mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+  .feed__bar .live i{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px rgba(217,250,135,.7);animation:blink 1.8s ease-in-out infinite}
+  @keyframes blink{50%{opacity:.35}}
+  .feed__body{background:var(--ink-2);padding:.7rem;display:flex;flex-direction:column;gap:.5rem}
+  .fev{display:grid;grid-template-columns:auto 1fr;gap:.85rem;align-items:start;padding:.75rem .9rem;border:1px solid var(--line-2);border-radius:12px;background:var(--glass);
+    opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  .fev.in{opacity:1;transform:none}
+  .fev__dir{font-family:var(--font-mono);font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;padding:.3em .5em;border-radius:6px;white-space:nowrap;display:inline-flex;align-items:center;gap:.3em;margin-top:.1rem}
+  .fev__dir svg{width:.7rem;height:.7rem}
+  .fev--in .fev__dir{color:var(--bone-dim);border:1px solid var(--line)}
+  .fev--think .fev__dir{color:var(--bone-faint);border:1px solid var(--line-2)}
+  .fev--out .fev__dir{color:var(--on-accent);background:var(--lime)}
+  .fev__w{font-size:.9rem;color:var(--bone);line-height:1.4}
+  .fev__w small{display:block;color:var(--bone-faint);font-family:var(--font-mono);font-size:.68rem;margin-top:.2rem}
+  .fev--think .fev__w{color:var(--bone-dim)}
+
+  /* ═══ DIRECTORY ═══ */
+  .dir__tools{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin:0 auto 2.6rem}
+  .dchip{background:var(--glass);border:1px solid var(--line);color:var(--bone-dim);font-family:inherit;font-size:.85rem;padding:.5rem 1rem;border-radius:99px;cursor:pointer;transition:color .2s,border-color .2s,background .2s}
+  .dchip:hover{color:var(--bone);border-color:var(--line-2)}
+  .dchip.on{background:var(--lime);color:var(--on-accent);border-color:var(--lime);font-weight:560}
+  .cat{margin-top:2.4rem}
+  .cat__head{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.1rem;padding-bottom:.7rem;border-bottom:1px solid var(--line)}
+  .cat__head .t{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+  .cat__head .n{color:var(--bone-faint);font-size:.82rem}
+  .igrid{display:grid;gap:.9rem;grid-template-columns:1fr}
+  @media(min-width:640px){.igrid{grid-template-columns:1fr 1fr}}
+  @media(min-width:980px){.igrid{grid-template-columns:1fr 1fr 1fr}}
+  .icard{position:relative;display:flex;gap:.9rem;align-items:flex-start;padding:1.1rem 1.15rem;border:1px solid var(--line);border-radius:15px;background:var(--glass);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:border-color .3s,transform .3s,background .3s;overflow:hidden}
+  .icard::after{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .3s}
+  .icard:hover{border-color:var(--line-2);transform:translateY(-3px);background:var(--ink-2)}
+  .icard:hover::after{opacity:.7}
+  .icard--soon{opacity:.6}
+  .icard__ic{width:2.5rem;height:2.5rem;border-radius:11px;background:#fbf9f4;display:grid;place-items:center;flex:none}
+  .icard__ic img{width:1.5rem;height:1.5rem;object-fit:contain}
+  .icard__mono{width:2.5rem;height:2.5rem;border-radius:11px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;flex:none;font-family:var(--font-display);font-weight:500;font-size:1.05rem;color:var(--bone-dim)}
+  .icard__b{min-width:0}
+  .icard__top{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+  .icard__top b{font-weight:560;font-size:.98rem;color:var(--bone)}
+  .icard__live{width:6px;height:6px;border-radius:50%;background:var(--lime);flex:none;box-shadow:0 0 8px rgba(217,250,135,.7);animation:blink 2s ease-in-out infinite}
+  .icard__soon{font-family:var(--font-mono);font-size:.52rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone-faint);border:1px solid var(--line);border-radius:4px;padding:.15em .4em}
+  .icard__d{color:var(--bone-dim);font-size:.85rem;line-height:1.45;margin-top:.25rem}
+
+  /* ═══ GROWING / REQUEST ═══ */
+  .grow{position:relative;overflow:hidden;text-align:center;max-width:52rem;margin:0 auto;padding:clamp(2.6rem,5vw,4rem) clamp(1.5rem,4vw,3.4rem);
+    border:1px solid var(--line);border-radius:26px;background:var(--ink-2)}
+  .grow::before{content:'';position:absolute;left:50%;top:-45%;width:130%;height:130%;transform:translateX(-50%);
+    background:radial-gradient(ellipse 46% 42% at 50% 0%,var(--bloom),transparent 66%);pointer-events:none}
+  .grow>*{position:relative}
+  .grow__stat{display:flex;gap:2.4rem;justify-content:center;margin-bottom:1.6rem;flex-wrap:wrap}
+  .grow__stat .s b{display:block;font-family:var(--font-display);font-weight:360;font-size:clamp(2rem,4vw,2.8rem);letter-spacing:-.02em;color:var(--bone);line-height:1}
+  .grow__stat .s span{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-faint)}
+  .grow__stat .s b em{color:var(--accent);font-style:normal}
+  .grow p{color:var(--bone-dim);margin:0 auto 1.7rem;max-width:36rem}
+</style>
+</head>
+<body data-nav="platform">
+
+<!-- ══ HERO ══ -->
+<section class="phero ihero">
+  <div class="phero__in">
+    <p class="phero__ask reveal"><em>Plug in. Don't rip out.</em></p>
+    <h1 class="h1 reveal" style="transition-delay:.08s">Connect the stack<br><em>you already run on.</em></h1>
+    <p class="lede reveal" style="transition-delay:.16s;margin-inline:auto">Team feeds every file, message, plan, and data point from the tools you already use into one brain, reads across all of them, and writes back. Nothing to migrate, nothing to rip out.</p>
+    <div class="phero__cta reveal" style="transition-delay:.24s">
+      <a class="btn btn--solid" href="pricing.html#beta">Get started</a>
+      <a class="btn btn--ghost" href="#directory">See the catalog <span class="btn__arr">↓</span></a>
+    </div>
+  </div>
+  <div class="wall" id="wall" aria-hidden="true"></div>
+</section>
+
+<!-- ══ SIGNATURE — LIVE, TWO-WAY WIRE ══ -->
+<section class="section container">
+  <div class="wire" id="wire">
+    <div class="wire__copy">
+      <h2 class="h2">A connector isn't a checkbox. <em>It's a live wire.</em></h2>
+      <p class="lede">Most tools let you export. Team stays connected. It watches each source in real time, reasons over what changed, and acts back inside your stack, with receipts.</p>
+      <ul class="wire__pts">
+        <li><span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg></span><span><b>It reads, live.</b> New file, new thread, new number, Team sees it the moment it lands.</span></li>
+        <li><span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21V9M7 14l5-5 5 5"/><path d="M5 3h14"/></svg></span><span><b>It writes back.</b> Two-way, not read-only. Team updates the doc, syncs the budget, re-briefs the partner.</span></li>
+        <li><span class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><span><b>You stay in control.</b> Every connection is permissioned, scoped, and revocable in a click.</span></li>
+      </ul>
+    </div>
+    <div class="feed ui-dark" id="feed">
+      <div class="feed__bar"><span class="lg"><img src="assets/logos/dropbox.svg" alt=""></span><b>Dropbox</b><span class="live"><i></i>Connected</span></div>
+      <div class="feed__body">
+        <div class="fev fev--in"><span class="fev__dir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v13M6 11l6 6 6-6"/></svg>Read</span><span class="fev__w">New file in /Masters<small>Single_Master_v10.wav · 23:41</small></span></div>
+        <div class="fev fev--think"><span class="fev__dir">Reason</span><span class="fev__w">Recognized as the new master, supersedes v9. The one-sheet and distributor brief both reference v9.</span></div>
+        <div class="fev fev--out"><span class="fev__dir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V7M6 13l6-6 6 6"/></svg>Wrote back</span><span class="fev__w">Updated the one-sheet to reference v10<small>Google Docs · 23:41</small></span></div>
+        <div class="fev fev--out"><span class="fev__dir"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V7M6 13l6-6 6 6"/></svg>Wrote back</span><span class="fev__w">Re-briefed the distributor on the change<small>Gmail · 23:42</small></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DIRECTORY ══ -->
+<section class="section container" id="directory">
+  <div style="text-align:center;max-width:42rem;margin:0 auto 2.4rem" class="reveal">
+    <h2 class="h2">The whole catalog, <em>one brain.</em></h2>
+    <p class="lede" style="margin:1rem auto 0;text-align:center">Filter by what your operation runs on. Green means live today.</p>
+  </div>
+  <div class="dir__tools" id="dfilter"></div>
+  <div id="cats"></div>
+</section>
+
+<!-- ══ GROWING / REQUEST ══ -->
+<section class="section container">
+  <div class="grow reveal">
+    <div class="grow__stat">
+      <div class="s"><b id="statLive">—</b><span>Live today</span></div>
+      <div class="s"><b id="statSoon">—</b><span>Coming soon</span></div>
+      <div class="s"><b><em>Weekly</em></b><span>New connectors</span></div>
+    </div>
+    <h3 class="h3" style="margin-bottom:.7rem">Don't see the one you need?</h3>
+    <p>We add connectors constantly, and we prioritize by what beta users ask for. Tell us what your operation runs on and we'll wire it up.</p>
+    <div class="ctaband__row">
+      <a class="btn btn--solid" href="contact.html">Request an integration <span class="btn__arr">→</span></a>
+      <a class="btn btn--ghost" href="platform.html">See how Team reasons across it <span class="btn__arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="section ctaband container">
+  <h2 class="h2">Put your whole stack <em>in one mind.</em></h2>
+  <div class="ctaband__row">
+    <a class="btn btn--solid" href="pricing.html#beta">Get started</a>
+    <a class="btn btn--ghost" href="#demo" data-demo>Get a demo <span class="btn__arr">→</span></a>
+  </div>
+</section>
+
+<script src="js/brain.js"></script>
+<script src="js/chrome.js"></script>
+<script>
+/* ── integrations data — matches the product's connector catalogue ── */
+const INT = [
+  { cat:'Productivity', slug:'productivity', items:[
+    ['Notion','notion',1,'Bring pages and databases into the brain.'],
+    ['Slack','slack',1,'Bring channel context into the brain.'],
+    ['Gmail','gmail',1,'Pull release-relevant email and its attachments in.'],
+    ['Google Calendar','googlecalendar',1,'Keep the brain aware of what\'s scheduled.'],
+    ['Airtable','airtable',1,'Sync records from a base into the brain.'],
+    ['Linear','linear',1,'Bring issues and projects into the brain.'],
+    ['Asana','asana',0,'Tasks and projects into the brain.'],
+    ['Trello','trello',0,'Boards and cards into the brain.'],
+    ['ClickUp','clickup',0,'Docs and tasks into the brain.'],
+    ['Discord','discord',0,'Community channel context.'],
+    ['Outlook','outlook',0,'Email and calendar into the brain.'],
+  ]},
+  { cat:'Files', slug:'files', items:[
+    ['Google Drive','googledrive',1,'Feed documents from a Drive folder as they change.'],
+    ['Google Sheets','googlesheets',1,'Sync rows from a spreadsheet into the release brain.'],
+    ['Dropbox','dropbox',1,'Feed files from a folder in, and add files back.'],
+    ['Google Docs','googledocs',1,'Read and write docs through the assistant.'],
+    ['Box','box',0,'Enterprise files into the brain.'],
+  ]},
+  { cat:'Social', slug:'social', items:[
+    ['Instagram','instagram',0,'Posts and insights into the brain.'],
+    ['YouTube','youtube',0,'Channel, video and comment intelligence.'],
+    ['Facebook','facebook',0,'Page insights into the brain.'],
+    ['Reddit','reddit',0,'Community sentiment.'],
+  ]},
+  { cat:'Commerce & Events', slug:'commerce', items:[
+    ['Eventbrite','eventbrite',0,'Ticket sales and attendees.'],
+    ['Ticketmaster','ticketmaster',0,'Event and ticket data.'],
+  ]},
+];
+const HAVE = new Set(['airtable','asana','box','clickup','discord','dropbox','facebook','gmail','googlecalendar','googledocs','googledrive','googlesheets','instagram','linear','notion','outlook','reddit','slack','ticketmaster','trello','youtube']);
+const TILE = { notion:'notion-dark' };                 // dark mark for the white tile
+const BRAND = { eventbrite:{ fg:'#f05537', ch:'e' } }; // no square icon — branded letter tile
+const icon = (slug,name) => BRAND[slug]
+  ? `<span class="icard__ic" style="font-family:var(--font-display);font-weight:700;font-size:1.4rem;color:${BRAND[slug].fg}">${BRAND[slug].ch}</span>`
+  : HAVE.has(slug)
+    ? `<span class="icard__ic"><img src="assets/logos/${TILE[slug]||slug}.svg" alt="" loading="lazy"></span>`
+    : `<span class="icard__mono">${name[0]}</span>`;
+
+/* render the directory */
+document.getElementById('cats').innerHTML = INT.map(c => `
+  <div class="cat" data-cat="${c.slug}">
+    <div class="cat__head"><span class="t">${c.cat}</span><span class="n">${c.items.filter(i=>i[2]).length} live · ${c.items.filter(i=>!i[2]).length} coming</span></div>
+    <div class="igrid">
+      ${c.items.map(([name,slug,live,desc]) => `
+        <div class="icard${live?'':' icard--soon'}">
+          ${icon(slug,name)}
+          <div class="icard__b">
+            <div class="icard__top"><b>${name}</b>${live?'<span class="icard__live" title="Available now"></span>':'<span class="icard__soon">Soon</span>'}</div>
+            <p class="icard__d">${desc}</p>
+          </div>
+        </div>`).join('')}
+    </div>
+  </div>`).join('');
+
+/* filter chips */
+const cats = [...document.querySelectorAll('#cats .cat')];
+const chips = ['<button class="dchip on" data-f="all">All</button>']
+  .concat(INT.map(c => `<button class="dchip" data-f="${c.slug}">${c.cat}</button>`)).join('');
+document.getElementById('dfilter').innerHTML = chips;
+document.querySelectorAll('#dfilter .dchip').forEach(ch => ch.addEventListener('click', () => {
+  document.querySelectorAll('#dfilter .dchip').forEach(x => x.classList.remove('on'));
+  ch.classList.add('on');
+  const f = ch.dataset.f;
+  cats.forEach(c => c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none');
+}));
+
+/* live / soon counts */
+const all = INT.flatMap(c => c.items);
+document.getElementById('statLive').textContent = all.filter(i => i[2]).length;
+document.getElementById('statSoon').textContent = all.filter(i => !i[2]).length;
+
+/* hero proof wall — live connectors, white monochrome, doubled for a seamless loop */
+const WHITE = new Set(['notion','gmail','googlecalendar','airtable','linear','googledrive','googlesheets','dropbox','googledocs']);
+const wallTiles = all.filter(i=>i[2] && HAVE.has(i[1]))
+  .map(([name,slug]) => {
+    const w = WHITE.has(slug);
+    const src = w ? `assets/logos/white/${slug}.svg` : `assets/logos/${slug}.svg`;
+    return `<span class="tile"><img class="${w?'':'mono'}" src="${src}" alt="${name}" loading="lazy"></span>`;
+  }).join('');
+/* each group must be wider than the viewport, or the loop shows empty space at
+   the far edge before it wraps. Repeat the set until one group exceeds the
+   widest realistic screen, then duplicate that group and translate -50%. */
+(() => {
+  const wall = document.getElementById('wall');
+  const need = Math.max(screen.width || 0, innerWidth, 1440);
+  wall.innerHTML = `<div class="wall__track"><div class="wall__group">${wallTiles}</div></div>`;
+  const g = wall.querySelector('.wall__group');
+  let reps = 1;
+  while (g.getBoundingClientRect().width < need * 1.05 && reps < 12) { g.innerHTML += wallTiles; reps++; }
+  const groupHTML = g.innerHTML;
+  wall.innerHTML = `<div class="wall__track"><div class="wall__group">${groupHTML}</div><div class="wall__group">${groupHTML}</div></div>`;
+})();
+
+/* animate the live-wire feed on scroll-in (shared TM helper) */
+(() => {
+  const root = document.getElementById('feed'); if (!root || !window.TM) return;
+  const s = window.TM.seq(root.querySelectorAll('.fev'), 'in', 520, 260);
+  window.TM.replay(root, s.play, s.reset, .4);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "_comment": "Mirrors the Sanity `insightCategory` document. Each post's frontmatter `category` references one of these by slug. On migration, each entry becomes an insightCategory doc (title, slug, color, sortOrder).",
+  "categories": [
+    { "slug": "guides",   "title": "Guides",   "color": "#d9fa87", "sortOrder": 1 },
+    { "slug": "strategy", "title": "Strategy", "color": "#d9fa87", "sortOrder": 2 },
+    { "slug": "industry", "title": "Industry", "color": "#d9fa87", "sortOrder": 3 },
+    { "slug": "product",  "title": "Product",  "color": "#d9fa87", "sortOrder": 4 }
+  ]
+}
