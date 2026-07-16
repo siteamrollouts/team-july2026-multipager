@@ -152,7 +152,7 @@ function postPage(p) {
 <meta name="twitter:title" content="${esc(p.title)}">
 <meta name="twitter:description" content="${esc(p.seoDescription)}">
 <meta name="twitter:image" content="${OG_IMAGE}">
-<link rel="preload" href="../assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="../assets/fonts/NyghtSerif-LightItalic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../css/chrome.css">
 <link rel="stylesheet" href="../css/base.css">
@@ -224,7 +224,7 @@ function indexPage() {
 <meta name="twitter:title" content="Insights | Team">
 <meta name="twitter:description" content="Strategy, industry trends, and how the best teams ship releases. Playbooks and ideas from Team.">
 <meta name="twitter:image" content="${OG_IMAGE}">
-<link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/chrome.css">
 <link rel="stylesheet" href="css/base.css">

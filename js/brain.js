@@ -64,13 +64,26 @@
 
   const fires = [];
   const ALPHA = 0.46;                 // ambient — quiet enough to read over
-  let last = performance.now(), hidden = false;
-  document.addEventListener('visibilitychange', () => hidden = document.hidden);
+  let last = performance.now(), hidden = false, offscreen = false, running = false;
+  // the canvas is a fixed, faint backdrop; once the hero scrolls away the
+  // content covers it, so stop animating (and resume on scroll-up / tab-focus).
+  const visible = () => !hidden && !offscreen;
+  function kick() {
+    if (running || reduced || !visible()) return;
+    running = true; last = performance.now(); requestAnimationFrame(frame);
+  }
+  document.addEventListener('visibilitychange', () => { hidden = document.hidden; kick(); });
+  addEventListener('scroll', () => {
+    const off = scrollY > innerHeight * 0.9;
+    if (off !== offscreen) { offscreen = off; kick(); }
+  }, { passive: true });
 
   function frame(now) {
     const dt = Math.min((now - last) / 1000, 0.05); last = now;
-    requestAnimationFrame(frame);
-    if (hidden) return;
+    if (!reduced) {
+      if (!visible()) { running = false; return; }   // pause; kick() restarts it
+      requestAnimationFrame(frame);
+    }
     T += dt;
     cx.clearRect(0, 0, W, H);
     const cxp = W / 2, cyp = H / 2;
@@ -115,8 +128,8 @@
   size();
   addEventListener('resize', size, { passive: true });
   if (reduced) {                      // one static frame, no motion
-    last = performance.now(); hidden = false; T = 4; frame(performance.now()); hidden = true;
+    last = performance.now(); T = 4; frame(performance.now());
   } else {
-    requestAnimationFrame(frame);
+    kick();
   }
 })();
