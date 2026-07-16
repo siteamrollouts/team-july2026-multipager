@@ -34,6 +34,11 @@ const ROOT = __dirname;
 const CONTENT = path.join(ROOT, 'content', 'insights');
 const POSTS_DIR = path.join(ROOT, 'insights');
 const SITE = 'https://teamrollouts.com'; // canonical origin for sitemap; change on deploy
+// where share-card assets are actually served right now (the GH Pages preview).
+// og:url + og:image must resolve from the shared link, so these use the live
+// preview origin until the site cuts over to teamrollouts.com — change on deploy.
+const OG_BASE = 'https://siteamrollouts.github.io/team-july2026-multipager';
+const OG_IMAGE = `${OG_BASE}/assets/og.png`;
 
 // ── helpers ─────────────────────────────────────────────────────────────
 const esc = (s = '') => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -135,8 +140,18 @@ function postPage(p) {
 <meta name="description" content="${esc(p.seoDescription)}">
 <link rel="canonical" href="${SITE}/insights/${p.slug}.html">
 <meta property="og:type" content="article">
+<meta property="og:site_name" content="Team">
 <meta property="og:title" content="${esc(p.title)}">
 <meta property="og:description" content="${esc(p.seoDescription)}">
+<meta property="og:url" content="${OG_BASE}/insights/${p.slug}.html">
+<meta property="og:image" content="${OG_IMAGE}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Team — a brain for music operations">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(p.title)}">
+<meta name="twitter:description" content="${esc(p.seoDescription)}">
+<meta name="twitter:image" content="${OG_IMAGE}">
 <link rel="preload" href="../assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="../assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../css/chrome.css">
@@ -196,6 +211,19 @@ function indexPage() {
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Insights | Team</title>
 <meta name="description" content="Strategy, industry trends, and how the best teams ship releases. Playbooks and ideas from Team.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Team">
+<meta property="og:title" content="Insights | Team">
+<meta property="og:description" content="Strategy, industry trends, and how the best teams ship releases. Playbooks and ideas from Team.">
+<meta property="og:url" content="${OG_BASE}/insights.html">
+<meta property="og:image" content="${OG_IMAGE}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Team — a brain for music operations">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Insights | Team">
+<meta name="twitter:description" content="Strategy, industry trends, and how the best teams ship releases. Playbooks and ideas from Team.">
+<meta name="twitter:image" content="${OG_IMAGE}">
 <link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/chrome.css">
