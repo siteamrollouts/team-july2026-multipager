@@ -55,7 +55,7 @@
     } }
 
   function size() {
-    VW = innerWidth; VH = innerHeight; DPR = Math.min(devicePixelRatio || 1, 2);
+    VW = innerWidth; VH = innerHeight; DPR = Math.min(devicePixelRatio || 1, 1.5);
     W = cv.width = VW * DPR; H = cv.height = VH * DPR;
     cv.style.width = VW + 'px'; cv.style.height = VH + 'px';
     R3 = Math.min(VW, VH) * 0.46 * DPR;
