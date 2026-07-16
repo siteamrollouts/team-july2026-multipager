@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tm-theme');if(t!=='light'&&t!=='dark')t='dark';document.documentElement.dataset.theme=t}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Apply to the beta — a few more details | Team</title>
+<meta name="description" content="You're on the list. A few more details help us tailor your Team beta and move you up the queue for a founding spot.">
+<meta name="robots" content="noindex, follow">
+<link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/chrome.css">
+<link rel="stylesheet" href="css/base.css">
+<style>
+  .chero{position:relative;z-index:2;padding-top:10.5rem;padding-bottom:clamp(5rem,11vh,9rem)}
+  .apply{display:grid;gap:clamp(2.5rem,5vw,4.5rem);grid-template-columns:1fr;max-width:66rem;margin:0 auto;align-items:start}
+  @media(min-width:900px){.apply{grid-template-columns:.9fr 1.1fr}}
+
+  /* left rail — the invitation + what founding members get */
+  .apply__say .h1{margin-bottom:1.3rem}
+  .apply__say .lede{max-width:34rem}
+  .apply__badge{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(217,250,135,.4);background:rgba(217,250,135,.08);border-radius:99px;padding:.42rem .8rem;margin-bottom:1.5rem}
+  :root[data-theme=light] .apply__badge{border-color:rgba(0,0,0,.12);background:rgba(0,0,0,.03)}
+  .apply__badge .dot{width:.42rem;height:.42rem;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px rgba(217,250,135,.18)}
+  .aperks{list-style:none;margin:2.4rem 0 0;padding:0;display:flex;flex-direction:column;gap:1.25rem}
+  .aperk{display:flex;gap:.95rem;align-items:flex-start}
+  .aperk__ic{width:2.2rem;height:2.2rem;border-radius:9px;background:var(--ink-3);border:1px solid var(--line);flex:none;display:grid;place-items:center;color:var(--accent)}
+  .aperk__ic svg{width:1.05rem;height:1.05rem}
+  .aperk b{display:block;font-size:.92rem;font-weight:560;color:var(--bone)}
+  .aperk p{color:var(--bone-dim);font-size:.85rem;line-height:1.5;margin-top:.15rem}
+
+  /* form card — mirrors the contact form system */
+  .cform{position:relative;border:1px solid var(--line);border-radius:22px;background:var(--ink-2);padding:clamp(1.6rem,3vw,2.4rem)}
+  .cform__row{display:grid;gap:1.1rem;grid-template-columns:1fr}
+  @media(min-width:560px){.cform__row{grid-template-columns:1fr 1fr}}
+  .cfield{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.1rem}
+  .cfield label{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-faint)}
+  .cfield input,.cfield textarea,.cfield select{background:var(--glass);border:1px solid var(--line);border-radius:11px;padding:.8rem 1rem;color:var(--bone);font-family:inherit;font-size:.95rem;outline:none;transition:border-color .25s;width:100%}
+  .cfield input:focus,.cfield textarea:focus,.cfield select:focus{border-color:rgba(217,250,135,.5)}
+  .cfield input::placeholder,.cfield textarea::placeholder{color:var(--bone-faint)}
+  .cfield textarea{resize:vertical;min-height:6.5rem;line-height:1.5}
+  .cfield select{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.4rem}
+  .cfield select:invalid{color:var(--bone-faint)}
+  .cf-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+
+  .cint>span{display:block;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-faint);margin-bottom:.75rem}
+  .cint__opts{display:flex;flex-wrap:wrap;gap:.55rem}
+  .cchip{position:relative;cursor:pointer}
+  .cchip input{position:absolute;opacity:0;pointer-events:none}
+  .cchip span{display:inline-block;padding:.5rem .95rem;border:1px solid var(--line);border-radius:99px;font-size:.85rem;color:var(--bone-dim);transition:border-color .2s,color .2s,background .2s}
+  .cchip:hover span{color:var(--bone);border-color:var(--line-2)}
+  .cchip input:checked+span{background:rgba(217,250,135,.1);border-color:rgba(217,250,135,.5);color:var(--accent)}
+  .cchip input:focus-visible+span{outline:2px solid rgba(217,250,135,.5);outline-offset:2px}
+
+  .cform .btn{margin-top:.6rem;width:100%;justify-content:center}
+  .cform__note{margin-top:.85rem;text-align:center;font-size:.78rem;color:var(--bone-faint);line-height:1.5}
+  .cform__ok{display:none;flex-direction:column;align-items:center;text-align:center;gap:.9rem;padding:1.5rem 0}
+  .cform.done .cform__body{display:none}
+  .cform.done .cform__ok{display:flex}
+  .cform__ok .tick{width:3rem;height:3rem;border-radius:50%;background:rgba(217,250,135,.12);border:1px solid rgba(217,250,135,.4);display:grid;place-items:center;color:var(--accent);font-size:1.3rem}
+  .cform__ok h3{font-family:var(--font-display);font-weight:400;font-size:1.4rem;color:var(--bone)}
+  .cform__ok p{color:var(--bone-dim);font-size:.92rem;max-width:26rem;line-height:1.55}
+</style>
+</head>
+<body data-nav="">
+
+<section class="chero container">
+  <div class="apply">
+    <!-- ── left: confirmation + what founding members get ── -->
+    <div class="apply__say reveal">
+      <span class="apply__badge" id="applyBadge"><span class="dot"></span>You're on the list</span>
+      <h1 class="h1">A few more <em>details.</em></h1>
+      <p class="lede" id="applyLede">You're already in, this just helps us tailor your beta. Two minutes, and it moves you up the queue for a founding spot.</p>
+      <ul class="aperks">
+        <li class="aperk">
+          <span class="aperk__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg></span>
+          <div><b>Set up with you, not by you</b><p>We connect your tools on a call, so the brain has your data and is useful from day one.</p></div>
+        </li>
+        <li class="aperk">
+          <span class="aperk__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H5.2L4 17.2z"/></svg></span>
+          <div><b>A direct line to the team</b><p>Founding members shape what we build next, your requests jump the roadmap.</p></div>
+        </li>
+        <li class="aperk">
+          <span class="aperk__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 6v6c0 5 3.8 8.5 9 10 5.2-1.5 9-5 9-10V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <div><b>A founding rate, locked for life</b><p>Early labels keep their place, and their price, as we open up.</p></div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ── right: the fuller application ── -->
+    <form class="cform reveal" id="applyForm" novalidate>
+      <div class="cform__body">
+        <div class="cform__row">
+          <div class="cfield">
+            <label for="fn">First name</label>
+            <input type="text" id="fn" name="first_name" placeholder="Jane" required autocomplete="given-name">
+          </div>
+          <div class="cfield">
+            <label for="ln">Last name</label>
+            <input type="text" id="ln" name="last_name" placeholder="Doe" autocomplete="family-name">
+          </div>
+        </div>
+        <div class="cfield">
+          <label for="em">Email address</label>
+          <input type="email" id="em" name="email" placeholder="you@yourlabel.com" required autocomplete="email">
+        </div>
+        <div class="cfield">
+          <label for="org">Label or company</label>
+          <input type="text" id="org" name="organization" placeholder="Your label, company, or team" autocomplete="organization">
+        </div>
+        <div class="cform__row">
+          <div class="cfield">
+            <label for="role">Your role</label>
+            <select id="role" name="role" required>
+              <option value="" disabled selected hidden>Select…</option>
+              <option value="Label owner / founder">Label owner / founder</option>
+              <option value="Artist manager">Artist manager</option>
+              <option value="A&amp;R">A&amp;R</option>
+              <option value="Marketing / creative">Marketing / creative</option>
+              <option value="Distributor / partner">Distributor / partner</option>
+              <option value="Independent artist">Independent artist</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="cfield">
+            <label for="am">Artists you work across</label>
+            <select id="am" name="artists_managed" required>
+              <option value="" disabled selected hidden>Select…</option>
+              <option value="Just me">Just me</option>
+              <option value="1-5">1&ndash;5</option>
+              <option value="6-20">6&ndash;20</option>
+              <option value="20+">20+</option>
+            </select>
+          </div>
+        </div>
+        <div class="cfield cint">
+          <span>What do you run?</span>
+          <div class="cint__opts">
+            <label class="cchip"><input type="checkbox" name="interest" value="labels"><span>A label</span></label>
+            <label class="cchip"><input type="checkbox" name="interest" value="managers"><span>Management</span></label>
+            <label class="cchip"><input type="checkbox" name="interest" value="artists"><span>Artist(s)</span></label>
+            <label class="cchip"><input type="checkbox" name="interest" value="partners"><span>Distribution</span></label>
+            <label class="cchip"><input type="checkbox" name="interest" value="enterprise"><span>Something bigger</span></label>
+          </div>
+        </div>
+        <div class="cfield">
+          <label for="msg">Your stack today &amp; biggest headache</label>
+          <textarea id="msg" name="message" rows="4" placeholder="e.g. We run releases across Notion, Google Sheets and Slack. Nothing stays in sync and things slip through the cracks…"></textarea>
+        </div>
+        <input type="text" name="website" class="cf-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit" class="btn btn--solid" id="aSubmit">Complete my application</button>
+        <p class="cform__note">No commitment. We review every application and reach out personally.</p>
+      </div>
+      <div class="cform__ok">
+        <span class="tick">✓</span>
+        <h3>Application in.</h3>
+        <p>Thanks, that's everything we need. We review each one personally and, if it's a fit, we'll be in touch to get you set up. Keep an eye on your inbox.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script src="js/brain.js"></script>
+<script src="js/chrome.js"></script>
+<script>
+/* apply.html — the fuller beta application.
+   Pre-fills from the short form (via sessionStorage, key 'tm-apply'), then
+   POSTs the full profile to the CRM as source_form:'beta'. The endpoint is
+   upgrade-only + dedupes on email, so this enriches the SAME contact the
+   short form already created — no double records, nothing lost if they never
+   land here. Works standalone if visited cold. */
+(() => {
+  const form = document.getElementById('applyForm'); if (!form) return;
+  const btn  = document.getElementById('aSubmit');
+
+  // ── prefill from the short-form handoff ──
+  let stash = {};
+  try { stash = JSON.parse(sessionStorage.getItem('tm-apply') || '{}') || {}; } catch (e) {}
+  const has = k => typeof stash[k] === 'string' && stash[k].trim();
+  if (has('first_name')) form.first_name.value = stash.first_name.trim();
+  if (has('last_name'))  form.last_name.value  = stash.last_name.trim();
+  if (has('email'))      form.email.value      = stash.email.trim();
+
+  // cold visitor (no handoff) → reframe as a fresh application
+  if (!has('email')) {
+    const badge = document.getElementById('applyBadge');
+    const lede  = document.getElementById('applyLede');
+    if (badge) badge.innerHTML = '<span class="dot"></span>Beta applications open';
+    if (lede)  lede.textContent = "Tell us a little about your operation. We review every application and, if it's a fit, reach out personally to get you set up.";
+    (form.first_name.value ? form.email : form.first_name).focus();
+  } else {
+    // focus the first still-empty field so they can carry straight on
+    const next = [...form.querySelectorAll('input,select,textarea')].find(el => el.type !== 'hidden' && el.name !== 'website' && !el.value);
+    if (next) next.focus({ preventScroll: true });
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (form.website.value) return;                          // honeypot tripped
+    const first = form.first_name.value.trim();
+    const email = form.email.value.trim();
+    if (!first) { form.first_name.focus(); return; }
+    if (!email || !form.email.checkValidity()) { form.email.focus(); return; }
+
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const interest = [...form.querySelectorAll('input[name=interest]:checked')].map(i => i.value);
+    const qs = new URLSearchParams(location.search);
+    const utm = k => stash[k] || qs.get(k) || undefined;
+    const val = n => (form[n] && form[n].value.trim()) || undefined;
+
+    form.classList.add('done');                              // optimistic confirm
+    try {
+      sessionStorage.removeItem('tm-apply');
+    } catch (e) {}
+    try {
+      fetch('https://admin.getteamnow.com/api/v1/website-leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source_form: 'beta',
+          first_name: first,
+          last_name: val('last_name'),
+          email,
+          organization: val('organization'),
+          role: val('role'),
+          artists_managed: val('artists_managed'),
+          interest,
+          message: val('message'),
+          website: '',
+          page_url: location.href,
+          utm_source: utm('utm_source'),
+          utm_medium: utm('utm_medium'),
+          utm_campaign: utm('utm_campaign'),
+        })
+      }).catch(() => {});
+    } catch (err) {}
+  });
+})();
+</script>
+</body>
+</html>

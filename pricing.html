@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>(function(){try{var t=localStorage.getItem('tm-theme');if(t!=='light'&&t!=='dark')t=matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';document.documentElement.dataset.theme=t}catch(e){}})();</script>
+<script>(function(){try{var t=localStorage.getItem('tm-theme');if(t!=='light'&&t!=='dark')t='dark';document.documentElement.dataset.theme=t}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Pricing — start free, upgrade when you're ready | Team</title>
@@ -230,7 +230,9 @@
   }));
 })();
 
-/* beta early-access form — captures email to the CRM (source_form: 'beta') */
+/* beta early-access form — captures email to the CRM (source_form: 'beta'),
+   then hands off to the fuller application (apply.html), pre-filled. The lead
+   is already saved, so nothing is lost if they don't finish the longer form. */
 (() => {
   const form = document.getElementById('betaForm'); if (!form) return;
   form.addEventListener('submit', e => {
@@ -238,6 +240,10 @@
     if (form.website.value) return;                         // honeypot tripped, ignore
     const email = form.email.value.trim();
     if (!email || !form.email.checkValidity()) { form.email.focus(); return; }
+    const qs = new URLSearchParams(location.search);
+    const utm_source = qs.get('utm_source') || undefined;
+    const utm_medium = qs.get('utm_medium') || undefined;
+    const utm_campaign = qs.get('utm_campaign') || undefined;
     form.classList.add('done');                             // optimistic confirm
     try {
       fetch('https://admin.getteamnow.com/api/v1/website-leads', {
@@ -248,10 +254,18 @@
           email,
           first_name: email.split('@')[0],
           website: '',
-          page_url: location.href
+          page_url: location.href,
+          utm_source, utm_medium, utm_campaign
         })
       }).catch(() => {});
     } catch (err) {}
+    // Carry email + attribution to the application (real name asked there).
+    try {
+      sessionStorage.setItem('tm-apply', JSON.stringify({
+        email, utm_source, utm_medium, utm_campaign
+      }));
+    } catch (err) {}
+    setTimeout(() => { location.href = 'apply.html'; }, 650);
   });
 })();
 </script>
