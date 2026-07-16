@@ -68,17 +68,22 @@ const betaForm = $('#betaForm');
 if (betaForm) betaForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   if (betaForm.classList.contains('busy') || betaForm.classList.contains('sent')) return;
+  if (betaForm.website.value) return;          // honeypot tripped — silently ignore
   const qs = new URLSearchParams(location.search);
+  const first_name = betaForm.first_name.value.trim();
+  const last_name  = betaForm.last_name.value.trim();
+  const email      = betaForm.email.value.trim();
+  const utm_source = qs.get('utm_source') || undefined;
+  const utm_medium = qs.get('utm_medium') || undefined;
+  const utm_campaign = qs.get('utm_campaign') || undefined;
   const payload = {
     source_form: 'beta',
-    first_name: betaForm.first_name.value.trim(),
-    last_name: betaForm.last_name.value.trim() || undefined,
-    email: betaForm.email.value.trim(),
+    first_name,
+    last_name: last_name || undefined,
+    email,
     website: betaForm.website.value,           // honeypot — humans leave it empty
     page_url: location.href,
-    utm_source: qs.get('utm_source') || undefined,
-    utm_medium: qs.get('utm_medium') || undefined,
-    utm_campaign: qs.get('utm_campaign') || undefined,
+    utm_source, utm_medium, utm_campaign,
   };
   betaForm.classList.add('busy');
   betaForm.classList.remove('failed');
@@ -90,6 +95,14 @@ if (betaForm) betaForm.addEventListener('submit', async (e) => {
     });
     if (!r.ok) throw new Error(`website-leads responded ${r.status}`);
     betaForm.classList.add('sent');
+    // Lead is captured — hand off to the fuller application, pre-filled.
+    // Stash carries name/email + attribution so apply.html avoids double entry.
+    try {
+      sessionStorage.setItem('tm-apply', JSON.stringify({
+        first_name, last_name, email, utm_source, utm_medium, utm_campaign,
+      }));
+    } catch (err) {}
+    setTimeout(() => { location.href = 'apply.html'; }, 650);
   } catch {
     betaForm.classList.add('failed');
   } finally {
@@ -222,7 +235,20 @@ function measure() {
 const Brain = (() => {
   const cv = $('#field'), cx = cv.getContext('2d');
   const N = touch ? 120 : 250;
-  const BONE = '239,235,227', LIME = '217,250,135', ORANGE = '245,96,2';
+  /* theme-aware palette — the field paints ink-dark points on a light page and
+     bone-light points on a dark one; readPalette() re-reads on themechange */
+  const PALS = {
+    dark:  { base: '239,235,227', lime: '217,250,135', orange: '245,96,2' },
+    light: { base: '25,21,18',    lime: '92,125,30',   orange: '200,80,0' },
+  };
+  const readPalette = () => {
+    const t = document.documentElement.dataset.theme
+      || (matchMedia('(prefers-color-scheme:light)').matches ? 'light' : 'dark');
+    return PALS[t] || PALS.dark;
+  };
+  let PAL = readPalette();
+  addEventListener('themechange', () => { PAL = readPalette(); });
+  const cols = t => t === 1 ? PAL.lime : t === 2 ? PAL.orange : PAL.base;
   const P = [], E = []; let W, H, DPR, R3, F;
   const rnd = (a, b) => a + Math.random() * (b - a);
   const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
@@ -240,7 +266,7 @@ const Brain = (() => {
       dx: rnd(-1, 1), dy: rnd(-1, 1), dz: rnd(-1, 1),     // scatter direction
       ph: rnd(0, Math.PI * 2), sp: rnd(0.3, 0.9),
       sz: rnd(1, 2.6),
-      col: c < 0.68 ? BONE : c < 0.88 ? LIME : ORANGE,
+      t: c < 0.68 ? 0 : c < 0.88 ? 1 : 2,
       al: rnd(0.45, 1),
       x: 0, y: 0, s: 1,
     });
@@ -308,7 +334,7 @@ const Brain = (() => {
       if (stretch <= 0.02) continue;
       const depth = ((a.s + b.s) / 2 - 0.6) * 1.6;
       const o = clamp(depth, 0.15, 1) * 0.34 * alpha * stretch * (0.75 + e * 0.5);
-      cx.strokeStyle = `rgba(${BONE},${o.toFixed(3)})`;
+      cx.strokeStyle = `rgba(${PAL.base},${o.toFixed(3)})`;
       cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(b.x, b.y); cx.stroke();
     }
 
@@ -319,7 +345,7 @@ const Brain = (() => {
       const depth = clamp((p.s - 0.6) * 1.6, 0.2, 1.15);
       const hot = i === hiIdx ? hiV : 0;
       cx.globalAlpha = clamp(p.al * alpha * depth + hot * 0.5, 0, 1);
-      cx.fillStyle = hot > 0.05 ? `rgb(${LIME})` : `rgb(${p.col})`;
+      cx.fillStyle = hot > 0.05 ? `rgb(${PAL.lime})` : `rgb(${cols(p.t)})`;
       const r = Math.max(p.sz * DPR * p.s * (1 + e * 0.15) * (1 + hot * 1.4), 0.1);
       if (hot > 0.05) {           // halo glow
         cx.globalAlpha = clamp(0.25 * hot * alpha, 0, 1);
@@ -338,11 +364,11 @@ const Brain = (() => {
       const a = P[f.e.i], b = P[f.e.j];
       const x = lerp(a.x, b.x, f.t), y = lerp(a.y, b.y, f.t);
       const glow = Math.sin(f.t * Math.PI) * alpha;
-      cx.strokeStyle = `rgba(${LIME},${(0.5 * glow).toFixed(3)})`;
+      cx.strokeStyle = `rgba(${PAL.lime},${(0.5 * glow).toFixed(3)})`;
       cx.lineWidth = DPR * 1.1;
       cx.beginPath(); cx.moveTo(a.x, a.y); cx.lineTo(b.x, b.y); cx.stroke();
       cx.globalAlpha = glow;
-      cx.fillStyle = `rgb(${LIME})`;
+      cx.fillStyle = `rgb(${PAL.lime})`;
       cx.beginPath(); cx.arc(x, y, DPR * 2.4, 0, 7); cx.fill();
       cx.globalAlpha = 1;
     }
@@ -479,8 +505,8 @@ if (ghostG) {
     c.setAttribute('cx', (320 + Math.cos(a) * rr).toFixed(1));
     c.setAttribute('cy', (320 + Math.sin(a) * rr).toFixed(1));
     c.setAttribute('r', 34);
-    c.setAttribute('fill', '#0d0c0b');
-    c.setAttribute('stroke', '#efebe3');
+    c.style.fill = 'var(--ink)';        // page ground — covers the ring lines; flips with theme
+    c.style.stroke = 'var(--bone)';
     c.setAttribute('stroke-opacity', '0.1');
     c.style.opacity = 0;
     ghostG.append(c);
