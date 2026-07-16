@@ -48,13 +48,28 @@
   @media(min-width:560px){.cform__row{grid-template-columns:1fr 1fr}}
   .cfield{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.1rem}
   .cfield label{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-faint)}
-  .cfield input,.cfield textarea,.cfield select{background:var(--glass);border:1px solid var(--line);border-radius:11px;padding:.8rem 1rem;color:var(--bone);font-family:inherit;font-size:.95rem;outline:none;transition:border-color .25s;width:100%}
-  .cfield input:focus,.cfield textarea:focus,.cfield select:focus{border-color:rgba(217,250,135,.5)}
+  .cfield input,.cfield textarea{background:var(--glass);border:1px solid var(--line);border-radius:11px;padding:.8rem 1rem;color:var(--bone);font-family:inherit;font-size:.95rem;outline:none;transition:border-color .25s;width:100%}
+  .cfield input:focus,.cfield textarea:focus{border-color:rgba(217,250,135,.5)}
   .cfield input::placeholder,.cfield textarea::placeholder{color:var(--bone-faint)}
   .cfield textarea{resize:vertical;min-height:6.5rem;line-height:1.5}
-  .cfield select{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.4rem}
-  .cfield select:invalid{color:var(--bone-faint)}
   .cf-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+
+  /* custom select — full control of the open menu in both light & dark */
+  .csel{position:relative}
+  .csel__btn{display:flex;align-items:center;justify-content:space-between;gap:.75rem;width:100%;background:var(--glass);border:1px solid var(--line);border-radius:11px;padding:.8rem 1rem;color:var(--bone);font-family:inherit;font-size:.95rem;text-align:left;cursor:pointer;outline:none;transition:border-color .25s}
+  .csel__btn:hover{border-color:var(--line-2)}
+  .csel.open .csel__btn,.csel__btn:focus-visible{border-color:rgba(217,250,135,.5)}
+  .csel__val{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .csel__val.is-empty{color:var(--bone-faint)}
+  .csel__chev{width:.72rem;height:.5rem;flex:none;color:var(--bone-faint);transition:transform .25s}
+  .csel.open .csel__chev{transform:rotate(180deg)}
+  .csel__menu{list-style:none;position:absolute;top:calc(100% + .4rem);left:0;right:0;z-index:30;margin:0;padding:.35rem;background:var(--ink-2);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 34px rgba(0,0,0,.34);max-height:15rem;overflow-y:auto;opacity:0;transform:translateY(-4px);pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+  :root[data-theme=light] .csel__menu{box-shadow:0 14px 34px rgba(25,21,18,.13)}
+  .csel.open .csel__menu{opacity:1;transform:translateY(0);pointer-events:auto}
+  .csel__opt{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.6rem .75rem;border-radius:8px;font-size:.92rem;color:var(--bone-dim);cursor:pointer;transition:background .15s,color .15s}
+  .csel__opt.active{background:rgba(217,250,135,.1);color:var(--accent)}
+  .csel__opt[aria-selected=true]{color:var(--bone)}
+  .csel__opt[aria-selected=true]::after{content:'✓';color:var(--accent);font-size:.85em}
 
   .cint>span{display:block;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-faint);margin-bottom:.75rem}
   .cint__opts{display:flex;flex-wrap:wrap;gap:.55rem}
@@ -122,27 +137,39 @@
         </div>
         <div class="cform__row">
           <div class="cfield">
-            <label for="role">Your role</label>
-            <select id="role" name="role" required>
-              <option value="" disabled selected hidden>Select…</option>
-              <option value="Label owner / founder">Label owner / founder</option>
-              <option value="Artist manager">Artist manager</option>
-              <option value="A&amp;R">A&amp;R</option>
-              <option value="Marketing / creative">Marketing / creative</option>
-              <option value="Distributor / partner">Distributor / partner</option>
-              <option value="Independent artist">Independent artist</option>
-              <option value="Other">Other</option>
-            </select>
+            <label id="roleLbl">Your role</label>
+            <div class="csel" data-name="role">
+              <button type="button" class="csel__btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="roleLbl">
+                <span class="csel__val is-empty">Select…</span>
+                <svg class="csel__chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <ul class="csel__menu" role="listbox" aria-labelledby="roleLbl">
+                <li class="csel__opt" role="option" data-value="Label owner / founder">Label owner / founder</li>
+                <li class="csel__opt" role="option" data-value="Artist manager">Artist manager</li>
+                <li class="csel__opt" role="option" data-value="A&amp;R">A&amp;R</li>
+                <li class="csel__opt" role="option" data-value="Marketing / creative">Marketing / creative</li>
+                <li class="csel__opt" role="option" data-value="Distributor / partner">Distributor / partner</li>
+                <li class="csel__opt" role="option" data-value="Independent artist">Independent artist</li>
+                <li class="csel__opt" role="option" data-value="Other">Other</li>
+              </ul>
+              <input type="hidden" name="role" value="">
+            </div>
           </div>
           <div class="cfield">
-            <label for="am">Artists you work across</label>
-            <select id="am" name="artists_managed" required>
-              <option value="" disabled selected hidden>Select…</option>
-              <option value="Just me">Just me</option>
-              <option value="1-5">1&ndash;5</option>
-              <option value="6-20">6&ndash;20</option>
-              <option value="20+">20+</option>
-            </select>
+            <label id="amLbl">Artists you work across</label>
+            <div class="csel" data-name="artists_managed">
+              <button type="button" class="csel__btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="amLbl">
+                <span class="csel__val is-empty">Select…</span>
+                <svg class="csel__chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <ul class="csel__menu" role="listbox" aria-labelledby="amLbl">
+                <li class="csel__opt" role="option" data-value="Just me">Just me</li>
+                <li class="csel__opt" role="option" data-value="1-5">1&ndash;5</li>
+                <li class="csel__opt" role="option" data-value="6-20">6&ndash;20</li>
+                <li class="csel__opt" role="option" data-value="20+">20+</li>
+              </ul>
+              <input type="hidden" name="artists_managed" value="">
+            </div>
           </div>
         </div>
         <div class="cfield cint">
@@ -174,6 +201,75 @@
 
 <script src="js/brain.js"></script>
 <script src="js/chrome.js"></script>
+<script>
+/* custom selects — styled, theme-aware dropdowns that write to a hidden input
+   (name=role / name=artists_managed) so the existing submit handler is unchanged.
+   The native <select> open menu can't be themed cross-platform; this can. */
+(() => {
+  const sels = [...document.querySelectorAll('.csel')];
+  if (!sels.length) return;
+  const closeAll = except => sels.forEach(s => {
+    if (s === except) return;
+    s.classList.remove('open');
+    s.querySelector('.csel__btn').setAttribute('aria-expanded', 'false');
+  });
+
+  sels.forEach(sel => {
+    const btn   = sel.querySelector('.csel__btn');
+    const menu  = sel.querySelector('.csel__menu');
+    const label = sel.querySelector('.csel__val');
+    const input = sel.querySelector('input[type=hidden]');
+    const opts  = [...sel.querySelectorAll('.csel__opt')];
+
+    const setActive = o => opts.forEach(x => x.classList.toggle('active', x === o));
+    const open = () => {
+      closeAll(sel);
+      sel.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      const cur = opts.find(o => o.getAttribute('aria-selected') === 'true') || opts[0];
+      setActive(cur);
+      cur.scrollIntoView({ block: 'nearest' });
+    };
+    const close = () => {
+      sel.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    };
+    const choose = o => {
+      input.value = o.dataset.value;
+      label.textContent = o.textContent;
+      label.classList.remove('is-empty');
+      opts.forEach(x => x.setAttribute('aria-selected', String(x === o)));
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+      close();
+      btn.focus();
+    };
+
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      sel.classList.contains('open') ? close() : open();
+    });
+    opts.forEach(o => {
+      o.addEventListener('click', e => { e.stopPropagation(); choose(o); });
+      o.addEventListener('mousemove', () => setActive(o));
+    });
+    btn.addEventListener('keydown', e => {
+      const isOpen = sel.classList.contains('open');
+      if (!isOpen && ['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(e.key)) { e.preventDefault(); return open(); }
+      if (!isOpen) return;
+      const active = opts.find(o => o.classList.contains('active')) || opts[0];
+      const i = opts.indexOf(active);
+      if (e.key === 'ArrowDown') { e.preventDefault(); const n = opts[Math.min(i + 1, opts.length - 1)]; setActive(n); n.scrollIntoView({ block: 'nearest' }); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); const n = opts[Math.max(i - 1, 0)]; setActive(n); n.scrollIntoView({ block: 'nearest' }); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(active); }
+      else if (e.key === 'Escape') { e.preventDefault(); close(); btn.focus(); }
+      else if (e.key === 'Tab') { close(); }
+    });
+    menu.addEventListener('click', e => e.stopPropagation());
+  });
+
+  document.addEventListener('click', () => closeAll(null));
+})();
+</script>
 <script>
 /* apply.html — the fuller beta application.
    Pre-fills from the short form (via sessionStorage, key 'tm-apply'), then
