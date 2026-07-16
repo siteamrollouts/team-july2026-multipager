@@ -265,17 +265,17 @@
 .ostat::after{content:'';position:absolute;left:50%;top:-35%;width:85%;height:65%;transform:translateX(-50%);background:radial-gradient(ellipse 60% 100% at 50% 0,rgba(217,250,135,.11),transparent 70%);pointer-events:none}
 .ostat:hover{border-color:rgba(217,250,135,.45);transform:translateY(-6px)}
 .ostat__viz{position:relative;height:4.2rem;margin-bottom:1.5rem;display:flex;align-items:flex-end;gap:.45rem}
-.ostat__viz--bars span{flex:1;background:linear-gradient(var(--lime),rgba(217,250,135,.22));border-radius:5px 5px 0 0;height:8%;transition:height .8s var(--ease)}
+.ostat__viz--bars span{flex:1;background:linear-gradient(180deg,var(--accent),transparent);border-radius:5px 5px 0 0;height:8%;transition:height .8s var(--ease)}
 .ostats.go .ostat__viz--bars span:nth-child(1){height:34%}
 .ostats.go .ostat__viz--bars span:nth-child(2){height:66%;transition-delay:.12s}
 .ostats.go .ostat__viz--bars span:nth-child(3){height:100%;transition-delay:.24s}
 .ostat__viz--ring{align-items:center}
 .ostat__viz--ring svg{width:4.2rem;height:4.2rem;transform:rotate(-90deg)}
-.ostat__viz--ring .track{fill:none;stroke:rgba(239,235,227,.1);stroke-width:5}
-.ostat__viz--ring .fill{fill:none;stroke:var(--lime);stroke-width:5;stroke-linecap:round;stroke-dasharray:125.6;stroke-dashoffset:125.6;transition:stroke-dashoffset 1.1s var(--ease)}
+.ostat__viz--ring .track{fill:none;stroke:var(--line);stroke-width:5}
+.ostat__viz--ring .fill{fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;stroke-dasharray:125.6;stroke-dashoffset:125.6;transition:stroke-dashoffset 1.1s var(--ease)}
 .ostats.go .ostat__viz--ring .fill{stroke-dashoffset:var(--ring-to,75.4)}
 .ostat__viz--ticks{align-items:center}
-.ostat__viz--ticks i{width:1.8rem;height:1.8rem;border-radius:8px;background:rgba(217,250,135,.12);border:1px solid rgba(217,250,135,.3);display:grid;place-items:center;opacity:0;transform:scale(.6);transition:opacity .4s,transform .4s var(--ease)}
+.ostat__viz--ticks i{width:1.8rem;height:1.8rem;border-radius:8px;background:var(--glass);border:1px solid var(--line);display:grid;place-items:center;opacity:0;transform:scale(.6);transition:opacity .4s,transform .4s var(--ease)}
 .ostat__viz--ticks i::after{content:'✓';color:var(--accent);font-size:.85rem}
 .ostats.go .ostat__viz--ticks i{opacity:1;transform:none}
 .ostats.go .ostat__viz--ticks i:nth-child(2){transition-delay:.12s}
