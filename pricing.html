@@ -7,16 +7,17 @@
 <title>Pricing — start free, upgrade when you're ready | Team</title>
 <meta name="description" content="Start using Team with no commitment. Free forever for one artist, or unlock the full platform with Pro, 30 days free.">
 <link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
-<link rel="preload" href="assets/fonts/Inter-Variable.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/chrome.css">
 <link rel="stylesheet" href="css/base.css">
 <style>
   .phero{padding-top:10.5rem}
   /* billing toggle */
   .bill{display:inline-flex;align-items:center;gap:.25rem;padding:.3rem;border:1px solid var(--line);border-radius:99px;background:var(--glass);margin:2rem auto 0}
   .bill button{background:none;border:0;font-family:inherit;cursor:pointer;color:var(--bone-dim);padding:.5rem 1.15rem;border-radius:99px;font-size:.9rem;transition:background .25s,color .25s;display:inline-flex;align-items:center;gap:.5rem}
-  .bill button.on{background:var(--lime);color:var(--ink);font-weight:560}
-  .bill .save{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(13,12,11,.14);border-radius:99px;padding:.25em .5em}
-  .bill button:not(.on) .save{color:var(--lime);background:rgba(217,250,135,.12)}
+  .bill button.on{background:var(--lime);color:var(--on-accent);font-weight:560}
+  .bill .save{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-accent);background:rgba(13,12,11,.14);border-radius:99px;padding:.25em .5em}
+  .bill button:not(.on) .save{color:var(--accent);background:rgba(217,250,135,.12)}
 
   /* beta early-access capture */
   .beta{display:flex;gap:.6rem;max-width:30rem;margin:2.2rem auto 0;position:relative}
@@ -24,9 +25,9 @@
   .beta input[type=email]:focus{border-color:rgba(217,250,135,.5)}
   .beta input[type=email]::placeholder{color:var(--bone-faint)}
   .beta__hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
-  .beta button{flex:none;background:var(--lime);color:var(--ink);border:0;border-radius:99px;padding:.85rem 1.5rem;font-family:inherit;font-weight:600;font-size:.9rem;cursor:pointer;transition:background .25s}
+  .beta button{flex:none;background:var(--lime);color:var(--on-accent);border:0;border-radius:99px;padding:.85rem 1.5rem;font-family:inherit;font-weight:600;font-size:.9rem;cursor:pointer;transition:background .25s}
   .beta button:hover{background:var(--bone)}
-  .beta__ok{display:none;align-items:center;justify-content:center;gap:.5rem;color:var(--lime);font-weight:560;font-size:.95rem}
+  .beta__ok{display:none;align-items:center;justify-content:center;gap:.5rem;color:var(--accent);font-weight:560;font-size:.95rem}
   .beta.done{justify-content:center;border:1px solid rgba(217,250,135,.4);border-radius:99px;padding:.85rem 1.4rem;background:rgba(217,250,135,.06)}
   .beta.done input,.beta.done button{display:none}
   .beta.done .beta__ok{display:flex}
@@ -40,7 +41,7 @@
   .plan:hover{transform:translateY(-4px)}
   .plan--pro{border-color:rgba(217,250,135,.5)}
   .plan--pro::before{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(217,250,135,.6),transparent)}
-  .plan__badge{position:absolute;top:-.72rem;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:var(--lime);border-radius:99px;padding:.42em .9em;white-space:nowrap}
+  .plan__badge{position:absolute;top:-.72rem;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--on-accent);background:var(--lime);border-radius:99px;padding:.42em .9em;white-space:nowrap}
   .plan__name{font-family:var(--font-display);font-weight:400;font-size:1.5rem;letter-spacing:-.02em;color:var(--bone)}
   .plan__who{color:var(--bone-dim);font-size:.9rem;margin-top:.35rem;min-height:2.6em}
   .plan__price{margin-top:1.3rem;display:flex;align-items:baseline;gap:.45rem}
@@ -52,7 +53,7 @@
   .plan__inclab{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-faint);margin:1.7rem 0 1rem;padding-top:1.4rem;border-top:1px solid var(--line-2)}
   .plan__feats{list-style:none;display:flex;flex-direction:column;gap:.7rem;margin:0;padding:0}
   .plan__feats li{display:flex;gap:.65rem;align-items:flex-start;font-size:.9rem;color:var(--bone-dim);line-height:1.4}
-  .plan__feats li::before{content:'✓';color:var(--lime);font-size:.8em;flex:none;margin-top:.15em}
+  .plan__feats li::before{content:'✓';color:var(--accent);font-size:.8em;flex:none;margin-top:.15em}
   .plan__compare{margin-top:1.3rem;font-size:.82rem;color:var(--bone-faint);text-align:center;text-decoration:underline;text-underline-offset:3px}
   .plan__compare:hover{color:var(--bone)}
 
@@ -65,7 +66,7 @@
   .ctable thead th:not(:first-child),.ctable td.val{text-align:center;width:22%}
   .ctable td:first-child{color:var(--bone)}
   .ctable td.val{font-variant-numeric:tabular-nums;color:var(--bone-dim)}
-  .ctable .yes{color:var(--lime);font-size:1rem}
+  .ctable .yes{color:var(--accent);font-size:1rem}
   .ctable .no{color:var(--bone-faint)}
   .ctable tbody tr:hover td{background:rgba(239,235,227,.02)}
 

@@ -6,6 +6,16 @@
 
 .phero{padding-top:9.5rem;padding-bottom:0;text-align:left}
 
+/* Product-UI panels below (.tnote, .pane2, .rm-board) carry hardcoded dark
+   backgrounds — they read as app screenshots. Re-scope the palette to dark so
+   their text + accents stay legible in light mode too (the "device stays dark"
+   convention used across the site). */
+.tnote,.pane2,.rm-board,.pledger{
+  --bone:#efebe3;--bone-dim:rgba(239,235,227,.56);--bone-faint:rgba(239,235,227,.3);
+  --line:rgba(239,235,227,.13);--line-2:rgba(239,235,227,.07);
+  --ink-2:#161412;--ink-3:#1e1a15;--glass:rgba(22,20,18,.6);--accent:#d9fa87;--on-accent:#0d0c0b;
+  color:var(--bone)}
+
 /* ── equaliser motif (musician personality) ── */
 .eq{position:absolute;bottom:.3rem;left:0;right:0;display:flex;gap:2px;justify-content:center;align-items:flex-end;height:.7rem;pointer-events:none}
 .eq i{width:2.5px;background:rgba(13,12,11,.6);border-radius:1px;height:30%;animation:eq 900ms ease-in-out infinite}
@@ -74,7 +84,7 @@
 .icpbar__row{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center}
 .icpbar__row a{font-size:.88rem;color:var(--bone-dim);padding:.44rem .95rem;border-radius:99px;border:1px solid transparent;transition:color .3s,border-color .3s,background .3s}
 .icpbar__row a:hover{color:var(--bone);border-color:var(--line)}
-.icpbar__row a.on{color:var(--on-accent);background:var(--lime);border-color:var(--accent);font-weight:560}
+.icpbar__row a.on{color:var(--on-accent);background:var(--lime);border-color:var(--lime);font-weight:560}
 
 /* ── PAIN — before cards with personality ── */
 .before{display:grid;gap:1rem;grid-template-columns:1fr}
@@ -88,7 +98,7 @@
 .bcard__meta span{font-size:.7rem;color:var(--bone-faint);font-family:var(--font-mono);letter-spacing:.08em;text-transform:uppercase}
 .bcard__lab{display:block;font-family:var(--font-mono);font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-faint);margin-bottom:.6rem}
 .bcard__chips{display:flex;flex-wrap:wrap;gap:.4rem}
-.bcard__chips span{font-size:.7rem;color:var(--bone-dim);border:1px solid var(--line);border-radius:7px;padding:.28em .55em;background:rgba(22,20,18,.5)}
+.bcard__chips span{font-size:.7rem;color:var(--bone-dim);border:1px solid var(--line);border-radius:7px;padding:.28em .55em;background:var(--glass)}
 .bcard--risk{border-color:rgba(245,96,2,.4)}
 .bcard--risk .bslip{margin-top:.95rem;padding-top:.85rem;border-top:1px solid rgba(245,96,2,.22);font-size:.78rem;color:var(--signal);display:flex;align-items:flex-start;gap:.45rem}
 .bcard--risk .bslip::before{line-height:1.5}
@@ -97,8 +107,7 @@
 .before__tension em{display:block;margin-top:.35em;font-style:italic;color:var(--accent);font-size:1.5em;line-height:1.1}
 
 /* ── IMMERSIVE — full-width switcher (rail tabs ↔ boards) ── */
-.rmotion{position:relative;z-index:2;margin-block:clamp(2.5rem,6vw,5rem);padding-block:clamp(3.5rem,8vw,6rem);border-block:1px solid var(--line);
-  background:linear-gradient(180deg,rgba(22,20,18,.55),transparent 26%,transparent 74%,rgba(22,20,18,.55))}
+.rmotion{position:relative;z-index:2;margin-block:clamp(2.5rem,6vw,5rem);padding-block:clamp(3.5rem,8vw,6rem);border-block:1px solid var(--line)}
 .rmotion__stage{display:grid;gap:clamp(1.2rem,2.5vw,1.8rem);grid-template-columns:1fr;margin-top:2.6rem}
 @media(min-width:880px){.rmotion__stage{grid-template-columns:.62fr 1.38fr;align-items:stretch}}
 .rmotion__rail{display:flex;flex-direction:column;gap:.6rem;min-width:0}
@@ -183,7 +192,7 @@
 .spot__card .t{display:flex;align-items:center;gap:.65rem;font-weight:560;color:var(--bone);font-size:1.02rem}
 .spot__card .t .ic{width:1.9rem;height:1.9rem;border-radius:9px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;color:var(--bone-faint);flex:none;transition:background .35s,color .35s}
 .spot__card .t .ic svg{width:1rem;height:1rem}
-.spot__card.is-active .t .ic{background:var(--lime);color:var(--on-accent);border-color:var(--accent)}
+.spot__card.is-active .t .ic{background:var(--lime);color:var(--on-accent);border-color:var(--lime)}
 .spot__card p{margin:0;color:var(--bone-dim);font-size:.86rem;line-height:1.5;max-height:0;opacity:0;overflow:hidden;transition:max-height .4s var(--ease),opacity .35s,margin .4s}
 .spot__card.is-active p{max-height:6rem;opacity:1;margin-top:.55rem}
 .spot__card .prog{position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--lime)}

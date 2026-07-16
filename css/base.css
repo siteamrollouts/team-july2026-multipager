@@ -1,6 +1,6 @@
-/* nav + footer are the shared chrome — one source of truth, imported here
-   so every page that loads base.css gets the exact same bar the homepage does */
-@import url('chrome.css');
+/* nav + footer chrome (chrome.css) is loaded as its own parallel <link> in each
+   page's <head> — right before base.css — so it fetches alongside this file
+   instead of serially via @import (which was render-blocking on first load). */
 
 /* ═══════════════════════════════════════════════════════════════
    Team — multi-pager · shared design system
@@ -10,7 +10,7 @@
    ═══════════════════════════════════════════════════════════════ */
 @font-face{font-family:'Nyght';src:url('../assets/fonts/NyghtSerif-Light.woff') format('woff');font-weight:300;font-display:swap}
 @font-face{font-family:'Nyght';src:url('../assets/fonts/NyghtSerif-LightItalic.woff') format('woff');font-style:italic;font-weight:300;font-display:swap}
-@font-face{font-family:'InterV';src:url('../assets/fonts/Inter-Variable.ttf') format('truetype');font-weight:100 900;font-display:swap}
+@font-face{font-family:'InterV';src:url('../assets/fonts/Inter-Variable.woff2') format('woff2');font-weight:100 900;font-display:swap}
 
 /* ═══════════════════════════════════════════════════════════════
    THEME TOKENS — the single source of truth for colour.

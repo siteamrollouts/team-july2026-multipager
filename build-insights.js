@@ -138,7 +138,8 @@ function postPage(p) {
 <meta property="og:title" content="${esc(p.title)}">
 <meta property="og:description" content="${esc(p.seoDescription)}">
 <link rel="preload" href="../assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
-<link rel="preload" href="../assets/fonts/Inter-Variable.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="../assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/chrome.css">
 <link rel="stylesheet" href="../css/base.css">
 <link rel="stylesheet" href="../css/insights.css">
 <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
@@ -196,7 +197,8 @@ function indexPage() {
 <title>Insights | Team</title>
 <meta name="description" content="Strategy, industry trends, and how the best teams ship releases. Playbooks and ideas from Team.">
 <link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff" as="font" type="font/woff" crossorigin>
-<link rel="preload" href="assets/fonts/Inter-Variable.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/chrome.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/insights.css">
 </head>
