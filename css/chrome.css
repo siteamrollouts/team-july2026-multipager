@@ -119,6 +119,3 @@ body.menu-open .mnav{opacity:1;visibility:visible}
 .foot__col a:hover{color:var(--bone)}
 .foot__bot{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center;margin-top:3rem;padding-top:1.6rem;border-top:1px solid var(--line);color:var(--bone-faint)}
 .foot__bot .mono{letter-spacing:.14em;text-transform:uppercase;font-size:.62rem}
-.foot__wordmark{display:block;width:100%;margin:1.6rem 0 -.4rem;user-select:none;pointer-events:none;overflow:visible}
-.foot__wordmark text{font-family:var(--font-display);font-weight:700;font-size:210px}
-.foot__wordmark stop{stop-color:var(--wordmark)}

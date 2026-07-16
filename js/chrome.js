@@ -177,7 +177,6 @@
       <span class="mono">© 2026 Team Rollouts</span>
       <span class="mono">Operational Intelligence for Music Releases</span>
     </div>
-    <svg class="foot__wordmark" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><defs><linearGradient id="fwm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efebe3" stop-opacity=".15"/><stop offset="1" stop-color="#efebe3" stop-opacity=".035"/></linearGradient></defs><text x="0" y="0" fill="url(#fwm)">team</text></svg>
   </div>`;
   document.body.appendChild(foot);
   // Resolve every relative nav/footer/mobile link against the site root so
@@ -185,12 +184,6 @@
   // once per link; absolute/mailto/#/root links are left untouched by U().
   [nav, mnav, foot].forEach(root =>
     root.querySelectorAll('a[href]').forEach(a => a.setAttribute('href', U(a.getAttribute('href')))));
-  // fit the oversized wordmark's viewBox to the glyphs' real bounds so it fills
-  // the width at the font's natural ratio (no stretching), scaling with the window
-  const wmSvg = foot.querySelector('.foot__wordmark'), wmText = wmSvg && wmSvg.querySelector('text');
-  const fitWordmark = () => { const bb = wmText.getBBox(); if (bb.width) wmSvg.setAttribute('viewBox', `${bb.x} ${bb.y} ${bb.width} ${bb.height}`); };
-  if (wmText) { (document.fonts && document.fonts.ready ? document.fonts.ready.then(fitWordmark) : Promise.resolve().then(fitWordmark)); }
-
   const news = foot.querySelector('#footNews');
   news && news.addEventListener('submit', e => {
     e.preventDefault();
