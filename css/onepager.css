@@ -120,6 +120,11 @@ body.field-on .field{opacity:1}
 .cursor{position:fixed;left:0;top:0;z-index:90;pointer-events:none;display:none}
 @media (pointer:fine){.cursor{display:block}}
 html.eqcur a,html.eqcur button,html.eqcur [data-hover]{cursor:none}
+/* the shared nav + mobile menu keep the real cursor — the equalizer pointer
+   never takes over there, and it must stay legible over the dropdowns */
+html.eqcur .nav,html.eqcur .nav *,html.eqcur .mnav,html.eqcur .mnav *{cursor:auto}
+html.eqcur .nav a,html.eqcur .nav button,html.eqcur .nav [data-hover],
+html.eqcur .mnav a,html.eqcur .mnav button{cursor:pointer}
 .cursor__eq{display:flex;align-items:center;justify-content:center;gap:2.5px;height:22px;
   transform:translate(-50%,-50%) scale(.4);opacity:0;
   transition:opacity .18s ease,transform .22s var(--ease)}

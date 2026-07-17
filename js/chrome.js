@@ -87,7 +87,7 @@
     <nav class="nav__menu" aria-label="Primary">
       ${GROUPS.map(g => g.href
         ? `<div class="nav__item"><a class="nav__link${active===g.key?' is-active':''}" href="${g.href}">${g.label}</a></div>`
-        : `<div class="nav__item"><button class="nav__link${active===g.key?' is-active':''}" aria-haspopup="true">${g.label}<i class="caret"></i></button>${panelHTML(g.panel)}</div>`
+        : `<div class="nav__item"><button type="button" class="nav__link${active===g.key?' is-active':''}" aria-haspopup="true">${g.label}<i class="caret"></i></button>${panelHTML(g.panel)}</div>`
       ).join('')}
     </nav>
     <div class="nav__spacer"></div>
@@ -115,6 +115,15 @@
     burger.setAttribute('aria-expanded', open);
   });
   mnav.addEventListener('click', e => { if (e.target.closest('a')) document.body.classList.remove('menu-open'); });
+
+  // dropdown triggers are hover-only openers with no destination — a click must
+  // not latch the panel open (clicking focuses the button, and :focus-within
+  // keeps it visible). Keep the mouse from focusing them; keyboard tab still
+  // opens the panel via :focus-within.
+  nav.querySelectorAll('.nav__link[aria-haspopup]').forEach(btn => {
+    btn.addEventListener('mousedown', e => e.preventDefault());
+    btn.addEventListener('click', e => { e.preventDefault(); btn.blur(); });
+  });
 
   // theme toggle — persist choice, flip the root attribute, tell the brain to repaint
   if (THEMED) {

@@ -778,7 +778,8 @@ if (!touch) {
   let tx = -100, ty = -100, cx = -100, cy = -100;
   addEventListener('pointermove', e => { tx = e.clientX; ty = e.clientY; }, { passive: true });
   document.addEventListener('mouseover', e => {
-    const t = e.target.closest('a,button,[data-hover]');
+    // the nav keeps its native cursor — never play the equalizer pointer there
+    const t = e.target.closest('.nav, .mnav') ? null : e.target.closest('a,button,[data-hover]');
     cur.classList.toggle('is-on', !!t);
     if (t) {   // dark bars over light buttons (bone / lime), bone bars everywhere else
       const bg = getComputedStyle(t).backgroundColor.match(/\d+/g) || [0, 0, 0];
