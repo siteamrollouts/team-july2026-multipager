@@ -32,14 +32,21 @@
     // Resources
     insights:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 1 4 10.5c-.7.7-1 1.3-1 2.5H9c0-1.2-.3-1.8-1-2.5A6 6 0 0 1 12 3z"/></svg>',
     changelog:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 6h11M8 12h11M8 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>',
-    about:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>'
+    about:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>',
+    // Features (products)
+    rollouts:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>',
+    tours:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+    assets:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 14l5-4 4 3 3-3 6 5"/><circle cx="8.5" cy="9" r="1.3"/></svg>'
   };
 
   const GROUPS = [
-    { key:'platform', label:'Platform', panel:{ head:'The brain, and how it works', rows:[
+    { key:'platform', label:'Platform', panel:{ head:'One platform, one brain', rows:[
       ['platform.html', IC.overview, 'Overview', 'Connect, reason, act — how Team works'],
-      ['teammate.html', IC.teammate, 'TeamMate', 'The intelligence that holds your whole release'],
-      ['integrations.html', IC.integrations, 'Integrations', 'The tools you already use, connected'],
+      ['rollouts.html', IC.rollouts, 'Rollouts', 'Run a release like a campaign'],
+      ['teammate.html', IC.teammate, 'Teammate', 'The intelligence across every module'],
+      ['assets.html', IC.assets, 'Assets', 'The creative library, release-ready'],
+      ['integrations.html', IC.integrations, 'Integrations', 'Bring the tools you already use'],
+      ['tours.html', IC.tours, 'Tours', 'Take the release to the road'],
       ['security.html', IC.security, 'Security & trust', 'Why it\'s safe on your whole stack'],
     ]}},
     { key:'solutions', label:'Solutions', panel:{ head:'One brain, for how you work', rows:[
@@ -174,7 +181,7 @@
         </div>
       </div>
       <div class="foot__col"><p>Platform</p>
-        <a href="platform.html">Overview</a><a href="teammate.html">TeamMate</a><a href="integrations.html">Integrations</a><a href="security.html">Security</a></div>
+        <a href="platform.html">Overview</a><a href="rollouts.html">Rollouts</a><a href="teammate.html">Teammate</a><a href="assets.html">Assets</a><a href="integrations.html">Integrations</a><a href="tours.html">Tours</a></div>
       <div class="foot__col"><p>Solutions</p>
         <a href="for-artists.html">Solo artists</a><a href="for-managers.html">Managers</a><a href="for-labels.html">Labels</a><a href="for-partners.html">Distributors</a><a href="enterprise.html">Enterprise</a></div>
       <div class="foot__col"><p>Company</p>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tm-theme');if(t!=='light'&&t!=='dark')t='dark';document.documentElement.dataset.theme=t}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Tours — tour management for the whole run | Team</title>
+<meta name="description" content="Tours is where a release goes on the road: build the routing, advance every show, run the day sheets, and track holds, on-sales, guarantees and settlement — one workspace for the whole run, with a brain across it. Free.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Team">
+<meta property="og:title" content="Tours — tour management for the whole run | Team">
+<meta property="og:description" content="Build the routing, advance every show, run the day sheets, track guarantees and settlement — one workspace for the whole run, with a brain across it. Free.">
+<meta property="og:url" content="https://siteamrollouts.github.io/team-july2026-multipager/tours.html">
+<meta property="og:image" content="https://siteamrollouts.github.io/team-july2026-multipager/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Team — a brain for music operations">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tours — tour management for the whole run | Team">
+<meta name="twitter:description" content="Build the routing, advance every show, run the day sheets, track guarantees and settlement — one workspace for the whole run, with a brain across it. Free.">
+<meta name="twitter:image" content="https://siteamrollouts.github.io/team-july2026-multipager/assets/og.png">
+<link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/chrome.css">
+<link rel="stylesheet" href="css/base.css">
+<style>
+  /* ═══════════════════════════════════════════════════════════════
+     Tours — take the rollout to the road. Story: the campaign becomes a
+     run of shows → one workspace for the whole run (signature: the tour
+     board) → every side of touring → the same brain, now on the road →
+     free. Product-UI panels dark-locked (.ui-dark).
+     ═══════════════════════════════════════════════════════════════ */
+  .phero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-top:7rem;padding-bottom:3rem}
+  .phero .h1{font-size:clamp(2.9rem,7vw,5.8rem)}
+  .phero__free{margin-top:1.4rem;display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+  .phero__free i{width:6px;height:6px;border-radius:50%;background:var(--lime);flex:none}
+
+  .rw{border:1px solid var(--line);border-radius:20px;background:var(--ink-2);overflow:clip;box-shadow:0 34px 80px var(--shadow)}
+  .rw__bar{display:flex;align-items:center;gap:.55rem;padding:.85rem 1.15rem;border-bottom:1px solid var(--line-2);font-family:var(--font-mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bone-dim)}
+  .rw__bar .mk{width:20px;height:20px;border-radius:6px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;flex:none}
+  .rw__bar .mk img{width:11px}
+  .rw__bar i{font-style:normal;color:var(--bone-faint)}
+  .rw__bar .pl{margin-left:auto;display:inline-flex;align-items:center;gap:.4em;color:var(--signal)}
+  .rw__bar .pl b{width:6px;height:6px;border-radius:50%;background:var(--signal);display:inline-block}
+
+  .split{display:grid;gap:clamp(2rem,5vw,5rem);align-items:center;grid-template-columns:1fr}
+  @media(min-width:900px){.split{grid-template-columns:1.02fr 1fr}}
+  .split--rev .split__copy{order:2}
+  .split__copy h2{margin-bottom:1.1rem}
+
+  /* ═══ SIGNATURE — the tour board ═══ */
+  .board{display:grid;gap:clamp(2rem,5vw,4rem);align-items:start;grid-template-columns:1fr}
+  @media(min-width:960px){.board{grid-template-columns:.82fr 1.18fr}}
+  .board__copy{position:sticky;top:8rem}
+  .board__copy h2{margin-bottom:1.1rem}
+  .tour__head{padding:1.3rem 1.4rem 1.2rem;border-bottom:1px solid var(--line-2)}
+  .tour__status{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--signal);display:inline-flex;align-items:center;gap:.5em;margin-bottom:.6rem}
+  .tour__status b{width:6px;height:6px;border-radius:50%;background:var(--signal);display:inline-block}
+  .tour__title{font-family:var(--font-display);font-weight:330;letter-spacing:-.02em;font-size:clamp(1.7rem,3vw,2.4rem);line-height:1;color:var(--bone)}
+  .tour__title em{font-family:var(--font-serif);font-style:italic}
+  .tour__dates{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.04em;color:var(--bone-dim);margin-top:.55rem}
+  .tmetrics{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line-2)}
+  @media(min-width:560px){.tmetrics{grid-template-columns:repeat(6,1fr)}}
+  .tmetric{padding:.95rem 1rem;border-right:1px solid var(--line-2);border-bottom:1px solid var(--line-2)}
+  .tmetric b{display:block;font-family:var(--font-display);font-weight:440;font-size:1.15rem;letter-spacing:-.02em;color:var(--bone);font-variant-numeric:tabular-nums}
+  .tmetric b.acc{color:var(--accent)}
+  .tmetric span{font-family:var(--font-mono);font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-faint)}
+  .tbtns{display:flex;flex-wrap:wrap;gap:.55rem;padding:1.1rem 1.4rem}
+  .tbtn{display:inline-flex;align-items:center;gap:.45rem;font-size:.78rem;font-weight:520;color:var(--bone-dim);border:1px solid var(--line);border-radius:99px;padding:.5rem .95rem}
+  .tbtn.on{background:var(--bone);color:var(--ink);border-color:transparent;font-weight:600}
+  .tbtn svg{width:.85rem;height:.85rem}
+  .troute{padding:.4rem 1.4rem 1.3rem}
+  .troute__lab{font-family:var(--font-mono);font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-faint);padding:.6rem 0 .4rem}
+  .trow{display:grid;grid-template-columns:auto 1fr auto;gap:.9rem;align-items:center;padding:.62rem 0;border-top:1px solid var(--line-2);
+    opacity:0;transform:translateX(-10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  .trow.in{opacity:1;transform:none}
+  .trow .d{font-family:var(--font-mono);font-size:.64rem;color:var(--bone-faint);white-space:nowrap}
+  .trow .c{font-size:.88rem;color:var(--bone)}
+  .trow .c u{text-decoration:none;color:var(--bone-faint);font-size:.82em;display:block}
+  .trow .st{font-family:var(--font-mono);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;padding:.3em .7em;border-radius:99px;white-space:nowrap}
+  .trow .st.c1{color:var(--accent);border:1px solid var(--line)}
+  .trow .st.c2{color:var(--signal);border:1px solid rgba(245,96,2,.5)}
+  .trow .st.c3{color:var(--bone-faint);border:1px solid var(--line-2)}
+
+  /* facets */
+  .facets{display:grid;gap:1rem;grid-template-columns:1fr}
+  @media(min-width:640px){.facets{grid-template-columns:1fr 1fr}}
+  @media(min-width:1000px){.facets{grid-template-columns:repeat(3,1fr)}}
+  .facet{border:1px solid var(--line);border-radius:16px;background:var(--ink-2);padding:1.4rem 1.4rem 1.5rem;transition:transform .5s var(--ease),border-color .5s}
+  .facet:hover{transform:translateY(-4px);border-color:var(--bone-faint)}
+  .facet__ic{width:2.4rem;height:2.4rem;border-radius:11px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);margin-bottom:1rem}
+  .facet__ic svg{width:1.15rem;height:1.15rem}
+  .facet h3{font-family:var(--font-display);font-weight:500;font-size:1.14rem;letter-spacing:-.01em;color:var(--bone);margin-bottom:.4rem}
+  .facet p{color:var(--bone-dim);font-size:.9rem;line-height:1.55}
+
+  /* ecosystem */
+  .eco{border:1px solid var(--line);border-radius:24px;background:var(--ink-2);overflow:clip;position:relative}
+  .eco::before{content:'';position:absolute;left:50%;top:-30%;width:120%;height:90%;transform:translateX(-50%);background:radial-gradient(ellipse 44% 60% at 50% 0%,var(--bloom),transparent 70%);pointer-events:none}
+  .eco__in{position:relative;padding:clamp(2.2rem,5vw,3.6rem);display:grid;gap:clamp(1.8rem,4vw,3rem);grid-template-columns:1fr}
+  @media(min-width:900px){.eco__in{grid-template-columns:1fr 1fr}}
+  .eco__copy h2{margin-bottom:1.1rem}
+  .eco__links{display:flex;flex-direction:column;gap:.7rem;align-self:center}
+  .eco__link{display:flex;align-items:center;gap:1rem;padding:1rem 1.1rem;border:1px solid var(--line);border-radius:14px;background:var(--ink);color:var(--bone);transition:border-color .3s,transform .3s}
+  .eco__link:hover{border-color:var(--bone-faint);transform:translateX(4px)}
+  .eco__link .ic{width:2.1rem;height:2.1rem;border-radius:9px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);flex:none}
+  .eco__link .ic svg{width:1.05rem;height:1.05rem}
+  .eco__link b{font-weight:560;font-size:.98rem;display:block}
+  .eco__link span{font-size:.82rem;color:var(--bone-dim)}
+  .eco__link .arr{margin-left:auto;color:var(--bone-faint);transition:transform .3s,color .3s}
+  .eco__link:hover .arr{transform:translateX(3px);color:var(--accent)}
+
+  /* ── responsive: single column below the split breakpoint ── */
+  @media(max-width:959px){
+    .board__copy{position:static}                      /* no sticky overlap when stacked */
+    .split--rev .split__copy{order:0}                  /* copy leads on mobile */
+  }
+  @media(max-width:400px){
+    .tmetric b{font-size:1.02rem}
+    .tmetric{padding:.8rem .7rem}
+  }
+</style>
+</head>
+<body data-nav="platform">
+
+<!-- ══ HERO ══ -->
+<section class="phero">
+  <div class="phero__in">
+    <p class="phero__ask reveal"><em>Meet Tours.</em></p>
+    <h1 class="h1 reveal" style="transition-delay:.08s">Take the rollout<br><em>to the road.</em></h1>
+    <p class="lede reveal" style="transition-delay:.16s;margin-inline:auto">Tours is where a release becomes a run of shows — build the routing, advance every date, run the day sheets, and hold the whole tour's holds, on-sales, guarantees and settlement in one place, with the same brain across all of it.</p>
+    <div class="phero__cta reveal" style="transition-delay:.24s">
+      <a class="btn btn--solid" href="pricing.html#beta">Plan a tour</a>
+      <a class="btn btn--ghost" href="#board">See the tour board <span class="btn__arr">→</span></a>
+    </div>
+    <p class="phero__free reveal" style="transition-delay:.3s"><i></i>Tours is free — plan your next run</p>
+  </div>
+</section>
+
+<!-- ══ ANATOMY ══ -->
+<section class="section container" id="anatomy">
+  <div class="split split--rev reveal">
+    <div class="split__copy">
+      <h2 class="h2">A tour is a hundred details <em>that all move at once.</em></h2>
+      <p class="lede">Holds and offers, routing that has to make geographic sense, advances with every venue, day sheets the crew actually reads, guarantees and settlement. Tours holds all of it in one run — so a change in one place updates everywhere it touches.</p>
+      <ul class="ticks">
+        <li>Route the run and see the efficiency score move</li>
+        <li>Advance a show and the day sheet writes itself</li>
+        <li>The brain watches holds, on-sales and settlement</li>
+      </ul>
+    </div>
+    <div class="rw ui-dark">
+      <div class="rw__bar"><span class="mk"><img src="assets/logo/team-logomark-white-trim.png" alt=""></span>Touring <i>·</i> Ava <span class="pl"><b></b>Planning</span></div>
+      <div style="padding:1.1rem 1.3rem;display:flex;flex-direction:column;gap:.7rem">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-family:var(--font-mono);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-faint)">Routing efficiency</span><span style="font-family:var(--font-display);color:var(--accent);font-size:1.3rem;font-weight:440">82<span style="font-size:.6em;color:var(--bone-faint)">/100</span></span></div>
+        <div style="height:6px;border-radius:99px;background:var(--ink-3);overflow:hidden"><div style="width:82%;height:100%;background:var(--lime)"></div></div>
+        <p style="font-size:.82rem;line-height:1.5;color:var(--bone-dim);margin-top:.2rem">Tightening the Berlin → Paris leg would cut 400 miles of backtracking and save a day off. <span style="color:var(--accent)">Reroute?</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SIGNATURE — the tour board ══ -->
+<section class="section container" id="board">
+  <div class="board">
+    <div class="board__copy reveal">
+      <h2 class="h2">The whole run,<br><em>one board.</em></h2>
+      <p class="lede">Every show, its status, and the numbers that matter — confirmed, on-sale, sold, guaranteed. Open the builder to route it, advance a date, or pull a day sheet. The brain keeps the totals honest as the run fills in.</p>
+      <a class="btn btn--ghost" href="teammate.html" style="margin-top:.4rem">Meet the brain behind it <span class="btn__arr">→</span></a>
+    </div>
+
+    <div class="rw ui-dark" id="tourPanel">
+      <div class="rw__bar"><span class="mk"><img src="assets/logo/team-logomark-white-trim.png" alt=""></span>Touring <i>·</i> Ava <span class="pl"><b></b>On sale</span></div>
+      <div class="tour__head">
+        <p class="tour__status"><b></b>On sale · Autumn 2026</p>
+        <p class="tour__title">The Static <em>Tour</em></p>
+        <p class="tour__dates">Sep 12 — Nov 08, 2026 · 8 shows</p>
+      </div>
+      <div class="tmetrics">
+        <div class="tmetric"><b>6/8</b><span>Confirmed</span></div>
+        <div class="tmetric"><b>4</b><span>On sale</span></div>
+        <div class="tmetric"><b>12.4k</b><span>Tickets sold</span></div>
+        <div class="tmetric"><b>18k</b><span>Capacity</span></div>
+        <div class="tmetric"><b>$340k</b><span>Guaranteed</span></div>
+        <div class="tmetric"><b class="acc">82/100</b><span>Routing</span></div>
+      </div>
+      <div class="tbtns">
+        <span class="tbtn on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>Open builder</span>
+        <span class="tbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/></svg>Routing</span>
+        <span class="tbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6"/></svg>Advance</span>
+        <span class="tbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4zM4 9h16"/></svg>Day sheets</span>
+      </div>
+      <div class="troute">
+        <p class="troute__lab">The routing</p>
+        <div class="trow"><span class="d">SEP 12</span><span class="c">London <u>O2 Academy Brixton</u></span><span class="st c1">On sale</span></div>
+        <div class="trow"><span class="d">SEP 18</span><span class="c">Paris <u>La Cigale</u></span><span class="st c1">On sale</span></div>
+        <div class="trow"><span class="d">SEP 24</span><span class="c">Berlin <u>Astra Kulturhaus</u></span><span class="st c2">Offer out</span></div>
+        <div class="trow"><span class="d">OCT 03</span><span class="c">Amsterdam <u>Paradiso</u></span><span class="st c1">Confirmed</span></div>
+        <div class="trow"><span class="d">OCT 11</span><span class="c">Lagos <u>Eko Convention Centre</u></span><span class="st c3">Hold</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FACETS ══ -->
+<section class="section container" id="facets">
+  <div class="reveal" style="text-align:center;max-width:42rem;margin:0 auto clamp(2.5rem,5vw,3.5rem)">
+    <h2 class="h2">Every side of the run,<br><em>in one workspace.</em></h2>
+    <p class="lede" style="margin-inline:auto">From the first hold to the final settlement — joined up, and feeding the same brain that ran the release.</p>
+  </div>
+  <div class="facets">
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span>
+      <h3>Routing</h3>
+      <p>Build a run that makes geographic and financial sense. A routing-efficiency score flags backtracking and dead days before they cost you a guarantee.</p>
+    </div>
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span>
+      <h3>Advance</h3>
+      <p>Every venue's details, tech, hospitality and timings in one advance — so nothing gets asked twice and nothing shows up as a surprise on the day.</p>
+    </div>
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h16v14H4zM4 9h16M8 13h8"/></svg></span>
+      <h3>Day sheets</h3>
+      <p>The crew's daily plan, generated from the advance — load-in, sound check, doors, set time, contacts — and always current when the plan changes.</p>
+    </div>
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16v6H4zM4 14h16v6H4M8 7h.01M8 17h.01"/></svg></span>
+      <h3>Shows &amp; on-sales</h3>
+      <p>Holds, offers, confirms and on-sales in one pipeline. Watch tickets and capacity fill in across the run, date by date.</p>
+    </div>
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2v6M12 8a6 6 0 1 0 6 6"/><circle cx="12" cy="14" r="2"/></svg></span>
+      <h3>Guarantees &amp; settlement</h3>
+      <p>Guarantees, expenses and settlement tracked per show and across the tour — so the money is as clear as the calendar.</p>
+    </div>
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3a5 5 0 0 1 5 5v1a4 4 0 0 1 0 8 5 5 0 0 1-10 0 4 4 0 0 1 0-8V8a5 5 0 0 1 5-5z"/><path d="M12 8v8M9 11h6"/></svg></span>
+      <h3>A brain on the road</h3>
+      <p>Teammate watches the run overnight — a soft on-sale, a routing gap, a settlement that's late — and hands you the calls that need a human.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ECOSYSTEM ══ -->
+<section class="section container" id="ecosystem">
+  <div class="eco reveal">
+    <div class="eco__in">
+      <div class="eco__copy">
+        <h2 class="h2">The road is part of <em>the same story.</em></h2>
+        <p class="lede">The tour isn't a separate tool bolted on. It's the same brain that ran the release — it already knows the catalog, the audience and the markets, so the run starts from everything the rollout learned.</p>
+        <p class="phero__free" style="margin-top:1.3rem"><i></i>Free, for every tour you run</p>
+      </div>
+      <div class="eco__links">
+        <a class="eco__link" href="rollouts.html">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></span>
+          <span><b>Rollouts</b><span>Where the release campaign comes together first</span></span>
+          <span class="arr">→</span>
+        </a>
+        <a class="eco__link" href="teammate.html">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3a5 5 0 0 1 5 5v1a4 4 0 0 1 0 8 5 5 0 0 1-10 0 4 4 0 0 1 0-8V8a5 5 0 0 1 5-5z"/><path d="M12 8v8M9 11h6"/></svg></span>
+          <span><b>Teammate</b><span>The intelligence working the run overnight</span></span>
+          <span class="arr">→</span>
+        </a>
+        <a class="eco__link" href="integrations.html">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="2.4"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M10.3 10.3 6.4 6.4M13.7 10.3l3.9-3.9M10.3 13.7l-3.9 3.9M13.7 13.7l3.9 3.9"/></svg></span>
+          <span><b>Integrations</b><span>Ticketing, calendars and the tools you already use</span></span>
+          <span class="arr">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="section ctaband container">
+  <h2 class="h2">Put your next tour <em>on the board.</em></h2>
+  <div class="ctaband__row">
+    <a class="btn btn--solid" href="pricing.html#beta">Plan a tour — free</a>
+    <a class="btn btn--ghost" href="#demo" data-demo>Get a demo <span class="btn__arr">→</span></a>
+  </div>
+</section>
+
+<script src="js/brain.js"></script>
+<script src="js/chrome.js"></script>
+<script>
+(() => {
+  const root = document.getElementById('tourPanel'); if (!root || !window.TM) return;
+  const s = window.TM.seq(root.querySelectorAll('.trow'), 'in', 110, 120);
+  window.TM.replay(root, s.play, s.reset, .3);
+})();
+</script>
+</body>
+</html>

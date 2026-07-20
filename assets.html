@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tm-theme');if(t!=='light'&&t!=='dark')t='dark';document.documentElement.dataset.theme=t}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Assets — the creative library for every release | Team</title>
+<meta name="description" content="Assets is the creative library for a release: artwork, audio, video, documents and links in one place — versioned, release-ready and shareable, wired straight into the rollout, with a brain across it. Free.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Team">
+<meta property="og:title" content="Assets — the creative library for every release | Team">
+<meta property="og:description" content="Artwork, audio, video, documents and links in one place — versioned, release-ready and shareable, wired straight into the rollout. Free.">
+<meta property="og:url" content="https://siteamrollouts.github.io/team-july2026-multipager/assets.html">
+<meta property="og:image" content="https://siteamrollouts.github.io/team-july2026-multipager/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Team — a brain for music operations">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Assets — the creative library for every release | Team">
+<meta name="twitter:description" content="Artwork, audio, video, documents and links in one place — versioned, release-ready and shareable, wired straight into the rollout. Free.">
+<meta name="twitter:image" content="https://siteamrollouts.github.io/team-july2026-multipager/assets/og.png">
+<link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/chrome.css">
+<link rel="stylesheet" href="css/base.css">
+<style>
+  /* ═══════════════════════════════════════════════════════════════
+     Assets — the creative library, release-ready. Story: every asset
+     scattered → one library (signature: the library) → versioned,
+     shareable, wired into the rollout → the same brain reads it → free.
+     Product-UI panels dark-locked (.ui-dark).
+     ═══════════════════════════════════════════════════════════════ */
+  .phero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-top:7rem;padding-bottom:3rem}
+  .phero .h1{font-size:clamp(2.9rem,7vw,5.8rem)}
+  .phero__free{margin-top:1.4rem;display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+  .phero__free i{width:6px;height:6px;border-radius:50%;background:var(--lime);flex:none}
+
+  .rw{border:1px solid var(--line);border-radius:20px;background:var(--ink-2);overflow:clip;box-shadow:0 34px 80px var(--shadow)}
+  .rw__bar{display:flex;align-items:center;gap:.55rem;padding:.85rem 1.15rem;border-bottom:1px solid var(--line-2);font-family:var(--font-mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bone-dim)}
+  .rw__bar .mk{width:20px;height:20px;border-radius:6px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;flex:none}
+  .rw__bar .mk img{width:11px}
+  .rw__bar i{font-style:normal;color:var(--bone-faint)}
+  .rw__bar .rr{margin-left:auto;display:inline-flex;align-items:center;gap:.4em;color:var(--accent)}
+  .rw__bar .rr b{width:6px;height:6px;border-radius:50%;background:var(--lime);display:inline-block}
+
+  .split{display:grid;gap:clamp(2rem,5vw,5rem);align-items:center;grid-template-columns:1fr}
+  @media(min-width:900px){.split{grid-template-columns:1.02fr 1fr}}
+  .split__copy h2{margin-bottom:1.1rem}
+
+  /* ═══ SIGNATURE — the library ═══ */
+  .board{display:grid;gap:clamp(2rem,5vw,4rem);align-items:start;grid-template-columns:1fr}
+  @media(min-width:960px){.board{grid-template-columns:.82fr 1.18fr}}
+  .board__copy{position:sticky;top:8rem}
+  .board__copy h2{margin-bottom:1.1rem}
+  .lib__head{padding:1.2rem 1.4rem 1rem;border-bottom:1px solid var(--line-2)}
+  .lib__eyebrow{font-family:var(--font-mono);font-size:.54rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem}
+  .lib__title{font-family:var(--font-display);font-weight:330;letter-spacing:-.02em;font-size:clamp(1.7rem,3vw,2.4rem);line-height:1;color:var(--bone)}
+  .lib__title em{font-family:var(--font-serif);font-style:italic}
+  .lib__sub{color:var(--bone-dim);font-size:.85rem;margin-top:.5rem}
+  .lib__sub em{font-style:italic;color:var(--accent)}
+  .lib__cats{display:flex;flex-wrap:wrap;gap:.5rem;padding:1rem 1.4rem .3rem}
+  .lcat{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--bone-dim);border:1px solid var(--line);border-radius:99px;padding:.4rem .8rem}
+  .lcat.on{background:var(--ink-3);color:var(--bone);border-color:transparent}
+  .lcat u{text-decoration:none;color:var(--bone-faint)}
+  .lib__grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;padding:1rem 1.4rem 1.4rem}
+  @media(min-width:560px){.lib__grid{grid-template-columns:repeat(3,1fr)}}
+  .acard{border:1px solid var(--line);border-radius:12px;background:var(--ink);overflow:clip;
+    opacity:0;transform:translateY(12px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  .acard.in{opacity:1;transform:none}
+  .acard__thumb{aspect-ratio:1/.72;display:grid;place-items:center;position:relative;border-bottom:1px solid var(--line-2)}
+  .acard__thumb .badge{position:absolute;top:.4rem;right:.4rem;font-family:var(--font-mono);font-size:.5rem;letter-spacing:.06em;text-transform:uppercase;
+    background:var(--lime);color:var(--on-accent);border-radius:99px;padding:.2em .55em;font-weight:600}
+  .acard__thumb .badge.v{background:var(--ink-3);color:var(--accent)}
+  .acard__thumb svg{width:1.6rem;height:1.6rem;color:rgba(239,235,227,.7)}
+  .th-art{background:linear-gradient(135deg,#3a2a5e,#7b3f5e 55%,#c66a2e)}
+  .th-audio{background:var(--ink-3)}
+  .th-doc{background:var(--ink-3)}
+  .th-video{background:linear-gradient(135deg,#1e2b3a,#2f5560)}
+  .eqbars{display:flex;align-items:flex-end;gap:2px;height:26px}
+  .eqbars i{width:3px;background:var(--accent);border-radius:1px;opacity:.85}
+  .acard__ft{padding:.55rem .7rem}
+  .acard__ft b{display:block;font-size:.68rem;font-weight:540;color:var(--bone);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .acard__ft span{font-family:var(--font-mono);font-size:.5rem;letter-spacing:.08em;text-transform:uppercase;color:var(--bone-faint)}
+
+  /* facets */
+  .facets{display:grid;gap:1rem;grid-template-columns:1fr}
+  @media(min-width:640px){.facets{grid-template-columns:1fr 1fr}}
+  @media(min-width:1000px){.facets{grid-template-columns:repeat(3,1fr)}}
+  .facet{border:1px solid var(--line);border-radius:16px;background:var(--ink-2);padding:1.4rem 1.4rem 1.5rem;transition:transform .5s var(--ease),border-color .5s}
+  .facet:hover{transform:translateY(-4px);border-color:var(--bone-faint)}
+  .facet__ic{width:2.4rem;height:2.4rem;border-radius:11px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);margin-bottom:1rem}
+  .facet__ic svg{width:1.15rem;height:1.15rem}
+  .facet h3{font-family:var(--font-display);font-weight:500;font-size:1.14rem;letter-spacing:-.01em;color:var(--bone);margin-bottom:.4rem}
+  .facet p{color:var(--bone-dim);font-size:.9rem;line-height:1.55}
+
+  /* ecosystem */
+  .eco{border:1px solid var(--line);border-radius:24px;background:var(--ink-2);overflow:clip;position:relative}
+  .eco::before{content:'';position:absolute;left:50%;top:-30%;width:120%;height:90%;transform:translateX(-50%);background:radial-gradient(ellipse 44% 60% at 50% 0%,var(--bloom),transparent 70%);pointer-events:none}
+  .eco__in{position:relative;padding:clamp(2.2rem,5vw,3.6rem);display:grid;gap:clamp(1.8rem,4vw,3rem);grid-template-columns:1fr}
+  @media(min-width:900px){.eco__in{grid-template-columns:1fr 1fr}}
+  .eco__copy h2{margin-bottom:1.1rem}
+  .eco__links{display:flex;flex-direction:column;gap:.7rem;align-self:center}
+  .eco__link{display:flex;align-items:center;gap:1rem;padding:1rem 1.1rem;border:1px solid var(--line);border-radius:14px;background:var(--ink);color:var(--bone);transition:border-color .3s,transform .3s}
+  .eco__link:hover{border-color:var(--bone-faint);transform:translateX(4px)}
+  .eco__link .ic{width:2.1rem;height:2.1rem;border-radius:9px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);flex:none}
+  .eco__link .ic svg{width:1.05rem;height:1.05rem}
+  .eco__link b{font-weight:560;font-size:.98rem;display:block}
+  .eco__link span{font-size:.82rem;color:var(--bone-dim)}
+  .eco__link .arr{margin-left:auto;color:var(--bone-faint);transition:transform .3s,color .3s}
+  .eco__link:hover .arr{transform:translateX(3px);color:var(--accent)}
+
+  /* ── responsive: single column below the split breakpoint ── */
+  @media(max-width:959px){
+    .board__copy{position:static}                      /* no sticky overlap when stacked */
+  }
+</style>
+</head>
+<body data-nav="platform">
+
+<!-- ══ HERO ══ -->
+<section class="phero">
+  <div class="phero__in">
+    <p class="phero__ask reveal"><em>Meet Assets.</em></p>
+    <h1 class="h1 reveal" style="transition-delay:.08s">Every creative asset,<br><em>release-ready.</em></h1>
+    <p class="lede reveal" style="transition-delay:.16s;margin-inline:auto">Assets is the creative library for a release — artwork, audio, video, documents and links in one place. Versioned, so the final is always the final. Shareable, so no more zip files. And wired straight into the rollout that uses it.</p>
+    <div class="phero__cta reveal" style="transition-delay:.24s">
+      <a class="btn btn--solid" href="pricing.html#beta">Open a library</a>
+      <a class="btn btn--ghost" href="#library">See the library <span class="btn__arr">→</span></a>
+    </div>
+    <p class="phero__free reveal" style="transition-delay:.3s"><i></i>Assets is free — for every release</p>
+  </div>
+</section>
+
+<!-- ══ ANATOMY ══ -->
+<section class="section container" id="anatomy">
+  <div class="split reveal">
+    <div class="split__copy">
+      <h2 class="h2">The creative lives in ten places.<br><em>Give it one home.</em></h2>
+      <p class="lede">The master's in Dropbox, the artwork's in Drive, the video's in someone's WeTransfer that expired, and the "final" everyone's using is three versions old. Assets pulls every creative file for a release into one library — the version that's actually final, front and centre.</p>
+      <ul class="ticks">
+        <li>Artwork, audio, video, docs and links, together</li>
+        <li>Every version kept, with who approved which</li>
+        <li>Share a link — no exports, no expiries, no zip files</li>
+      </ul>
+    </div>
+    <div class="rw ui-dark">
+      <div class="rw__bar"><span class="mk"><img src="assets/logo/team-logomark-white-trim.png" alt=""></span>Assets <i>·</i> Midnight Static <span class="rr"><b></b>Release-ready</span></div>
+      <div style="padding:1.1rem 1.3rem;display:flex;flex-direction:column;gap:.6rem">
+        <div style="display:flex;align-items:center;gap:.7rem;padding:.6rem .7rem;border:1px solid var(--line-2);border-radius:10px">
+          <span style="width:1.9rem;height:1.9rem;border-radius:7px;background:var(--ink-3);display:grid;place-items:center;color:var(--accent);flex:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 12h2l2-6 4 14 3-9 2 4h3"/></svg></span>
+          <span style="flex:1;min-width:0"><b style="display:block;font-size:.78rem;color:var(--bone)">Midnight_Static_Master_v10.wav</b><u style="font-family:var(--font-mono);font-size:.56rem;letter-spacing:.08em;color:var(--bone-faint);text-decoration:none">Approved by Maya · DSP-ready</u></span>
+          <span style="font-family:var(--font-mono);font-size:.5rem;letter-spacing:.06em;text-transform:uppercase;background:var(--lime);color:var(--on-accent);border-radius:99px;padding:.2em .55em;font-weight:600">Final</span>
+        </div>
+        <p style="font-size:.8rem;color:var(--bone-dim);padding:0 .1rem">9 earlier versions kept. <span style="color:var(--accent)">Everyone's pulling from the same one.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SIGNATURE — the library ══ -->
+<section class="section container" id="library">
+  <div class="board">
+    <div class="board__copy reveal">
+      <h2 class="h2">The library,<br><em>in one place.</em></h2>
+      <p class="lede">Every creative asset for the release, sorted and searchable. Drop a file in and it's versioned, shareable and attached to the work that needs it. Teammate keeps it tidy and flags what's still missing before release day.</p>
+      <a class="btn btn--ghost" href="teammate.html" style="margin-top:.4rem">Meet the brain behind it <span class="btn__arr">→</span></a>
+    </div>
+
+    <div class="rw ui-dark" id="libPanel">
+      <div class="rw__bar"><span class="mk"><img src="assets/logo/team-logomark-white-trim.png" alt=""></span>Assets <i>·</i> Midnight Static <span class="rr"><b></b>Release-ready</span></div>
+      <div class="lib__head">
+        <p class="lib__eyebrow">Creative library · release-ready</p>
+        <p class="lib__title">The <em>library</em></p>
+        <p class="lib__sub">Every creative asset for this release, <em>in one place.</em></p>
+      </div>
+      <div class="lib__cats">
+        <span class="lcat on">All <u>18</u></span>
+        <span class="lcat">Artwork <u>5</u></span>
+        <span class="lcat">Audio <u>4</u></span>
+        <span class="lcat">Video <u>3</u></span>
+        <span class="lcat">Documents <u>4</u></span>
+        <span class="lcat">Links <u>2</u></span>
+      </div>
+      <div class="lib__grid">
+        <div class="acard"><div class="acard__thumb th-art"><span class="badge">Final</span></div><div class="acard__ft"><b>Cover_3000.png</b><span>Artwork · PNG</span></div></div>
+        <div class="acard"><div class="acard__thumb th-audio"><span class="badge v">v10</span><span class="eqbars"><i style="height:40%"></i><i style="height:70%"></i><i style="height:100%"></i><i style="height:55%"></i><i style="height:85%"></i><i style="height:35%"></i><i style="height:65%"></i></span></div><div class="acard__ft"><b>Master_v10.wav</b><span>Audio · DSP-ready</span></div></div>
+        <div class="acard"><div class="acard__thumb th-video"><span class="badge">Approved</span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div><div class="acard__ft"><b>Teaser_15s.mp4</b><span>Video · MP4</span></div></div>
+        <div class="acard"><div class="acard__thumb th-doc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h9l5 5v13H6z"/><path d="M14 3v6h6M9 13h6M9 17h4"/></svg></div><div class="acard__ft"><b>One-sheet.pdf</b><span>Document · PDF</span></div></div>
+        <div class="acard"><div class="acard__thumb th-art" style="background:linear-gradient(135deg,#24303a,#3d6b52)"><span class="badge v">v3</span></div><div class="acard__ft"><b>Canvas_9x16.jpg</b><span>Artwork · JPG</span></div></div>
+        <div class="acard"><div class="acard__thumb th-doc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg></div><div class="acard__ft"><b>Pre-save link</b><span>Link · Shared</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FACETS ══ -->
+<section class="section container" id="facets">
+  <div class="reveal" style="text-align:center;max-width:42rem;margin:0 auto clamp(2.5rem,5vw,3.5rem)">
+    <h2 class="h2">Not a folder.<br><em>A living library.</em></h2>
+    <p class="lede" style="margin-inline:auto">Every asset knows its version, who approved it, and where it's used — and it all feeds the same brain that runs the release.</p>
+  </div>
+  <div class="facets">
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v6l4-2M4 8l8 4 8-4M4 8v8l8 4 8-4V8M12 12v9"/></svg></span>
+      <h3>Versioned by default</h3>
+      <p>Every bounce and every cut kept, with who approved which. The "final" is unambiguous — and last month's version is still there if you need it.</p>
+    </div>
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></svg></span>
+      <h3>Shareable in a click</h3>
+      <p>Send a link, not a 4GB zip that expires. Share a single asset or the whole library, with the access you choose — press, partners, DSPs.</p>
+    </div>
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></span>
+      <h3>Wired into the rollout</h3>
+      <p>Assets attach to the tasks and dates that use them, so "the artwork" is right where the timeline needs it — not lost in someone's inbox.</p>
+    </div>
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+      <h3>From the work itself</h3>
+      <p>Assets created as tasks get done land in the library automatically — the deliverables of the rollout collect themselves as you go.</p>
+    </div>
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12h2l2-6 4 14 3-9 2 4h3"/></svg></span>
+      <h3>Release-ready</h3>
+      <p>Artwork at spec, masters DSP-ready, canvases and pre-saves in place. The library tells you what's cleared and what's still outstanding.</p>
+    </div>
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3a5 5 0 0 1 5 5v1a4 4 0 0 1 0 8 5 5 0 0 1-10 0 4 4 0 0 1 0-8V8a5 5 0 0 1 5-5z"/><path d="M12 8v8M9 11h6"/></svg></span>
+      <h3>Read by the brain</h3>
+      <p>Teammate knows what's in the library and what isn't — so "did the final artwork ever land?" has an answer, and missing assets get flagged before they bite.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ECOSYSTEM ══ -->
+<section class="section container" id="ecosystem">
+  <div class="eco reveal">
+    <div class="eco__in">
+      <div class="eco__copy">
+        <h2 class="h2">The library feeds <em>the whole release.</em></h2>
+        <p class="lede">Assets isn't a drive you have to remember to check. It's part of the same operation — the rollout pulls from it, partners receive from it, and the brain reads it, so the creative and the campaign are never out of sync.</p>
+        <p class="phero__free" style="margin-top:1.3rem"><i></i>Free, for every release</p>
+      </div>
+      <div class="eco__links">
+        <a class="eco__link" href="rollouts.html">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></span>
+          <span><b>Rollouts</b><span>The release campaign the library feeds into</span></span>
+          <span class="arr">→</span>
+        </a>
+        <a class="eco__link" href="teammate.html">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3a5 5 0 0 1 5 5v1a4 4 0 0 1 0 8 5 5 0 0 1-10 0 4 4 0 0 1 0-8V8a5 5 0 0 1 5-5z"/><path d="M12 8v8M9 11h6"/></svg></span>
+          <span><b>Teammate</b><span>The intelligence that knows what's in the library</span></span>
+          <span class="arr">→</span>
+        </a>
+        <a class="eco__link" href="integrations.html">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="2.4"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M10.3 10.3 6.4 6.4M13.7 10.3l3.9-3.9M10.3 13.7l-3.9 3.9M13.7 13.7l3.9 3.9"/></svg></span>
+          <span><b>Integrations</b><span>Pull from Drive, Dropbox and the tools you use</span></span>
+          <span class="arr">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="section ctaband container">
+  <h2 class="h2">Give your next release <em>one library.</em></h2>
+  <div class="ctaband__row">
+    <a class="btn btn--solid" href="pricing.html#beta">Open a library — free</a>
+    <a class="btn btn--ghost" href="#demo" data-demo>Get a demo <span class="btn__arr">→</span></a>
+  </div>
+</section>
+
+<script src="js/brain.js"></script>
+<script src="js/chrome.js"></script>
+<script>
+(() => {
+  const root = document.getElementById('libPanel'); if (!root || !window.TM) return;
+  const s = window.TM.seq(root.querySelectorAll('.acard'), 'in', 90, 120);
+  window.TM.replay(root, s.play, s.reset, .25);
+})();
+</script>
+</body>
+</html>

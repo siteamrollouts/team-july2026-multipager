@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>(function(){try{var t=localStorage.getItem('tm-theme');if(t!=='light'&&t!=='dark')t='dark';document.documentElement.dataset.theme=t}catch(e){}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Rollouts — release management, with a brain | Team</title>
+<meta name="description" content="Rollouts is the workspace where a music release comes together — timeline, budget, tracks, assets, territories and DSP pitches in one place, with a brain watching every moving part. Free to run your next release.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Team">
+<meta property="og:title" content="Rollouts — release management, with a brain | Team">
+<meta property="og:description" content="The workspace where a release goes from idea to live: timeline, budget, tracks, assets, territories, DSP pitches — with Teammate working it overnight. Free.">
+<meta property="og:url" content="https://siteamrollouts.github.io/team-july2026-multipager/rollouts.html">
+<meta property="og:image" content="https://siteamrollouts.github.io/team-july2026-multipager/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Team — a brain for music operations">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rollouts — release management, with a brain | Team">
+<meta name="twitter:description" content="The workspace where a release goes from idea to live: timeline, budget, tracks, assets, territories, DSP pitches — with Teammate working it overnight. Free.">
+<meta name="twitter:image" content="https://siteamrollouts.github.io/team-july2026-multipager/assets/og.png">
+<link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/chrome.css">
+<link rel="stylesheet" href="css/base.css">
+<style>
+  /* ═══════════════════════════════════════════════════════════════
+     Rollouts — the release-campaign workspace. Story: a release is a
+     dozen moving parts → Rollouts gives it one shape → the brain works
+     it overnight and hands you the decisions (signature) → every facet
+     in one place → it doesn't end at release (ecosystem) → it's free.
+     Product-UI panels are dark-locked (.ui-dark).
+     ═══════════════════════════════════════════════════════════════ */
+  .phero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+    padding-top:7rem;padding-bottom:3rem}
+  .phero .h1{font-size:clamp(2.9rem,7vw,5.8rem)}
+  .phero__free{margin-top:1.4rem;display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-mono);
+    font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+  .phero__free i{width:6px;height:6px;border-radius:50%;background:var(--lime);flex:none}
+
+  /* ── shared dark product panel ── */
+  .rw{border:1px solid var(--line);border-radius:20px;background:var(--ink-2);overflow:clip;box-shadow:0 34px 80px var(--shadow)}
+  .rw__bar{display:flex;align-items:center;gap:.55rem;padding:.85rem 1.15rem;border-bottom:1px solid var(--line-2);
+    font-family:var(--font-mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bone-dim)}
+  .rw__bar .mk{width:20px;height:20px;border-radius:6px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;flex:none}
+  .rw__bar .mk img{width:11px}
+  .rw__bar i{font-style:normal;color:var(--bone-faint)}
+  .rw__bar .live{margin-left:auto;display:inline-flex;align-items:center;gap:.4em;color:var(--accent)}
+  .rw__bar .live b{width:6px;height:6px;border-radius:50%;background:var(--lime);display:inline-block}
+
+  /* ── ANATOMY: the workspace rail ── */
+  .split{display:grid;gap:clamp(2rem,5vw,5rem);align-items:center;grid-template-columns:1fr}
+  @media(min-width:900px){.split{grid-template-columns:1fr 1.02fr}}
+  .split__copy h2{margin-bottom:1.1rem}
+  .rail{padding:.7rem}
+  .rail__seg{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-faint);padding:.7rem .8rem .4rem}
+  .rail__row{display:flex;align-items:center;gap:.75rem;padding:.62rem .8rem;border-radius:10px;
+    font-size:.9rem;color:var(--bone-dim);
+    opacity:0;transform:translateX(-10px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  .rail__row.in{opacity:1;transform:none}
+  .rail__row.on{background:var(--ink-3);color:var(--bone);font-weight:560}
+  .rail__row .ic{width:1.5rem;height:1.5rem;border-radius:7px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);flex:none}
+  .rail__row.on .ic{background:var(--lime);color:var(--on-accent);border-color:transparent}
+  .rail__row .ic svg{width:.85rem;height:.85rem}
+  .rail__row u{margin-left:auto;text-decoration:none;font-family:var(--font-mono);font-size:.56rem;letter-spacing:.1em;color:var(--bone-faint)}
+
+  /* ═══ SIGNATURE — the rollout, condensed ═══ */
+  .cond{display:grid;gap:clamp(2rem,5vw,4rem);align-items:start;grid-template-columns:1fr}
+  @media(min-width:960px){.cond{grid-template-columns:.82fr 1.18fr}}
+  .cond__copy{position:sticky;top:8rem}
+  .cond__copy h2{margin-bottom:1.1rem}
+  .rw__head{padding:1.3rem 1.4rem 1.1rem;display:grid;grid-template-columns:1fr auto;gap:1.2rem;align-items:start;border-bottom:1px solid var(--line-2)}
+  .rw__meta{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-faint);margin-bottom:.5rem;display:flex;gap:.55rem;flex-wrap:wrap}
+  .rw__meta span{color:var(--accent)}
+  .rw__title{font-family:var(--font-display);font-weight:330;letter-spacing:-.02em;font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1.02;color:var(--bone)}
+  .rw__title em{font-family:var(--font-serif);font-style:italic}
+  .rw__sub{color:var(--bone-dim);font-size:.86rem;line-height:1.5;margin-top:.55rem;max-width:26rem}
+  .rw__sub em{font-style:italic;color:var(--accent)}
+  /* pulse chart */
+  .pulse{align-self:start;text-align:right;min-width:12rem}
+  .pulse__lab{font-family:var(--font-mono);font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-faint)}
+  .pulse__lab b{color:var(--accent);font-weight:600}
+  .pulse svg{display:block;width:100%;height:64px;margin-top:.35rem;overflow:visible}
+  .pulse__axis{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:.5rem;letter-spacing:.08em;color:var(--bone-faint);margin-top:.25rem}
+  .pulse__axis .liv{color:var(--accent)}
+  /* proposal */
+  .rw__body{padding:1.2rem 1.4rem 1.4rem;display:flex;flex-direction:column;gap:1rem}
+  .rw__flag{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--signal);display:flex;align-items:center;gap:.5em}
+  .rw__flag b{width:6px;height:6px;border-radius:50%;background:var(--signal);display:inline-block}
+  .prop{border:1px solid var(--line);border-radius:14px;background:var(--ink);padding:1.05rem 1.15rem}
+  .prop__h{font-size:.95rem;font-weight:600;color:var(--bone);margin-bottom:.4rem}
+  .prop__d{font-size:.82rem;line-height:1.5;color:var(--bone-dim)}
+  .prop__act{display:flex;align-items:center;gap:.9rem;margin-top:.9rem}
+  .prop__go{background:var(--lime);color:var(--on-accent);font-weight:620;font-size:.8rem;border:0;border-radius:99px;padding:.5rem 1rem;display:inline-flex;align-items:center;gap:.4rem}
+  .prop__dis{color:var(--bone-dim);font-size:.8rem;font-weight:520}
+  .prop__why{margin-left:auto;font-family:var(--font-mono);font-size:.55rem;letter-spacing:.1em;color:var(--bone-faint)}
+  /* what the brain noticed */
+  .notice{border:1px solid var(--line-2);border-radius:14px;background:var(--ink);padding:1.05rem 1.15rem;display:grid;grid-template-columns:auto 1fr;gap:.9rem;align-items:start}
+  .notice__tag{grid-column:1/-1;font-family:var(--font-mono);font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bone-faint);display:flex;gap:.6rem;align-items:center}
+  .notice__tag em{font-style:normal;color:var(--accent)}
+  .notice__ring{width:2.6rem;height:2.6rem;flex:none}
+  .notice__ring text{font-family:var(--font-mono)}
+  .notice__t{font-size:.9rem;font-weight:560;color:var(--bone)}
+  .notice__d{font-size:.8rem;line-height:1.5;color:var(--bone-dim);margin-top:.25rem}
+  /* teammate line */
+  .tmline{display:flex;gap:.7rem;align-items:flex-start;padding:.2rem .1rem 0}
+  .tmline .mk{width:22px;height:22px;border-radius:7px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;flex:none}
+  .tmline .mk img{width:12px}
+  .tmline p{font-size:.84rem;line-height:1.5;color:var(--bone-dim)}
+  .tmline p b{color:var(--bone);font-weight:560}
+
+  /* ── FACETS: everything a release needs ── */
+  .facets{display:grid;gap:1rem;grid-template-columns:1fr}
+  @media(min-width:640px){.facets{grid-template-columns:1fr 1fr}}
+  @media(min-width:1000px){.facets{grid-template-columns:repeat(3,1fr)}}
+  .facet{border:1px solid var(--line);border-radius:16px;background:var(--ink-2);padding:1.4rem 1.4rem 1.5rem;transition:transform .5s var(--ease),border-color .5s}
+  .facet:hover{transform:translateY(-4px);border-color:var(--bone-faint)}
+  .facet__ic{width:2.4rem;height:2.4rem;border-radius:11px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);margin-bottom:1rem}
+  .facet__ic svg{width:1.15rem;height:1.15rem}
+  .facet h3{font-family:var(--font-display);font-weight:500;font-size:1.14rem;letter-spacing:-.01em;color:var(--bone);margin-bottom:.4rem}
+  .facet p{color:var(--bone-dim);font-size:.9rem;line-height:1.55}
+  .facet__more{display:inline-block;margin-top:.7rem;font-size:.82rem;color:var(--accent);font-weight:560}
+
+  /* ── ECOSYSTEM ── */
+  .eco{border:1px solid var(--line);border-radius:24px;background:var(--ink-2);overflow:clip;position:relative}
+  .eco::before{content:'';position:absolute;left:50%;top:-30%;width:120%;height:90%;transform:translateX(-50%);
+    background:radial-gradient(ellipse 44% 60% at 50% 0%,var(--bloom),transparent 70%);pointer-events:none}
+  .eco__in{position:relative;padding:clamp(2.2rem,5vw,3.6rem);display:grid;gap:clamp(1.8rem,4vw,3rem);grid-template-columns:1fr}
+  @media(min-width:900px){.eco__in{grid-template-columns:1fr 1fr}}
+  .eco__copy h2{margin-bottom:1.1rem}
+  .eco__links{display:flex;flex-direction:column;gap:.7rem;align-self:center}
+  .eco__link{display:flex;align-items:center;gap:1rem;padding:1rem 1.1rem;border:1px solid var(--line);border-radius:14px;background:var(--ink);
+    color:var(--bone);transition:border-color .3s,background .3s,transform .3s}
+  .eco__link:hover{border-color:var(--bone-faint);transform:translateX(4px)}
+  .eco__link .ic{width:2.1rem;height:2.1rem;border-radius:9px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);flex:none}
+  .eco__link .ic svg{width:1.05rem;height:1.05rem}
+  .eco__link b{font-weight:560;font-size:.98rem;display:block}
+  .eco__link span{font-size:.82rem;color:var(--bone-dim)}
+  .eco__link .arr{margin-left:auto;color:var(--bone-faint);transition:transform .3s,color .3s}
+  .eco__link:hover .arr{transform:translateX(3px);color:var(--accent)}
+
+  /* ── responsive: single column below the split breakpoint ── */
+  @media(max-width:959px){
+    .cond__copy{position:static}                       /* no sticky overlap when stacked */
+  }
+  @media(max-width:560px){
+    .rw__head{grid-template-columns:1fr}               /* pulse drops below the title */
+    .pulse{text-align:left;min-width:0;margin-top:.6rem}
+    .prop__act{flex-wrap:wrap}
+    .prop__why{margin-left:0;width:100%}
+  }
+</style>
+</head>
+<body data-nav="platform">
+
+<!-- ══ HERO ══ -->
+<section class="phero">
+  <div class="phero__in">
+    <p class="phero__ask reveal"><em>Meet Rollouts.</em></p>
+    <h1 class="h1 reveal" style="transition-delay:.08s">Every release,<br>run like <em>a campaign.</em></h1>
+    <p class="lede reveal" style="transition-delay:.16s;margin-inline:auto">Rollouts is the workspace where a release goes from idea to live — timeline, budget, tracks, artwork, territories and DSP pitches in one place, with a brain watching every moving part and handing you only the calls that need you.</p>
+    <div class="phero__cta reveal" style="transition-delay:.24s">
+      <a class="btn btn--solid" href="pricing.html#beta">Start a release</a>
+      <a class="btn btn--ghost" href="#condensed">See a rollout <span class="btn__arr">→</span></a>
+    </div>
+    <p class="phero__free reveal" style="transition-delay:.3s"><i></i>Rollouts is free — bring your next release</p>
+  </div>
+</section>
+
+<!-- ══ ANATOMY — the shape of a rollout ══ -->
+<section class="section container" id="anatomy">
+  <div class="split reveal">
+    <div class="split__copy">
+      <h2 class="h2">A release is a dozen moving parts.<br><em>Give it one shape.</em></h2>
+      <p class="lede">Masters, artwork, budget, the timeline, the pitch, the territories, the people. On most releases they live in ten tools and one person's head. A rollout puts every part in one workspace — so the whole release has a shape you can actually see.</p>
+      <ul class="ticks">
+        <li>Open a rollout and the whole release is right there</li>
+        <li>Every task has a date, an owner and a dependency</li>
+        <li>The brain reads across all of it, all the time</li>
+      </ul>
+    </div>
+    <div class="rw ui-dark" id="railPanel">
+      <div class="rw__bar"><span class="mk"><img src="assets/logo/team-logomark-white-trim.png" alt=""></span>Release workspace <i>·</i> Midnight Static <span class="live"><b></b>Live</span></div>
+      <div class="rail">
+        <p class="rail__seg">The rollout</p>
+        <div class="rail__row on"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 5h16M4 12h16M4 19h10"/></svg></span>Home<u>condensed</u></div>
+        <div class="rail__row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></span>Timeline<u>D-14 / 14</u></div>
+        <div class="rail__row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/></svg></span>Strategy</div>
+        <div class="rail__row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></span>Research</div>
+        <div class="rail__row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 12h2l2-6 4 14 3-9 2 4h3"/></svg></span>Tracks<u>2</u></div>
+        <div class="rail__row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 14l5-4 4 3 3-3 6 5"/></svg></span>Assets</div>
+        <div class="rail__row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span>Territories</div>
+        <div class="rail__row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3v18M5 8l7-5 7 5M7 21h10"/></svg></span>DSP Priorities</div>
+        <div class="rail__row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 2v6M12 8a6 6 0 1 0 6 6"/><circle cx="12" cy="14" r="2"/></svg></span>Budget<u>$200k</u></div>
+        <div class="rail__row"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M20 6L9 17l-5-5"/></svg></span>Ready to Roll</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SIGNATURE — the rollout, condensed ══ -->
+<section class="section container" id="condensed">
+  <div class="cond">
+    <div class="cond__copy reveal">
+      <h2 class="h2">Your rollout,<br><em>condensed.</em></h2>
+      <p class="lede">Open a rollout and Teammate has already read the whole thing overnight. It handles what it safely can, flags what's slipping, and hands you the few decisions only you can make — like a release manager who never sleeps and never drops a thread.</p>
+      <a class="btn btn--ghost" href="teammate.html" style="margin-top:.4rem">Meet the brain behind it <span class="btn__arr">→</span></a>
+    </div>
+
+    <div class="rw ui-dark" id="condPanel">
+      <div class="rw__head">
+        <div>
+          <p class="rw__meta">Release workspace <span>·</span> Day 01 / 14 <span>·</span> EP</p>
+          <p class="rw__title">Midnight <em>Static</em></p>
+          <p class="rw__sub">Teammate reviewed the brain overnight — <em>1 thing needs your eyes today</em>, 6 are quietly slipping.</p>
+        </div>
+        <div class="pulse">
+          <p class="pulse__lab">Rollout pulse <b>+18% wk/wk</b></p>
+          <svg viewBox="0 0 160 64" preserveAspectRatio="none" aria-hidden="true">
+            <defs><linearGradient id="pf" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f56002" stop-opacity=".28"/><stop offset="1" stop-color="#f56002" stop-opacity="0"/>
+            </linearGradient></defs>
+            <path d="M0,52 L26,50 L52,44 L78,46 L104,34 L130,30 L156,12 L156,64 L0,64 Z" fill="url(#pf)"/>
+            <path d="M0,52 L26,50 L52,44 L78,46 L104,34 L130,30 L156,12" fill="none" stroke="var(--bone-dim)" stroke-width="1.5"/>
+            <circle cx="156" cy="12" r="5" fill="#f56002"/>
+          </svg>
+          <div class="pulse__axis"><span>D-14</span><span>D-6</span><span class="liv">LIVE</span></div>
+        </div>
+      </div>
+      <div class="rw__body">
+        <p class="rw__flag"><b></b>Review first · 1 proposal to review</p>
+        <div class="prop">
+          <p class="prop__h">Budget total: $0 → $200,000</p>
+          <p class="prop__d">This budget change is material, so it needs your approval before it touches the plan — a 792% shift moves the baseline every guardrail measures against. Nothing has been applied. Approving runs the exact same verified write the agent would.</p>
+          <div class="prop__act">
+            <button class="prop__go" type="button"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>Update release</button>
+            <span class="prop__dis">Dismiss</span>
+            <span class="prop__why">→ Timeline</span>
+          </div>
+        </div>
+        <div class="notice">
+          <p class="notice__tag"><em>What the brain noticed</em> · Watch · sorted by urgency</p>
+          <svg class="notice__ring" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="var(--line)" stroke-width="3"/><circle cx="18" cy="18" r="15" fill="none" stroke="#f56002" stroke-width="3" stroke-dasharray="93 100" stroke-linecap="round" transform="rotate(-90 18 18)"/><text x="18" y="21" text-anchor="middle" font-size="8" fill="var(--bone)">99%</text></svg>
+          <div><p class="notice__t">99% of budget is in Advertising</p><p class="notice__d">Most of your allocated spend sits in one category. Worth confirming that's intentional rather than spread across the full rollout — content, PR, distribution.</p></div>
+        </div>
+        <div class="tmline">
+          <span class="mk"><img src="assets/logo/team-logomark-white-trim.png" alt=""></span>
+          <p><b>Teammate · 07:00</b> — Heads up: "Assign a day-to-day release manager" is 13 days overdue, and 5 others are behind. Want to knock out the overdue ones first?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FACETS — everything a release needs ══ -->
+<section class="section container" id="facets">
+  <div class="reveal" style="text-align:center;max-width:42rem;margin:0 auto clamp(2.5rem,5vw,3.5rem)">
+    <h2 class="h2">Everything a release needs,<br><em>in one workspace.</em></h2>
+    <p class="lede" style="margin-inline:auto">Not ten browser tabs and a spreadsheet. Every side of a rollout, joined up — and every one of them feeding the same brain.</p>
+  </div>
+  <div class="facets" id="facetGrid">
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></span>
+      <h3>Timeline</h3>
+      <p>A real plan, with dates. Every task, dependency and deadline from announce to live — and Teammate re-cuts it the moment the launch date moves.</p>
+    </div>
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2v6M12 8a6 6 0 1 0 6 6"/><circle cx="12" cy="14" r="2"/></svg></span>
+      <h3>Budget</h3>
+      <p>Spend by category, tracked live. Material changes get flagged for your approval before they touch the plan — no surprise six-figure shifts.</p>
+    </div>
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12h2l2-6 4 14 3-9 2 4h3"/></svg></span>
+      <h3>Tracks</h3>
+      <p>Every track, master and credit in one source of truth — the version DSPs, metadata and the one-sheet all pull from, so "which master is final?" stops being a question.</p>
+    </div>
+    <a class="facet" href="assets.html">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 14l5-4 4 3 3-3 6 5"/></svg></span>
+      <h3>Assets</h3>
+      <p>The creative library for the release: artwork, audio, video and links — release-ready and shareable, wired straight into the rollout.</p>
+      <span class="facet__more">Explore Assets →</span>
+    </a>
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span>
+      <h3>Territories &amp; DSP priorities</h3>
+      <p>Where it lands and where it's growing. Prioritise the markets that matter and line up the playlists and editorial that actually move the needle.</p>
+    </div>
+    <div class="facet">
+      <span class="facet__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 6L9 17l-5-5"/></svg></span>
+      <h3>Ready to Roll</h3>
+      <p>The pre-flight check. Nothing ships until every box that matters is green — masters delivered, metadata clean, distributor confirmed, pitch out.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ECOSYSTEM ══ -->
+<section class="section container" id="ecosystem">
+  <div class="eco reveal">
+    <div class="eco__in">
+      <div class="eco__copy">
+        <h2 class="h2">A rollout doesn't end <em>at release.</em></h2>
+        <p class="lede">The same brain that ran the campaign reads your whole catalog, remembers every decision, and carries into the road. One release becomes context for the next — and Rollouts is just where it starts.</p>
+        <p class="phero__free" style="margin-top:1.3rem"><i></i>Free, for every release you run</p>
+      </div>
+      <div class="eco__links">
+        <a class="eco__link" href="tours.html">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+          <span><b>Tours</b><span>Take the campaign to the road — routing, advancing, day sheets</span></span>
+          <span class="arr">→</span>
+        </a>
+        <a class="eco__link" href="teammate.html">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3a5 5 0 0 1 5 5v1a4 4 0 0 1 0 8 5 5 0 0 1-10 0 4 4 0 0 1 0-8V8a5 5 0 0 1 5-5z"/><path d="M12 8v8M9 11h6"/></svg></span>
+          <span><b>Teammate</b><span>The intelligence working every rollout overnight</span></span>
+          <span class="arr">→</span>
+        </a>
+        <a class="eco__link" href="integrations.html">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="2.4"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M10.3 10.3 6.4 6.4M13.7 10.3l3.9-3.9M10.3 13.7l-3.9 3.9M13.7 13.7l3.9 3.9"/></svg></span>
+          <span><b>Integrations</b><span>Bring the tools you already run on — the brain reads them</span></span>
+          <span class="arr">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="section ctaband container">
+  <h2 class="h2">Run your next release <em>on a rollout.</em></h2>
+  <div class="ctaband__row">
+    <a class="btn btn--solid" href="pricing.html#beta">Start a release — free</a>
+    <a class="btn btn--ghost" href="#demo" data-demo>Get a demo <span class="btn__arr">→</span></a>
+  </div>
+</section>
+
+<script src="js/brain.js"></script>
+<script src="js/chrome.js"></script>
+<script>
+/* rail + facets + panels reveal in on scroll (shared TM helper) */
+(() => {
+  const wire = (id, sel, gap, delay, thr) => {
+    const root = document.getElementById(id); if (!root || !window.TM) return;
+    const s = window.TM.seq(root.querySelectorAll(sel), 'in', gap, delay);
+    window.TM.replay(root, s.play, s.reset, thr);
+  };
+  wire('railPanel', '.rail__row', 90, 100, .3);
+})();
+</script>
+</body>
+</html>
