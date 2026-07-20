@@ -55,14 +55,20 @@
   .inclcard span{display:block;color:var(--bone-dim);font-size:.87rem;line-height:1.5;margin-top:.2rem}
   .inclcard .tag{flex:none;align-self:flex-start;font-family:var(--font-mono);font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--on-accent);background:var(--lime);border-radius:99px;padding:.25em .6em}
 
-  /* the honest "later" band */
-  .later{max-width:52rem;margin:0 auto;border:1px solid var(--line);border-left:2px solid var(--accent);border-radius:18px;background:var(--ink-2);padding:clamp(1.6rem,4vw,2.4rem)}
-  .later h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:.9rem}
-  .later p{color:var(--bone-dim);font-size:1rem;line-height:1.65;max-width:52ch}
-  .later p b{color:var(--bone);font-weight:560}
-  .later__row{display:flex;flex-wrap:wrap;gap:1.4rem;margin-top:1.5rem}
-  .later__pt{display:flex;gap:.6rem;align-items:flex-start;font-size:.9rem;color:var(--bone-dim);max-width:15rem}
-  .later__pt::before{content:'✳';color:var(--accent);font-size:.8em;flex:none;margin-top:.2em}
+  /* the honest "later" band — centered */
+  .later{position:relative;overflow:hidden;max-width:56rem;margin:0 auto;text-align:center;border:1px solid var(--line);border-radius:24px;background:var(--ink-2);padding:clamp(2.4rem,5vw,3.6rem) clamp(1.5rem,4vw,3rem)}
+  .later::before{content:'';position:absolute;left:50%;top:-45%;width:120%;height:120%;transform:translateX(-50%);background:radial-gradient(ellipse 44% 42% at 50% 0%,rgba(217,250,135,.13),transparent 66%);pointer-events:none}
+  .later>*{position:relative}
+  .later h2{font-size:clamp(1.7rem,3.4vw,2.4rem);margin:0 auto .9rem;max-width:22ch}
+  .later__lede{color:var(--bone-dim);font-size:1.02rem;line-height:1.65;max-width:52ch;margin:0 auto}
+  .later__lede b{color:var(--bone);font-weight:560}
+  .later__row{display:grid;grid-template-columns:1fr;gap:1rem;margin:2.3rem auto 0;max-width:46rem}
+  @media(min-width:640px){.later__row{grid-template-columns:repeat(3,1fr)}}
+  .later__pt{display:flex;flex-direction:column;align-items:center;gap:.7rem;text-align:center;padding:1.5rem 1.1rem;border:1px solid var(--line-2);border-radius:14px;background:var(--ink)}
+  .later__pt .ic{width:2.5rem;height:2.5rem;border-radius:50%;background:rgba(217,250,135,.1);border:1px solid rgba(217,250,135,.3);display:grid;place-items:center;color:var(--accent);flex:none}
+  .later__pt .ic svg{width:1.1rem;height:1.1rem}
+  .later__pt b{font-family:var(--font-display);font-weight:500;font-size:1rem;letter-spacing:-.01em;color:var(--bone)}
+  .later__pt em{display:block;font-style:normal;font-size:.85rem;color:var(--bone-dim);line-height:1.5;margin-top:.15rem}
 
   /* faq */
   .faq{max-width:44rem;margin:0 auto}
@@ -90,51 +96,50 @@
 <!-- ══ BETA HERO — free while in beta ══ -->
 <section class="phero container" id="beta">
   <div class="phero__in">
-    <p class="phero__ask reveal"><em>Pricing.</em></p>
-    <h1 class="h1 reveal" style="transition-delay:.08s">Right now,<br>it's <em>all free.</em></h1>
-    <p class="lede reveal" style="transition-delay:.16s;margin-inline:auto">Team is in beta, and every module is free while we build it with you — no card, no tiers, no catch. Join the early-access list and run your whole release operation on a brain.</p>
-    <form class="beta reveal" id="betaForm" novalidate style="transition-delay:.24s">
+    <h1 class="h1 reveal">Sign up to Team today<br><em>for free.</em></h1>
+    <p class="lede reveal" style="transition-delay:.08s;margin-inline:auto">We've just dropped our beta version of Team and for a limited time only, it's completely free. No card, no tiers, no catch. Join the early-access list and run your whole release operation on a brain.</p>
+    <form class="beta reveal" id="betaForm" novalidate style="transition-delay:.16s">
       <input type="email" name="email" placeholder="you@label.com" aria-label="Email address" required autocomplete="email">
       <input type="text" name="website" class="beta__hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <button type="submit">Get early access</button>
       <span class="beta__ok">✓ You're on the list, we'll be in touch.</span>
     </form>
-    <p class="beta__note reveal" style="transition-delay:.3s"><i></i>Free while in beta · founder pricing for early users</p>
+    <p class="beta__note reveal" style="transition-delay:.24s">Free while in beta · founder pricing for early users</p>
   </div>
 </section>
 
 <!-- ══ WHAT'S INCLUDED — everything, free ══ -->
 <section class="section container">
   <div style="max-width:44rem;margin:0 auto;text-align:center" class="reveal">
-    <h2 class="h2">Not a free tier.<br>The <em>whole platform.</em></h2>
+    <h2 class="h2">Not a partial taster.<br>The <em>whole platform.</em></h2>
     <p class="lede" style="margin:1rem auto 0;text-align:center">This isn't a stripped-down taster. Every module Team ships is included, free, for the whole beta — the same brain across all of it.</p>
   </div>
   <div class="incl reveal">
-    <div class="inclcard">
+    <a class="inclcard" href="rollouts.html">
       <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></span>
       <span class="tx"><b>Rollouts</b><span>Run every release like a campaign — timeline, budget, tracks, territories, DSP pitches.</span></span>
       <span class="tag">Free</span>
-    </div>
-    <div class="inclcard">
+    </a>
+    <a class="inclcard" href="teammate.html">
       <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3a5 5 0 0 1 5 5v1a4 4 0 0 1 0 8 5 5 0 0 1-10 0 4 4 0 0 1 0-8V8a5 5 0 0 1 5-5z"/><path d="M12 8v8M9 11h6"/></svg></span>
       <span class="tx"><b>Teammate</b><span>The intelligence working every release overnight and handing you the calls that need you.</span></span>
       <span class="tag">Free</span>
-    </div>
-    <div class="inclcard">
+    </a>
+    <a class="inclcard" href="assets.html">
       <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 14l5-4 4 3 3-3 6 5"/><circle cx="8.5" cy="9" r="1.3"/></svg></span>
       <span class="tx"><b>Assets</b><span>The creative library — artwork, audio, video and links, versioned and shareable.</span></span>
       <span class="tag">Free</span>
-    </div>
-    <div class="inclcard">
+    </a>
+    <a class="inclcard" href="tours.html">
       <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
       <span class="tx"><b>Tours</b><span>Take the release to the road — routing, advancing, day sheets, guarantees.</span></span>
       <span class="tag">Free</span>
-    </div>
-    <div class="inclcard">
+    </a>
+    <a class="inclcard" href="integrations.html">
       <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="2.4"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M10.3 10.3 6.4 6.4M13.7 10.3l3.9-3.9M10.3 13.7l-3.9 3.9M13.7 13.7l3.9 3.9"/></svg></span>
       <span class="tx"><b>Integrations</b><span>Bring the tools you already run on — the brain reads across your whole stack.</span></span>
       <span class="tag">Free</span>
-    </div>
+    </a>
     <div class="inclcard">
       <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3"/><path d="M15.5 5.2a3 3 0 0 1 0 5.6M3 20a6 6 0 0 1 12 0M15.5 14a5 5 0 0 1 5.5 6"/></svg></span>
       <span class="tx"><b>Unlimited artists &amp; releases</b><span>Whether it's one project or a whole roster — no caps on what you can run in beta.</span></span>
@@ -147,11 +152,20 @@
 <section class="section container">
   <div class="later reveal">
     <h2 class="h2">What happens <em>when we introduce paid plans?</em></h2>
-    <p>We'll be paid one day — that's how we keep building. But we'll give you plenty of notice, we'll always keep a genuine free way in, and <b>the people who join us in beta lock in founder pricing.</b> Nothing you build is ever held hostage.</p>
+    <p class="later__lede">We'll be paid one day — that's how we keep building. But we'll give you plenty of notice, we'll always keep a genuine free way in, and <b>the people who join us in beta lock in founder pricing.</b> Nothing you build is ever held hostage.</p>
     <div class="later__row">
-      <p class="later__pt">Founder pricing, locked in for early users</p>
-      <p class="later__pt">A real free tier, always</p>
-      <p class="later__pt">Your data stays yours — portable and exportable</p>
+      <div class="later__pt">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20.6 13.4 12 22l-8.5-8.5V4H12z"/><circle cx="8.2" cy="8.2" r="1.3"/></svg></span>
+        <b>Founder pricing<em>Locked in for early users</em></b>
+      </div>
+      <div class="later__pt">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-4.5-9.3-8.4A4.7 4.7 0 0 1 12 6.6a4.7 4.7 0 0 1 9.3 6C19 16.5 12 21 12 21z"/></svg></span>
+        <b>Always a free tier<em>A genuine free way in</em></b>
+      </div>
+      <div class="later__pt">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v12M8 7l4-4 4 4M5 15v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg></span>
+        <b>Your data is yours<em>Portable, exportable, no lock-in</em></b>
+      </div>
     </div>
   </div>
 </section>
@@ -159,8 +173,7 @@
 <!-- ══ FAQ ══ -->
 <section class="section container">
   <div style="max-width:44rem;margin:0 auto 2.4rem;text-align:center" class="reveal">
-    <h2 class="h2">Questions? <em>We've got answers.</em></h2>
-    <p class="lede" style="margin:1rem auto 0;text-align:center">The honest version — what "free" means, and what comes next.</p>
+    <h2 class="h2">Questions?<br><em>We've got answers.</em></h2>
   </div>
   <div class="faq reveal">
     <details><summary>Is it really free right now?<span class="pl"></span></summary><p>Yes. Every module — Rollouts, Teammate, Assets, Tours and Integrations — is free while Team is in beta. No card, no tiers, no trial clock counting down.</p></details>
@@ -176,7 +189,7 @@
 <!-- ══ FINAL CTA ══ -->
 <section class="section container">
   <div class="pfinal reveal">
-    <h2 class="h2">Run your next release <em>on a brain — free.</em></h2>
+    <h2 class="h2">Run your next release<br><em>on Team for free.</em></h2>
     <div class="ctaband__row">
       <a class="btn btn--solid" href="#beta">Get early access</a>
       <a class="btn btn--ghost" href="#demo" data-demo>Book a demo <span class="btn__arr">→</span></a>
