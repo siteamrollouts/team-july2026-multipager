@@ -72,6 +72,16 @@
   margin-left:auto;align-self:center;flex:none}
 .mnav__grp a{display:flex;align-items:center;gap:.6rem}
 .mnav__grp a .nav__pro{font-size:.56rem}
+
+/* ═══ secondary text CTA ═══ underlined label + arrow; on hover the underline
+   fades out and the arrow nudges right (and back off-hover). For continuity,
+   use this anywhere a plain text/underlined secondary link is wanted — the
+   pill buttons stay for primary/ghost CTAs. */
+.txtlink{display:inline-flex;align-items:center;gap:.5em;font-size:.92rem;font-weight:540;color:var(--accent);cursor:pointer;line-height:1.3}
+.txtlink .tl{border-bottom:1.5px solid currentColor;padding-bottom:2px;transition:border-color .28s var(--ease)}
+.txtlink:hover .tl{border-color:transparent}
+.txtlink .arr{display:inline-block;transition:transform .28s var(--ease)}
+.txtlink:hover .arr{transform:translateX(4px)}
 .nav__burger{display:none;flex-direction:column;gap:5px;width:40px;height:40px;align-items:center;justify-content:center;flex:none}
 .nav__burger i{width:20px;height:1.6px;background:var(--bone);transition:transform .35s var(--ease),opacity .2s}
 body.menu-open .nav__burger i:nth-child(1){transform:translateY(3.3px) rotate(45deg)}

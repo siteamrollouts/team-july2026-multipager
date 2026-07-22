@@ -45,7 +45,7 @@
       ['rollouts.html', IC.rollouts, 'Rollouts', 'Run a release like a campaign'],
       ['teammate.html', IC.teammate, 'Teammate', 'The intelligence across every module', 'Pro'],
       ['assets.html', IC.assets, 'Assets', 'The creative library, release-ready'],
-      ['integrations.html', IC.integrations, 'Integrations', 'Bring the tools you already use', 'Pro'],
+      ['connections.html', IC.integrations, 'Connections', 'Bring the tools you already use', 'Pro'],
       ['tours.html', IC.tours, 'Tours', 'Take the release to the road'],
       ['security.html', IC.security, 'Security & trust', 'Why it\'s safe on your whole stack'],
     ]}},
@@ -181,7 +181,7 @@
         </div>
       </div>
       <div class="foot__col"><p>Platform</p>
-        <a href="platform.html">Overview</a><a href="rollouts.html">Rollouts</a><a href="teammate.html">Teammate</a><a href="assets.html">Assets</a><a href="integrations.html">Integrations</a><a href="tours.html">Tours</a></div>
+        <a href="platform.html">Overview</a><a href="rollouts.html">Rollouts</a><a href="teammate.html">Teammate</a><a href="assets.html">Assets</a><a href="connections.html">Connections</a><a href="tours.html">Tours</a></div>
       <div class="foot__col"><p>Solutions</p>
         <a href="for-artists.html">Solo artists</a><a href="for-managers.html">Managers</a><a href="for-labels.html">Labels</a><a href="for-partners.html">Distributors</a><a href="enterprise.html">Enterprise</a></div>
       <div class="foot__col"><p>Company</p>
