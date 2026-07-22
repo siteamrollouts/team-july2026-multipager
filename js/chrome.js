@@ -43,9 +43,9 @@
     { key:'platform', label:'Platform', panel:{ head:'One platform, one brain', rows:[
       ['platform.html', IC.overview, 'Overview', 'Connect, reason, act — how Team works'],
       ['rollouts.html', IC.rollouts, 'Rollouts', 'Run a release like a campaign'],
-      ['teammate.html', IC.teammate, 'Teammate', 'The intelligence across every module'],
+      ['teammate.html', IC.teammate, 'Teammate', 'The intelligence across every module', 'Pro'],
       ['assets.html', IC.assets, 'Assets', 'The creative library, release-ready'],
-      ['integrations.html', IC.integrations, 'Integrations', 'Bring the tools you already use'],
+      ['integrations.html', IC.integrations, 'Integrations', 'Bring the tools you already use', 'Pro'],
       ['tours.html', IC.tours, 'Tours', 'Take the release to the road'],
       ['security.html', IC.security, 'Security & trust', 'Why it\'s safe on your whole stack'],
     ]}},
@@ -64,7 +64,7 @@
     ]}},
     { key:'pricing', label:'Pricing', href:'pricing.html' },
   ];
-  const BETA = 'pricing.html#beta';
+  const BETA = 'pricing.html';   // "Sign up free" → the pricing page (Free / Pro)
   const SIGNIN = 'https://app.teamrollouts.com/sign-in';
   // Single source of truth for the "book a demo" link. Change it here and every
   // CTA marked data-demo across the site updates. (See the rewrite pass below.)
@@ -82,9 +82,9 @@
 
   const panelHTML = (p) => `<div class="nav__panel" role="menu">
     <p class="nav__plabel">${p.head}</p>
-    ${p.rows.map(([href,ic,b,s]) => `<a class="nav__prow" href="${href}" role="menuitem">
+    ${p.rows.map(([href,ic,b,s,pro]) => `<a class="nav__prow" href="${href}" role="menuitem">
       ${ic ? `<span class="ic">${ic}</span>` : ''}
-      <span><b>${b}</b><span>${s}</span></span></a>`).join('')}
+      <span><b>${b}</b><span>${s}</span></span>${pro ? `<span class="nav__pro">${pro}</span>` : ''}</a>`).join('')}
   </div>`;
 
   const nav = document.createElement('header');
@@ -101,7 +101,7 @@
     <div class="nav__cta">
       ${themeBtn}
       <a class="nav__signin" href="${SIGNIN}">Sign in</a>
-      <a class="nav__beta" href="${BETA}">Join the beta</a>
+      <a class="nav__beta" href="${BETA}">Sign up free</a>
     </div>
     <button class="nav__burger" id="navBurger" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
   </div>`;
@@ -112,8 +112,8 @@
   mnav.className = 'mnav';
   mnav.innerHTML = GROUPS.map(g => {
     if (g.href) return `<div class="mnav__grp"><a href="${g.href}">${g.label}</a></div>`;
-    return `<div class="mnav__grp"><p>${g.label}</p>${g.panel.rows.map(r=>`<a href="${r[0]}">${r[2]}</a>`).join('')}</div>`;
-  }).join('') + `<div class="mnav__cta"><a class="btn btn--ghost" href="${SIGNIN}">Sign in</a><a class="btn btn--solid" href="${BETA}">Join the beta</a>${THEMED ? `<button class="nav__theme mnav__theme" aria-label="Switch light / dark theme">${SUN}${MOON}<span>Switch theme</span></button>` : ''}</div>`;
+    return `<div class="mnav__grp"><p>${g.label}</p>${g.panel.rows.map(r=>`<a href="${r[0]}">${r[2]}${r[4]?`<span class="nav__pro">${r[4]}</span>`:''}</a>`).join('')}</div>`;
+  }).join('') + `<div class="mnav__cta"><a class="btn btn--ghost" href="${SIGNIN}">Sign in</a><a class="btn btn--solid" href="${BETA}">Sign up free</a>${THEMED ? `<button class="nav__theme mnav__theme" aria-label="Switch light / dark theme">${SUN}${MOON}<span>Switch theme</span></button>` : ''}</div>`;
   document.body.appendChild(mnav);
 
   const burger = nav.querySelector("#navBurger");

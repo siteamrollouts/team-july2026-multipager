@@ -4,20 +4,20 @@
 <script>(function(){try{var t=localStorage.getItem('tm-theme');if(t!=='light'&&t!=='dark')t='dark';document.documentElement.dataset.theme=t}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Pricing — free while we're in beta | Team</title>
-<meta name="description" content="Team is free while we're in beta — every module, no card, no tiers. Join the early-access list and run your whole release operation on a brain. Beta users lock in founder pricing when paid plans arrive.">
+<title>Pricing — free platform, Pro brain | Team</title>
+<meta name="description" content="The Team platform — Rollouts, Assets and Tours — is free, no card. Add Teammate AI and connect your whole stack with Pro, at beta pricing while we're in early access.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Team">
-<meta property="og:title" content="Pricing — free while we're in beta | Team">
-<meta property="og:description" content="Team is free while we're in beta — every module, no card, no tiers. Join the early-access list; beta users lock in founder pricing when paid plans arrive.">
+<meta property="og:title" content="Pricing — free platform, Pro brain | Team">
+<meta property="og:description" content="The platform is free — Rollouts, Assets, Tours, no card. Add Teammate AI + integrations with Pro, at beta pricing while we're in early access.">
 <meta property="og:url" content="https://siteamrollouts.github.io/team-july2026-multipager/pricing.html">
 <meta property="og:image" content="https://siteamrollouts.github.io/team-july2026-multipager/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Team — a brain for music operations">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Pricing — free while we're in beta | Team">
-<meta name="twitter:description" content="Team is free while we're in beta — every module, no card, no tiers. Beta users lock in founder pricing when paid plans arrive.">
+<meta name="twitter:title" content="Pricing — free platform, Pro brain | Team">
+<meta name="twitter:description" content="The platform is free — Rollouts, Assets, Tours, no card. Add Teammate AI + integrations with Pro, at beta pricing while we're in early access.">
 <meta name="twitter:image" content="https://siteamrollouts.github.io/team-july2026-multipager/assets/og.png">
 <link rel="preload" href="assets/fonts/NyghtSerif-LightItalic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
@@ -25,50 +25,58 @@
 <link rel="stylesheet" href="css/base.css">
 <style>
   .phero{padding-top:10.5rem;min-height:0}
-  .phero .h1{font-size:clamp(2.9rem,7vw,5.6rem)}
+  .phero .h1{font-size:clamp(2.9rem,7vw,5.4rem)}
+  .phero__note{margin-top:1.3rem;display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .phero__note i{width:6px;height:6px;border-radius:50%;background:var(--lime);flex:none}
 
-  /* beta early-access capture */
-  .beta{display:flex;gap:.6rem;max-width:30rem;margin:2.4rem auto 0;position:relative}
-  .beta input[type=email]{flex:1;min-width:0;background:var(--glass);border:1px solid var(--line);border-radius:99px;padding:.85rem 1.4rem;color:var(--bone);font-family:inherit;font-size:.95rem;outline:none;transition:border-color .25s}
-  .beta input[type=email]:focus{border-color:rgba(217,250,135,.5)}
-  .beta input[type=email]::placeholder{color:var(--bone-faint)}
-  .beta__hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
-  .beta button{flex:none;background:var(--lime);color:var(--on-accent);border:0;border-radius:99px;padding:.85rem 1.5rem;font-family:inherit;font-weight:600;font-size:.9rem;cursor:pointer;transition:background .25s}
-  .beta button:hover{background:var(--bone)}
-  .beta__ok{display:none;align-items:center;justify-content:center;gap:.5rem;color:var(--accent);font-weight:560;font-size:.95rem}
-  .beta.done{justify-content:center;border:1px solid rgba(217,250,135,.4);border-radius:99px;padding:.85rem 1.4rem;background:rgba(217,250,135,.06)}
-  .beta.done input,.beta.done button{display:none}
-  .beta.done .beta__ok{display:flex}
-  .beta__note{margin-top:1.25rem;display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
-  .beta__note i{width:6px;height:6px;border-radius:50%;background:var(--lime);flex:none}
-  @media(max-width:520px){.beta{flex-direction:column}.beta button{width:100%}}
+  /* billing toggle */
+  .bill{display:inline-flex;align-items:center;gap:.25rem;padding:.3rem;border:1px solid var(--line);border-radius:99px;background:var(--glass);margin:2.4rem auto 0}
+  .bill button{background:none;border:0;font-family:inherit;cursor:pointer;color:var(--bone-dim);padding:.5rem 1.15rem;border-radius:99px;font-size:.9rem;transition:background .25s,color .25s;display:inline-flex;align-items:center;gap:.5rem}
+  .bill button.on{background:var(--lime);color:var(--on-accent);font-weight:560}
+  .bill .save{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-accent);background:rgba(13,12,11,.14);border-radius:99px;padding:.25em .5em}
+  .bill button:not(.on) .save{color:var(--accent);background:rgba(217,250,135,.12)}
 
-  /* what's included — the modules, all free */
-  .incl{display:grid;gap:1rem;grid-template-columns:1fr;max-width:56rem;margin:2.8rem auto 0}
-  @media(min-width:640px){.incl{grid-template-columns:1fr 1fr}}
-  .inclcard{display:flex;gap:1rem;align-items:flex-start;border:1px solid var(--line);border-radius:16px;background:var(--ink-2);padding:1.25rem 1.35rem;transition:border-color .4s,transform .4s var(--ease)}
-  .inclcard:hover{transform:translateY(-3px);border-color:var(--bone-faint)}
-  .inclcard .ic{width:2.3rem;height:2.3rem;border-radius:10px;background:var(--ink-3);border:1px solid var(--line);display:grid;place-items:center;color:var(--accent);flex:none}
-  .inclcard .ic svg{width:1.1rem;height:1.1rem}
-  .inclcard .tx{flex:1;min-width:0}
-  .inclcard b{display:block;font-family:var(--font-display);font-weight:500;font-size:1.06rem;letter-spacing:-.01em;color:var(--bone)}
-  .inclcard span{display:block;color:var(--bone-dim);font-size:.87rem;line-height:1.5;margin-top:.2rem}
-  .inclcard .tag{flex:none;align-self:flex-start;font-family:var(--font-mono);font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--on-accent);background:var(--lime);border-radius:99px;padding:.25em .6em}
+  /* plan cards */
+  .plans{display:grid;gap:1.2rem;grid-template-columns:1fr;max-width:60rem;margin:2.8rem auto 0}
+  @media(min-width:780px){.plans{grid-template-columns:1fr 1fr}}
+  .plan{position:relative;border:1px solid var(--line);border-radius:22px;background:var(--ink-2);padding:2rem 1.9rem;display:flex;flex-direction:column;transition:border-color .4s,transform .4s var(--ease)}
+  .plan:hover{transform:translateY(-4px)}
+  .plan--pro{border-color:rgba(217,250,135,.5)}
+  .plan--pro::before{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(217,250,135,.6),transparent)}
+  .plan__badge{position:absolute;top:-.72rem;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--on-accent);background:var(--lime);border-radius:99px;padding:.42em .9em;white-space:nowrap}
+  .plan__name{font-family:var(--font-display);font-weight:400;font-size:1.5rem;letter-spacing:-.02em;color:var(--bone)}
+  .plan__who{color:var(--bone-dim);font-size:.9rem;margin-top:.35rem;min-height:2.6em}
+  .plan__price{margin-top:1.3rem;display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap}
+  .plan__was{font-family:var(--font-display);font-weight:330;font-size:1.5rem;letter-spacing:-.02em;color:var(--bone-faint);text-decoration:line-through;text-decoration-thickness:1px}
+  .plan__amount{font-family:var(--font-display);font-weight:330;font-size:3.2rem;letter-spacing:-.03em;color:var(--bone);line-height:1}
+  .plan__period{color:var(--bone-faint);font-size:.9rem}
+  .plan__seat{color:var(--bone-dim);font-size:.82rem;margin-top:.5rem}
+  .plan__seat b{color:var(--bone);font-weight:560}
+  .plan__note{color:var(--bone-dim);font-size:.84rem;margin-top:.55rem;min-height:1.4em}
+  .plan__note b{color:var(--accent);font-weight:560}
+  .plan .btn{margin-top:1.5rem;width:100%;justify-content:center}
+  .plan__inclab{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-faint);margin:1.7rem 0 1rem;padding-top:1.4rem;border-top:1px solid var(--line-2)}
+  .plan__feats{list-style:none;display:flex;flex-direction:column;gap:.7rem;margin:0;padding:0}
+  .plan__feats li{display:flex;gap:.65rem;align-items:flex-start;font-size:.9rem;color:var(--bone-dim);line-height:1.4}
+  .plan__feats li::before{content:'✓';color:var(--accent);font-size:.8em;flex:none;margin-top:.15em}
+  .plan__feats li.pro::before{content:'✦'}
+  .plan__compare{margin-top:1.3rem;font-size:.82rem;color:var(--bone-faint);text-align:center;text-decoration:underline;text-underline-offset:3px}
+  .plan__compare:hover{color:var(--bone)}
 
-  /* the honest "later" band — centered */
-  .later{position:relative;overflow:hidden;max-width:56rem;margin:0 auto;text-align:center;border:1px solid var(--line);border-radius:24px;background:var(--ink-2);padding:clamp(2.4rem,5vw,3.6rem) clamp(1.5rem,4vw,3rem)}
-  .later::before{content:'';position:absolute;left:50%;top:-45%;width:120%;height:120%;transform:translateX(-50%);background:radial-gradient(ellipse 44% 42% at 50% 0%,rgba(217,250,135,.13),transparent 66%);pointer-events:none}
-  .later>*{position:relative}
-  .later h2{font-size:clamp(1.7rem,3.4vw,2.4rem);margin:0 auto .9rem;max-width:22ch}
-  .later__lede{color:var(--bone-dim);font-size:1.02rem;line-height:1.65;max-width:52ch;margin:0 auto}
-  .later__lede b{color:var(--bone);font-weight:560}
-  .later__row{display:grid;grid-template-columns:1fr;gap:1rem;margin:2.3rem auto 0;max-width:46rem}
-  @media(min-width:640px){.later__row{grid-template-columns:repeat(3,1fr)}}
-  .later__pt{display:flex;flex-direction:column;align-items:center;gap:.7rem;text-align:center;padding:1.5rem 1.1rem;border:1px solid var(--line-2);border-radius:14px;background:var(--ink)}
-  .later__pt .ic{width:2.5rem;height:2.5rem;border-radius:50%;background:rgba(217,250,135,.1);border:1px solid rgba(217,250,135,.3);display:grid;place-items:center;color:var(--accent);flex:none}
-  .later__pt .ic svg{width:1.1rem;height:1.1rem}
-  .later__pt b{font-family:var(--font-display);font-weight:500;font-size:1rem;letter-spacing:-.01em;color:var(--bone)}
-  .later__pt em{display:block;font-style:normal;font-size:.85rem;color:var(--bone-dim);line-height:1.5;margin-top:.15rem}
+  /* comparison table */
+  .ctable-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:18px;margin-top:2.4rem}
+  .ctable{width:100%;border-collapse:collapse;min-width:560px;font-size:.9rem}
+  .ctable th,.ctable td{padding:.85rem 1.2rem;border-bottom:1px solid var(--line-2);text-align:left}
+  .ctable tbody tr:last-child td{border-bottom:0}
+  .ctable thead th{background:var(--ink-3);font-family:var(--font-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-faint);position:sticky;top:0}
+  .ctable thead th.pro{color:var(--accent)}
+  .ctable thead th:not(:first-child),.ctable td.val{text-align:center;width:22%}
+  .ctable td:first-child{color:var(--bone)}
+  .ctable td.val{font-variant-numeric:tabular-nums;color:var(--bone-dim)}
+  .ctable .yes{color:var(--accent);font-size:1rem}
+  .ctable .no{color:var(--bone-faint)}
+  .ctable tbody tr:hover td{background:rgba(239,235,227,.02)}
+  .ctable .grp td{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-faint);background:rgba(239,235,227,.02)}
 
   /* faq */
   .faq{max-width:44rem;margin:0 auto}
@@ -93,80 +101,93 @@
 </head>
 <body data-nav="pricing">
 
-<!-- ══ BETA HERO — free while in beta ══ -->
-<section class="phero container" id="beta">
+<!-- ══ HERO ══ -->
+<section class="phero container">
   <div class="phero__in">
-    <h1 class="h1 reveal">Sign up to Team today<br><em>for free.</em></h1>
-    <p class="lede reveal" style="transition-delay:.08s;margin-inline:auto">We've just dropped our beta version of Team and for a limited time only, it's completely free. No card, no tiers, no catch. Join the early-access list and run your whole release operation on a brain.</p>
-    <form class="beta reveal" id="betaForm" novalidate style="transition-delay:.16s">
-      <input type="email" name="email" placeholder="you@label.com" aria-label="Email address" required autocomplete="email">
-      <input type="text" name="website" class="beta__hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button type="submit">Get early access</button>
-      <span class="beta__ok">✓ You're on the list, we'll be in touch.</span>
-    </form>
-    <p class="beta__note reveal" style="transition-delay:.24s">Free while in beta · founder pricing for early users</p>
+    <h1 class="h1 reveal">Start free.<br><em>Upgrade when you're ready.</em></h1>
+    <p class="lede reveal" style="transition-delay:.08s;margin-inline:auto">The platform — Rollouts, Assets and Tours — is free, with no card. Add Teammate, your AI brain, and connect your whole stack with Pro.</p>
+    <div class="bill reveal" id="bill" role="tablist" aria-label="Billing period" style="transition-delay:.14s">
+      <button class="on" data-period="yearly" role="tab">Yearly <span class="save">Save ~20%</span></button>
+      <button data-period="monthly" role="tab">Monthly</button>
+    </div>
+    <p class="phero__note reveal" style="transition-delay:.2s"><i></i>Beta pricing on Pro while we're in early access</p>
   </div>
 </section>
 
-<!-- ══ WHAT'S INCLUDED — everything, free ══ -->
-<section class="section container">
-  <div style="max-width:44rem;margin:0 auto;text-align:center" class="reveal">
-    <h2 class="h2">Not a partial taster.<br>The <em>whole platform.</em></h2>
-    <p class="lede" style="margin:1rem auto 0;text-align:center">This isn't a stripped-down taster. Every module Team ships is included, free, for the whole beta — the same brain across all of it.</p>
-  </div>
-  <div class="incl reveal">
-    <a class="inclcard" href="rollouts.html">
-      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></span>
-      <span class="tx"><b>Rollouts</b><span>Run every release like a campaign — timeline, budget, tracks, territories, DSP pitches.</span></span>
-      <span class="tag">Free</span>
-    </a>
-    <a class="inclcard" href="teammate.html">
-      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3a5 5 0 0 1 5 5v1a4 4 0 0 1 0 8 5 5 0 0 1-10 0 4 4 0 0 1 0-8V8a5 5 0 0 1 5-5z"/><path d="M12 8v8M9 11h6"/></svg></span>
-      <span class="tx"><b>Teammate</b><span>The intelligence working every release overnight and handing you the calls that need you.</span></span>
-      <span class="tag">Free</span>
-    </a>
-    <a class="inclcard" href="assets.html">
-      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 14l5-4 4 3 3-3 6 5"/><circle cx="8.5" cy="9" r="1.3"/></svg></span>
-      <span class="tx"><b>Assets</b><span>The creative library — artwork, audio, video and links, versioned and shareable.</span></span>
-      <span class="tag">Free</span>
-    </a>
-    <a class="inclcard" href="tours.html">
-      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-5.2-7-11a7 7 0 0 1 14 0c0 5.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
-      <span class="tx"><b>Tours</b><span>Take the release to the road — routing, advancing, day sheets, guarantees.</span></span>
-      <span class="tag">Free</span>
-    </a>
-    <a class="inclcard" href="integrations.html">
-      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="2.4"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M10.3 10.3 6.4 6.4M13.7 10.3l3.9-3.9M10.3 13.7l-3.9 3.9M13.7 13.7l3.9 3.9"/></svg></span>
-      <span class="tx"><b>Integrations</b><span>Bring the tools you already run on — the brain reads across your whole stack.</span></span>
-      <span class="tag">Free</span>
-    </a>
-    <div class="inclcard">
-      <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3"/><path d="M15.5 5.2a3 3 0 0 1 0 5.6M3 20a6 6 0 0 1 12 0M15.5 14a5 5 0 0 1 5.5 6"/></svg></span>
-      <span class="tx"><b>Unlimited artists &amp; releases</b><span>Whether it's one project or a whole roster — no caps on what you can run in beta.</span></span>
-      <span class="tag">Free</span>
+<!-- ══ PLANS ══ -->
+<section class="section container" style="padding-top:0">
+  <div class="plans reveal">
+    <!-- Free -->
+    <div class="plan">
+      <p class="plan__name">Free</p>
+      <p class="plan__who">The whole platform, for every artist, manager and team</p>
+      <div class="plan__price"><span class="plan__amount">$0</span><span class="plan__period">forever</span></div>
+      <p class="plan__seat">1 seat · unlimited artists, releases &amp; collaborators</p>
+      <p class="plan__note">No card required.</p>
+      <a class="btn btn--solid" href="https://app.teamrollouts.com/onboarding?plan=free">Get started free</a>
+      <p class="plan__inclab">Includes</p>
+      <ul class="plan__feats">
+        <li><b>Rollouts</b>&nbsp;— release management</li>
+        <li><b>Assets</b>&nbsp;— the creative library</li>
+        <li><b>Tours</b>&nbsp;— tour management</li>
+        <li>Unlimited artists &amp; releases</li>
+        <li>Unlimited collaborators &amp; workspaces</li>
+      </ul>
+      <a class="plan__compare" href="#compare">Compare all features</a>
+    </div>
+    <!-- Pro -->
+    <div class="plan plan--pro">
+      <span class="plan__badge">Beta pricing · ~50% off</span>
+      <p class="plan__name">Pro</p>
+      <p class="plan__who">For teams who want the brain — Teammate + your whole stack</p>
+      <div class="plan__price">
+        <span class="plan__was" id="proWas" data-yearly="$119.95" data-monthly="$149.95">$119.95</span>
+        <span class="plan__amount" id="proAmt" data-yearly="$59.95" data-monthly="$74.95">$59.95</span>
+        <span class="plan__period" id="proPer" data-yearly="/mo · billed yearly" data-monthly="/mo">/mo · billed yearly</span>
+      </div>
+      <p class="plan__seat">Includes 2 seats · <span id="proSeat" data-yearly="then $19.95/mo per extra seat" data-monthly="then $24.95/mo per extra seat">then $19.95/mo per extra seat</span></p>
+      <p class="plan__note"><b>14-day free trial.</b> Then beta pricing while in early access.</p>
+      <a class="btn btn--solid" href="https://app.teamrollouts.com/onboarding?plan=pro" id="proCta">Start your Pro trial</a>
+      <p class="plan__inclab">Everything in Free, plus</p>
+      <ul class="plan__feats">
+        <li class="pro"><b>Teammate AI</b>&nbsp;— the intelligence layer</li>
+        <li class="pro"><b>Integrations</b>&nbsp;— connect your whole stack</li>
+        <li class="pro">Teammate Email &amp; Text</li>
+        <li class="pro">First access to new betas</li>
+        <li class="pro">Priority support</li>
+      </ul>
+      <a class="plan__compare" href="#compare">Compare all features</a>
     </div>
   </div>
 </section>
 
-<!-- ══ WHAT HAPPENS LATER — honest ══ -->
-<section class="section container">
-  <div class="later reveal">
-    <h2 class="h2">What happens <em>when we introduce paid plans?</em></h2>
-    <p class="later__lede">We'll be paid one day — that's how we keep building. But we'll give you plenty of notice, we'll always keep a genuine free way in, and <b>the people who join us in beta lock in founder pricing.</b> Nothing you build is ever held hostage.</p>
-    <div class="later__row">
-      <div class="later__pt">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20.6 13.4 12 22l-8.5-8.5V4H12z"/><circle cx="8.2" cy="8.2" r="1.3"/></svg></span>
-        <b>Founder pricing<em>Locked in for early users</em></b>
-      </div>
-      <div class="later__pt">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-4.5-9.3-8.4A4.7 4.7 0 0 1 12 6.6a4.7 4.7 0 0 1 9.3 6C19 16.5 12 21 12 21z"/></svg></span>
-        <b>Always a free tier<em>A genuine free way in</em></b>
-      </div>
-      <div class="later__pt">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v12M8 7l4-4 4 4M5 15v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg></span>
-        <b>Your data is yours<em>Portable, exportable, no lock-in</em></b>
-      </div>
-    </div>
+<!-- ══ COMPARISON ══ -->
+<section class="section container" id="compare">
+  <div style="max-width:44rem;margin:0 auto 1rem;text-align:center" class="reveal">
+    <h2 class="h2">Compare <em>Free &amp; Pro.</em></h2>
+  </div>
+  <div class="ctable-wrap reveal">
+    <table class="ctable">
+      <thead><tr><th>Feature</th><th>Free</th><th class="pro">Pro</th></tr></thead>
+      <tbody>
+        <tr class="grp"><td colspan="3">The platform</td></tr>
+        <tr><td>Rollouts — release management</td><td class="val"><span class="yes">✓</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Assets — creative library</td><td class="val"><span class="yes">✓</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Tours — tour management</td><td class="val"><span class="yes">✓</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Artists / roster</td><td class="val">Unlimited</td><td class="val">Unlimited</td></tr>
+        <tr><td>Releases</td><td class="val">Unlimited</td><td class="val">Unlimited</td></tr>
+        <tr><td>Collaborators</td><td class="val">Unlimited</td><td class="val">Unlimited</td></tr>
+        <tr><td>Workspaces</td><td class="val">Unlimited</td><td class="val">Unlimited</td></tr>
+        <tr><td>Seats included</td><td class="val">1</td><td class="val">2, then per seat</td></tr>
+        <tr class="grp"><td colspan="3">The brain — Pro</td></tr>
+        <tr><td>Teammate AI</td><td class="val"><span class="no">–</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Integrations / connectors</td><td class="val"><span class="no">–</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Teammate Email &amp; Text</td><td class="val"><span class="no">–</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Comprehensive intelligence</td><td class="val"><span class="no">–</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>First access to new betas</td><td class="val"><span class="no">–</span></td><td class="val"><span class="yes">✓</span></td></tr>
+        <tr><td>Support</td><td class="val">Standard</td><td class="val">Priority</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
@@ -176,9 +197,10 @@
     <h2 class="h2">Questions?<br><em>We've got answers.</em></h2>
   </div>
   <div class="faq reveal">
-    <details><summary>Is it really free right now?<span class="pl"></span></summary><p>Yes. Every module — Rollouts, Teammate, Assets, Tours and Integrations — is free while Team is in beta. No card, no tiers, no trial clock counting down.</p></details>
-    <details><summary>What's the catch?<span class="pl"></span></summary><p>There isn't one. We're in beta and building with our first users. In exchange you get the whole platform for free, and a direct line to shape where it goes.</p></details>
-    <details><summary>What happens when you introduce paid plans?<span class="pl"></span></summary><p>We'll give you plenty of notice and always keep a genuine free way in. Everyone who joins during beta locks in founder pricing — the best terms Team will ever offer.</p></details>
+    <details><summary>Is the platform really free?<span class="pl"></span></summary><p>Yes. Rollouts, Assets and Tours are free — unlimited artists, releases, collaborators and workspaces, with no card. It's the whole platform, not a stripped-down taster.</p></details>
+    <details><summary>What's in Pro?<span class="pl"></span></summary><p>Pro adds Teammate — your AI brain — plus the integrations that connect your whole stack, Teammate Email &amp; Text, comprehensive intelligence, and first access to new betas.</p></details>
+    <details><summary>What's this "beta pricing"?<span class="pl"></span></summary><p>Team is in early access, so Pro is offered at a beta discount off its standard price. Sign up now and you lock in that early-access rate. Both plans start with a 14-day free trial.</p></details>
+    <details><summary>Do I need a card to start?<span class="pl"></span></summary><p>Not for Free — it's no card, ever. Pro starts with a 14-day free trial and takes a card so it can continue seamlessly if you stay.</p></details>
     <details><summary>Is my data mine?<span class="pl"></span></summary><p>Always. Connections are permissioned and revocable, nothing is used to train models, and everything you build is portable and exportable. <a href="security.html" style="color:var(--accent)">More on security &amp; trust →</a></p></details>
   </div>
   <div class="faq__foot reveal">
@@ -189,55 +211,30 @@
 <!-- ══ FINAL CTA ══ -->
 <section class="section container">
   <div class="pfinal reveal">
-    <h2 class="h2">Run your next release<br><em>on Team for free.</em></h2>
+    <h2 class="h2">Run your next release<br><em>on Team, for free.</em></h2>
     <div class="ctaband__row">
-      <a class="btn btn--solid" href="#beta">Get early access</a>
+      <a class="btn btn--solid" href="https://app.teamrollouts.com/onboarding?plan=free">Get started free</a>
       <a class="btn btn--ghost" href="#demo" data-demo>Book a demo <span class="btn__arr">→</span></a>
     </div>
-    <p class="pfinal__note">Free while in beta · no card required</p>
+    <p class="pfinal__note">Free platform · no card required</p>
   </div>
 </section>
 
 <script src="js/brain.js"></script>
 <script src="js/chrome.js"></script>
 <script>
-/* beta early-access form — captures email to the CRM (source_form: 'beta'),
-   then hands off to the fuller application (apply.html), pre-filled. The lead
-   is already saved, so nothing is lost if they don't finish the longer form. */
+/* billing toggle — swaps the Pro price, period and per-seat line between yearly / monthly */
 (() => {
-  const form = document.getElementById('betaForm'); if (!form) return;
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    if (form.website.value) return;                         // honeypot tripped, ignore
-    const email = form.email.value.trim();
-    if (!email || !form.email.checkValidity()) { form.email.focus(); return; }
-    const qs = new URLSearchParams(location.search);
-    const utm_source = qs.get('utm_source') || undefined;
-    const utm_medium = qs.get('utm_medium') || undefined;
-    const utm_campaign = qs.get('utm_campaign') || undefined;
-    form.classList.add('done');                             // optimistic confirm
-    try {
-      fetch('https://admin.getteamnow.com/api/v1/website-leads', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          source_form: 'beta',
-          email,
-          first_name: email.split('@')[0],
-          website: '',
-          page_url: location.href,
-          utm_source, utm_medium, utm_campaign
-        })
-      }).catch(() => {});
-    } catch (err) {}
-    // Carry email + attribution to the application (real name asked there).
-    try {
-      sessionStorage.setItem('tm-apply', JSON.stringify({
-        email, utm_source, utm_medium, utm_campaign
-      }));
-    } catch (err) {}
-    setTimeout(() => { location.href = 'apply.html'; }, 650);
-  });
+  const bill = document.getElementById('bill'); if (!bill) return;
+  const els = ['proWas','proAmt','proPer','proSeat'].map(id => document.getElementById(id));
+  const cta = document.getElementById('proCta');
+  bill.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+    bill.querySelectorAll('button').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    const p = btn.dataset.period;
+    els.forEach(el => { if (el && el.dataset[p]) el.textContent = el.dataset[p]; });
+    if (cta) cta.href = 'https://app.teamrollouts.com/onboarding?plan=pro&period=' + p;
+  }));
 })();
 </script>
 </body>

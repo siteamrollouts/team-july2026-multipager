@@ -66,6 +66,12 @@
 .nav__prow .ic svg{width:.95rem;height:.95rem}
 .nav__prow b{display:block;font-size:.9rem;font-weight:560;color:var(--bone)}
 .nav__prow span{display:block;font-size:.78rem;color:var(--bone-dim);margin-top:.1rem;line-height:1.4}
+/* "Pro" pill — marks Pro-tier modules in the dropdown + mobile menu */
+.nav__pro{font-family:var(--font-mono);font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;
+  color:var(--accent);border:1px solid var(--accent);border-radius:99px;padding:.22em .5em;line-height:1;
+  margin-left:auto;align-self:center;flex:none}
+.mnav__grp a{display:flex;align-items:center;gap:.6rem}
+.mnav__grp a .nav__pro{font-size:.56rem}
 .nav__burger{display:none;flex-direction:column;gap:5px;width:40px;height:40px;align-items:center;justify-content:center;flex:none}
 .nav__burger i{width:20px;height:1.6px;background:var(--bone);transition:transform .35s var(--ease),opacity .2s}
 body.menu-open .nav__burger i:nth-child(1){transform:translateY(3.3px) rotate(45deg)}

@@ -95,14 +95,9 @@ if (betaForm) betaForm.addEventListener('submit', async (e) => {
     });
     if (!r.ok) throw new Error(`website-leads responded ${r.status}`);
     betaForm.classList.add('sent');
-    // Lead is captured — hand off to the fuller application, pre-filled.
-    // Stash carries name/email + attribution so apply.html avoids double entry.
-    try {
-      sessionStorage.setItem('tm-apply', JSON.stringify({
-        first_name, last_name, email, utm_source, utm_medium, utm_campaign,
-      }));
-    } catch (err) {}
-    setTimeout(() => { location.href = 'apply.html'; }, 650);
+    // Lead is captured — send them straight into free self-serve signup
+    // (the old secondary application form has been retired).
+    setTimeout(() => { location.href = 'https://app.teamrollouts.com/onboarding?plan=free'; }, 650);
   } catch {
     betaForm.classList.add('failed');
   } finally {
