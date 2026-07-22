@@ -52,6 +52,7 @@
   .plan__period{color:var(--bone-faint);font-size:.9rem}
   .plan__seat{color:var(--bone-dim);font-size:.82rem;margin-top:.5rem}
   .plan__seat b{color:var(--bone);font-weight:560}
+  .plan__seat s{color:var(--bone-faint);text-decoration:line-through;text-decoration-thickness:1px}
   .plan__note{color:var(--bone-dim);font-size:.84rem;margin-top:.35rem}
   .plan__note b{color:var(--accent);font-weight:560}
   .plan .btn{margin-top:1.5rem;width:100%;justify-content:center}
@@ -144,7 +145,7 @@
         <span class="plan__amount" id="proAmt" data-yearly="$39.96" data-monthly="$49.95">$39.96</span>
         <span class="plan__period" id="proPer" data-yearly="/mo · billed yearly" data-monthly="/mo">/mo · billed yearly</span>
       </div>
-      <p class="plan__seat">Includes 2 seats · <span id="proSeat" data-yearly="then $23.96/mo per extra seat" data-monthly="then $29.95/mo per extra seat">then $23.96/mo per extra seat</span></p>
+      <p class="plan__seat">Includes 2 seats · then <s id="proSeatWas" data-yearly="$31.96" data-monthly="$39.95">$31.96</s> <b id="proSeat" data-yearly="$23.96/mo" data-monthly="$29.95/mo">$23.96/mo</b> per extra seat</p>
       <p class="plan__note">Cancel any time.</p>
       <a class="btn btn--solid" href="https://app.teamrollouts.com/onboarding?plan=pro" id="proCta">Start 14-day free trial</a>
       <p class="plan__inclab">Everything in Free, plus</p>
@@ -225,7 +226,7 @@
 /* billing toggle — swaps the Pro price, period and per-seat line between yearly / monthly */
 (() => {
   const bill = document.getElementById('bill'); if (!bill) return;
-  const els = ['proWas','proAmt','proPer','proSeat'].map(id => document.getElementById(id));
+  const els = ['proWas','proAmt','proPer','proSeatWas','proSeat'].map(id => document.getElementById(id));
   const cta = document.getElementById('proCta');
   bill.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
     bill.querySelectorAll('button').forEach(b => b.classList.remove('on'));
