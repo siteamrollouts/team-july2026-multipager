@@ -563,7 +563,9 @@ function scatter(p) {
     memoryLn.style.opacity = mem;
     memoryLn.style.transform = `scale(${0.985 + mem * 0.015})`;
   }
-  const tr = windowFade(p, 0.87, 1.0, 0.28);   // holds to the pin boundary — no dead scroll after it
+  // memory beat is hidden for now, so the truth line takes the whole end of the pin —
+  // comes in right after the tracklist clears and holds much longer before the turn
+  const tr = windowFade(p, 0.74, 1.0, 0.14);
   truth.style.opacity = tr;
   truth.style.transform = `scale(${0.985 + tr * 0.015})`;
 }
@@ -613,9 +615,9 @@ function connect(p) {
   connectCopy.style.opacity = c;
   connectCopy.style.transform = `translateY(${(1 - c) * 30}px)`;
   olines.forEach(({ p: path, L }, i) => {
-    const t = smooth(p, 0.1 + i * 0.045, 0.28 + i * 0.045);
+    const t = smooth(p, 0.16 + i * 0.045, 0.34 + i * 0.045);   // spokes draw after the core has landed
     path.style.strokeDashoffset = L * (1 - t);
-    const n = onodes[i], nt = smooth(p, 0.2 + i * 0.045, 0.32 + i * 0.045);
+    const n = onodes[i], nt = smooth(p, 0.26 + i * 0.045, 0.38 + i * 0.045);
     n.style.opacity = nt;
     n.setAttribute('transform', `translate(${n.dataset.x} ${n.dataset.y}) scale(${0.6 + nt * 0.4})`);
   });
@@ -828,7 +830,7 @@ function frame(now) {
   // keep the traveler hidden, and simply fade the orbit's core in on scroll once you
   // reach the connectors section (so it never floats over the chat / content sections).
   traveler.style.opacity = 0;
-  if (isNear(pins.connect)) orbitCore.style.opacity = smooth(pC, 0.18, 0.42);
+  if (isNear(pins.connect)) orbitCore.style.opacity = smooth(pC, 0.02, 0.12);   // core lands first, before the spokes draw out
   if (isNear(pins.connect)) connect(pC);
   if (isNear(pins.chat)) chatScene(pQ);
   if (isNear(pins.reason)) reason(pR);
