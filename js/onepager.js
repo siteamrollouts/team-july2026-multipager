@@ -145,14 +145,14 @@ const ACTS = [
   ['act-scatter','01', 'The problem'],
   ['act-turn',   '02', 'Meet Team'],
   ['devband',    '02', 'The product'],
-  ['act-connect','03', 'How it works'],
-  ['act-chat',   '03', 'The difference'],
-  ['act-reason', '04', 'The whole picture'],
-  ['act-act',    '05', 'Team at work'],
+  ['act-reason', '03', 'The whole picture'],
+  ['act-act',    '04', 'Team at work'],
+  ['act-chat',   '05', 'The difference'],
+  ['act-connect','06', 'Connect everything'],
   ['act-catch',  '06', 'While you slept'],
   ['act-who',    '07', 'Who it’s for'],
   ['act-credo',  '08', 'The credo'],
-  ['act-access', '09', 'Join the beta'],
+  ['act-access', '09', 'Sign up free'],
 ].map(([id, num, name]) => ({ el: document.getElementById(id), num, name, top: 0 }));
 const actName = $('#actName'), orbProg = $('#orbProg');
 const RING = 2 * Math.PI * 19;
@@ -825,6 +825,7 @@ function frame(now) {
   // formation value stays continuous past the pin — gating it on isNear made the field snap
   let conv = pins.turn ? smooth(pT, 0.1, 0.62) : 0;
   if (isNear(pins.turn) || isNear(pins.connect)) travel(pT, pC);
+  else traveler.style.opacity = 0;   // reorder: connectors now sits far from the turn — don't leave the core frozen over the content sections between them
   if (isNear(pins.connect)) connect(pC);
   if (isNear(pins.chat)) chatScene(pQ);
   if (isNear(pins.reason)) reason(pR);

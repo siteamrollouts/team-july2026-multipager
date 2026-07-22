@@ -26,11 +26,10 @@
 <style>
   .phero{padding-top:10.5rem;min-height:0}
   .phero .h1{font-size:clamp(2.9rem,7vw,5.4rem)}
-  .phero__note{margin-top:1.3rem;display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
-  .phero__note i{width:6px;height:6px;border-radius:50%;background:var(--lime);flex:none}
+  .phero__note{margin-top:1.7rem;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
 
   /* billing toggle */
-  .bill{display:inline-flex;align-items:center;gap:.25rem;padding:.3rem;border:1px solid var(--line);border-radius:99px;background:var(--glass);margin:2.4rem auto 0}
+  .bill{display:inline-flex;align-items:center;gap:.25rem;padding:.3rem;border:1px solid var(--line);border-radius:99px;background:var(--glass);margin:1.3rem auto 0}
   .bill button{background:none;border:0;font-family:inherit;cursor:pointer;color:var(--bone-dim);padding:.5rem 1.15rem;border-radius:99px;font-size:.9rem;transition:background .25s,color .25s;display:inline-flex;align-items:center;gap:.5rem}
   .bill button.on{background:var(--lime);color:var(--on-accent);font-weight:560}
   .bill .save{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;color:var(--on-accent);background:rgba(13,12,11,.14);border-radius:99px;padding:.25em .5em}
@@ -44,15 +43,16 @@
   .plan--pro{border-color:rgba(217,250,135,.5)}
   .plan--pro::before{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(217,250,135,.6),transparent)}
   .plan__badge{position:absolute;top:-.72rem;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--on-accent);background:var(--lime);border-radius:99px;padding:.42em .9em;white-space:nowrap}
-  .plan__name{font-family:var(--font-display);font-weight:400;font-size:1.5rem;letter-spacing:-.02em;color:var(--bone)}
-  .plan__who{color:var(--bone-dim);font-size:.9rem;margin-top:.35rem;min-height:2.6em}
-  .plan__price{margin-top:1.3rem;display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap}
+  .plan__name{font-family:var(--font-display);font-weight:600;font-size:1.95rem;letter-spacing:-.02em;color:var(--bone);line-height:1}
+  .plan--pro .plan__name{color:var(--accent)}
+  .plan__who{color:var(--bone-dim);font-size:.9rem;margin-top:.5rem;min-height:2.7em}
+  .plan__price{margin-top:1.3rem;display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap;min-height:3.4rem}
   .plan__was{font-family:var(--font-display);font-weight:330;font-size:1.5rem;letter-spacing:-.02em;color:var(--bone-faint);text-decoration:line-through;text-decoration-thickness:1px}
   .plan__amount{font-family:var(--font-display);font-weight:330;font-size:3.2rem;letter-spacing:-.03em;color:var(--bone);line-height:1}
   .plan__period{color:var(--bone-faint);font-size:.9rem}
-  .plan__seat{color:var(--bone-dim);font-size:.82rem;margin-top:.5rem}
+  .plan__seat{color:var(--bone-dim);font-size:.82rem;margin-top:.5rem;min-height:2.4em}
   .plan__seat b{color:var(--bone);font-weight:560}
-  .plan__note{color:var(--bone-dim);font-size:.84rem;margin-top:.55rem;min-height:1.4em}
+  .plan__note{color:var(--bone-dim);font-size:.84rem;margin-top:.55rem;min-height:2.4em}
   .plan__note b{color:var(--accent);font-weight:560}
   .plan .btn{margin-top:1.5rem;width:100%;justify-content:center}
   .plan__inclab{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bone-faint);margin:1.7rem 0 1rem;padding-top:1.4rem;border-top:1px solid var(--line-2)}
@@ -105,12 +105,12 @@
 <section class="phero container">
   <div class="phero__in">
     <h1 class="h1 reveal">Start free.<br><em>Upgrade when you're ready.</em></h1>
-    <p class="lede reveal" style="transition-delay:.08s;margin-inline:auto">The platform — Rollouts, Assets and Tours — is free, with no card. Add Teammate, your AI brain, and connect your whole stack with Pro.</p>
-    <div class="bill reveal" id="bill" role="tablist" aria-label="Billing period" style="transition-delay:.14s">
+    <p class="lede reveal" style="transition-delay:.08s;margin-inline:auto">Team gives you access to Rollouts, Assets and Tours for free, forever. Ready to go the next step? Add Teammate, your AI brain, and connect your whole stack with Pro.</p>
+    <p class="phero__note reveal" style="transition-delay:.14s">Beta pricing on Pro while we're in early access</p>
+    <div class="bill reveal" id="bill" role="tablist" aria-label="Billing period" style="transition-delay:.2s">
       <button class="on" data-period="yearly" role="tab">Yearly <span class="save">Save ~20%</span></button>
       <button data-period="monthly" role="tab">Monthly</button>
     </div>
-    <p class="phero__note reveal" style="transition-delay:.2s"><i></i>Beta pricing on Pro while we're in early access</p>
   </div>
 </section>
 
@@ -164,7 +164,7 @@
 <!-- ══ COMPARISON ══ -->
 <section class="section container" id="compare">
   <div style="max-width:44rem;margin:0 auto 1rem;text-align:center" class="reveal">
-    <h2 class="h2">Compare <em>Free &amp; Pro.</em></h2>
+    <h2 class="h2">Compare<br><em>Free &amp; Pro.</em></h2>
   </div>
   <div class="ctable-wrap reveal">
     <table class="ctable">
@@ -208,8 +208,8 @@
   </div>
 </section>
 
-<!-- ══ FINAL CTA ══ -->
-<section class="section container">
+<!-- ══ FINAL CTA ══ (hidden for now per Simon) -->
+<section class="section container" style="display:none">
   <div class="pfinal reveal">
     <h2 class="h2">Run your next release<br><em>on Team, for free.</em></h2>
     <div class="ctaband__row">
