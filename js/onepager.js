@@ -824,8 +824,11 @@ function frame(now) {
   if (isNear(pins.turn)) turn(pT);
   // formation value stays continuous past the pin — gating it on isNear made the field snap
   let conv = pins.turn ? smooth(pT, 0.1, 0.62) : 0;
-  if (isNear(pins.turn) || isNear(pins.connect)) travel(pT, pC);
-  else traveler.style.opacity = 0;   // reorder: connectors now sits far from the turn — don't leave the core frozen over the content sections between them
+  // the flying logomark ("core into the green circle") is removed on this version —
+  // keep the traveler hidden, and simply fade the orbit's core in on scroll once you
+  // reach the connectors section (so it never floats over the chat / content sections).
+  traveler.style.opacity = 0;
+  if (isNear(pins.connect)) orbitCore.style.opacity = smooth(pC, 0.18, 0.42);
   if (isNear(pins.connect)) connect(pC);
   if (isNear(pins.chat)) chatScene(pQ);
   if (isNear(pins.reason)) reason(pR);
